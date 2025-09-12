@@ -1,0 +1,48 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net7.0;net8.0;netcoreapp3.1</TargetFrameworks>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <ApplicationIcon>FACe.ico</ApplicationIcon>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <AssemblyName>FACe</AssemblyName>
+    <Title>FACe</Title>
+    <Version>1.0.0</Version>
+    <Authors>Manuel Diago</Authors>
+    <Company>Irene Solutions SL</Company>
+    <Description>Generación, firma y envío de facturas eletrónicas facturae a FACe
+</Description>
+    <PackageProjectUrl>https://github.com/mdiago/FACe</PackageProjectUrl>
+    <PackageIcon>FACe.png</PackageIcon>
+    <Copyright>Irene Solutions SL 2025</Copyright>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <RepositoryUrl>https://github.com/mdiago/FACe</RepositoryUrl>
+    <PackageTags>FACe;Factura-Eletronica;Facturae</PackageTags>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="FACe.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Include="..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="FACe.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+
+</Project>
