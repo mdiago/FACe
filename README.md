@@ -1,4 +1,4 @@
-# Facturae
+# FACe
 
 Biblioteca **open source en C#** para la **emisión, firma XAdES y envío de facturas electrónicas en formato Facturae (3.2.1/3.2.2) a la plataforma FACe** mediante su nueva **API REST**.
 
