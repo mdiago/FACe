@@ -124,3 +124,21 @@ var signedXml = xadesSigned.GetSignedXml();
 File.WriteAllText(@"C:\Users\usuario\Downloads\xades\Firmada.xml", signedXml);
 
 ```
+
+### VB
+```VB
+
+' Firmamos un archivo xml de Factura-e
+
+' Importante utilizar X509KeyStorageFlags.Exportable para tener acceso a la clave privada
+Dim certificate As New X509Certificate2("C:\Users\usuario\Downloads\xades\CERT.pfx", "mipass",
+  X509KeyStorageFlags.Exportable)
+
+Dim unsignedXml As String = File.ReadAllText("C:\Users\usuario\Downloads\xades\EjemploFacturae.xml")
+
+Dim xadesSigned As New XadesSigned(unsignedXml, certificate)
+Dim signedXml As String = xadesSigned.GetSignedXml()
+
+File.WriteAllText("C:\Users\usuario\Downloads\xades\Firmada.xml", signedXml)
+
+```
