@@ -21,6 +21,8 @@
     <PackageTags>FACe;Factura-Eletronica;Facturae</PackageTags>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <RootNamespace>FACe</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
@@ -28,6 +30,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="..\..\Facturae\NetCore\FACe.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
     <None Include="..\LICENSE">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
@@ -36,6 +42,10 @@
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Security.Cryptography.Xml" Version="9.0.9" />
   </ItemGroup>
 
   <ItemGroup>

@@ -5,6 +5,10 @@ VisualStudioVersion = 17.14.36414.22
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FACe.NetCore", "NetCore\FACe.NetCore.csproj", "{B395AD2B-C9AA-73F4-2379-50836A71AFBD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FACe.NetFramework480", "NetFramework480\FACe.NetFramework480.csproj", "{01D890CC-4282-4359-932B-21C820B47DFE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FACe.NetFramework461", "NetFramework461\FACe.NetFramework461.csproj", "{A2D48916-AAAD-40BB-9A0E-89BC200E0891}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{B395AD2B-C9AA-73F4-2379-50836A71AFBD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B395AD2B-C9AA-73F4-2379-50836A71AFBD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B395AD2B-C9AA-73F4-2379-50836A71AFBD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{01D890CC-4282-4359-932B-21C820B47DFE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{01D890CC-4282-4359-932B-21C820B47DFE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{01D890CC-4282-4359-932B-21C820B47DFE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{01D890CC-4282-4359-932B-21C820B47DFE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A2D48916-AAAD-40BB-9A0E-89BC200E0891}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A2D48916-AAAD-40BB-9A0E-89BC200E0891}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A2D48916-AAAD-40BB-9A0E-89BC200E0891}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A2D48916-AAAD-40BB-9A0E-89BC200E0891}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

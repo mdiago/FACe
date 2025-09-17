@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{01D890CC-4282-4359-932B-21C820B47DFE}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>FACe</RootNamespace>
+    <AssemblyName>FACe</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Debug\FACe.xml</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>FACe.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\NetCore\Xml\FacturaeNamespaces.cs">
+      <Link>Xml\FacturaeNamespaces.cs</Link>
+    </Compile>
+    <Compile Include="..\NetCore\Xml\Facturae\Account.cs">
+      <Link>Xml\Facturae\Account.cs</Link>
+    </Compile>
+    <Compile Include="..\NetCore\Xml\Facturae\AccountChoice.cs">
+      <Link>Xml\Facturae\AccountChoice.cs</Link>
+    </Compile>
+    <Compile Include="..\NetCore\Xml\Facturae\AdditionalData.cs">
+      <Link>Xml\Facturae\AdditionalData.cs</Link>
+    </Compile>
+    <Compile Include="..\NetCore\Xml\Facturae\Address.cs">
+      <Link>Xml\Facturae\Address.cs</Link>
+    </Compile>
+    <Compile Include="..\NetCore\Xml\Facturae\AdministrativeCentre.cs">
+      <Link>Xml\Facturae\AdministrativeCentre.cs</Link>
+    </Compile>
+    <Compile Include="..\NetCore\Xml\Facturae\Amount.cs">
+      <Link>Xml\Facturae\Amount.cs</Link>
+    </Compile>
+    <Compile Include="..\NetCore\Xml\Facturae\AmountsWithheld.cs">
+      <Link>Xml\Facturae\AmountsWithheld.cs</Link>
+    </Compile>
+    <Compile Include="..\NetCore\Xml\Facturae\Assignee.cs">
+      <Link>Xml\Facturae\Assignee.cs</Link>
+    </Compile>
+    <Compile Include="..\NetCore\Xml\Facturae\Attachment.cs">
+      <Link>Xml\Facturae\Attachment.cs</Link>
+    </Compile>
+    <Compile Include="..\NetCore\Xml\Facturae\AttachmentCompressionAlgorithm.cs">
+      <Link>Xml\Facturae\AttachmentCompressionAlgorithm.cs</Link>
+    </Compile>
+    <Compile Include="..\NetCore\Xml\Facturae\AttachmentEncoding.cs">
+      <Link>Xml\Facturae\AttachmentEncoding.cs</Link>
+    </Compile>
+    <Compile Include="..\NetCore\Xml\Facturae\AttachmentFormat.cs">
+      <Link>Xml\Facturae\AttachmentFormat.cs</Link>
+    </Compile>
+    <Compile Include="..\NetCore\Xml\Facturae\Batch.cs">
+      <Link>Xml\Facturae\Batch.cs</Link>
+    </Compile>
+    <Compile Include="..\NetCore\Xml\Facturae\Business.cs">
+      <Link>Xml\Facturae\Business.cs</Link>
+    </Compile>
+    <Compile Include="..\NetCore\Xml\Facturae\Charge.cs">
+      <Link>Xml\Facturae\Charge.cs</Link>
+    </Compile>
+    <Compile Include="..\NetCore\Xml\Facturae\ContactDetails.cs">
+      <Link>Xml\Facturae\ContactDetails.cs</Link>
+    </Compile>
+    <Compile Include="..\NetCore\Xml\Facturae\CorrectionMethod.cs">
+      <Link>Xml\Facturae\CorrectionMethod.cs</Link>
+    </Compile>
+    <Compile Include="..\NetCore\Xml\Facturae\CorrectionMethodDescription.cs">
+      <Link>Xml\Facturae\CorrectionMethodDescription.cs</Link>
+    </Compile>
+    <Compile Include="..\NetCore\Xml\Facturae\Corrective.cs">
+      <Link>Xml\Facturae\Corrective.cs</Link>
+    </Compile>
+    <Compile Include="..\NetCore\Xml\Facturae\Country.cs">
+      <Link>Xml\Facturae\Country.cs</Link>
+    </Compile>
+    <Compile Include="..\NetCore\Xml\Facturae\CurrencyCode.cs">
+      <Link>Xml\Facturae\CurrencyCode.cs</Link>
+    </Compile>
+    <Compile Include="..\NetCore\Xml\Facturae\DeliveryNote.cs">
+      <Link>Xml\Facturae\DeliveryNote.cs</Link>
+    </Compile>
+    <Compile Include="..\NetCore\Xml\Facturae\Discount.cs">
+      <Link>Xml\Facturae\Discount.cs</Link>
+    </Compile>
+    <Compile Include="..\NetCore\Xml\Facturae\ExchangeRateDetails.cs">
+      <Link>Xml\Facturae\ExchangeRateDetails.cs</Link>
+    </Compile>
+    <Compile Include="..\NetCore\Xml\Facturae\Extensions.cs">
+      <Link>Xml\Facturae\Extensions.cs</Link>
+    </Compile>
+    <Compile Include="..\NetCore\Xml\Facturae\FactoringAssignmentData.cs">
+      <Link>Xml\Facturae\FactoringAssignmentData.cs</Link>
+    </Compile>
+    <Compile Include="..\NetCore\Xml\Facturae\FactoringAssignmentDocument.cs">
+      <Link>Xml\Facturae\FactoringAssignmentDocument.cs</Link>
+    </Compile>
+    <Compile Include="..\NetCore\Xml\Facturae\Facturae.cs">
+      <Link>Xml\Facturae\Facturae.cs</Link>
+    </Compile>
+    <Compile Include="..\NetCore\Xml\Facturae\FileHeader.cs">
+      <Link>Xml\Facturae\FileHeader.cs</Link>
+    </Compile>
+    <Compile Include="..\NetCore\Xml\Facturae\Individual.cs">
+      <Link>Xml\Facturae\Individual.cs</Link>
+    </Compile>
+    <Compile Include="..\NetCore\Xml\Facturae\Installment.cs">
+      <Link>Xml\Facturae\Installment.cs</Link>
+    </Compile>
+    <Compile Include="..\NetCore\Xml\Facturae\Invoice.cs">
+      <Link>Xml\Facturae\Invoice.cs</Link>
+    </Compile>
+    <Compile Include="..\NetCore\Xml\Facturae\InvoiceClass.cs">
+      <Link>Xml\Facturae\InvoiceClass.cs</Link>
+    </Compile>
+    <Compile Include="..\NetCore\Xml\Facturae\InvoiceDocumentType.cs">
+      <Link>Xml\Facturae\InvoiceDocumentType.cs</Link>
+    </Compile>
+    <Compile Include="..\NetCore\Xml\Facturae\InvoiceHeader.cs">
+      <Link>Xml\Facturae\InvoiceHeader.cs</Link>
+    </Compile>
+    <Compile Include="..\NetCore\Xml\Facturae\InvoiceIssueData.cs">
+      <Link>Xml\Facturae\InvoiceIssueData.cs</Link>
+    </Compile>
+    <Compile Include="..\NetCore\Xml\Facturae\InvoiceIssuerType.cs">
+      <Link>Xml\Facturae\InvoiceIssuerType.cs</Link>
+    </Compile>
+    <Compile Include="..\NetCore\Xml\Facturae\InvoiceLine.cs">
+      <Link>Xml\Facturae\InvoiceLine.cs</Link>
+    </Compile>
+    <Compile Include="..\NetCore\Xml\Facturae\InvoiceLineBase.cs">
+      <Link>Xml\Facturae\InvoiceLineBase.cs</Link>
+    </Compile>
+    <Compile Include="..\NetCore\Xml\Facturae\InvoiceLineTax.cs">
+      <Link>Xml\Facturae\InvoiceLineTax.cs</Link>
+    </Compile>
+    <Compile Include="..\NetCore\Xml\Facturae\InvoiceTotals.cs">
+      <Link>Xml\Facturae\InvoiceTotals.cs</Link>
+    </Compile>
+    <Compile Include="..\NetCore\Xml\Facturae\InvoiceTotalsBase.cs">
+      <Link>Xml\Facturae\InvoiceTotalsBase.cs</Link>
+    </Compile>
+    <Compile Include="..\NetCore\Xml\Facturae\LanguageCode.cs">
+      <Link>Xml\Facturae\LanguageCode.cs</Link>
+    </Compile>
+    <Compile Include="..\NetCore\Xml\Facturae\LegalEntity.cs">
+      <Link>Xml\Facturae\LegalEntity.cs</Link>
+    </Compile>
+    <Compile Include="..\NetCore\Xml\Facturae\Modality.cs">
+      <Link>Xml\Facturae\Modality.cs</Link>
+    </Compile>
+    <Compile Include="..\NetCore\Xml\Facturae\OverseasAddress.cs">
+      <Link>Xml\Facturae\OverseasAddress.cs</Link>
+    </Compile>
+    <Compile Include="..\NetCore\Xml\Facturae\Parties.cs">
+      <Link>Xml\Facturae\Parties.cs</Link>
+    </Compile>
+    <Compile Include="..\NetCore\Xml\Facturae\PaymentInKind.cs">
+      <Link>Xml\Facturae\PaymentInKind.cs</Link>
+    </Compile>
+    <Compile Include="..\NetCore\Xml\Facturae\PaymentMeans.cs">
+      <Link>Xml\Facturae\PaymentMeans.cs</Link>
+    </Compile>
+    <Compile Include="..\NetCore\Xml\Facturae\PaymentOnAccount.cs">
+      <Link>Xml\Facturae\PaymentOnAccount.cs</Link>
+    </Compile>
+    <Compile Include="..\NetCore\Xml\Facturae\PeriodDates.cs">
+      <Link>Xml\Facturae\PeriodDates.cs</Link>
+    </Compile>
+    <Compile Include="..\NetCore\Xml\Facturae\PersonTypeCode.cs">
+      <Link>Xml\Facturae\PersonTypeCode.cs</Link>
+    </Compile>
+    <Compile Include="..\NetCore\Xml\Facturae\PlaceOfIssue.cs">
+      <Link>Xml\Facturae\PlaceOfIssue.cs</Link>
+    </Compile>
+    <Compile Include="..\NetCore\Xml\Facturae\ReasonCode.cs">
+      <Link>Xml\Facturae\ReasonCode.cs</Link>
+    </Compile>
+    <Compile Include="..\NetCore\Xml\Facturae\ReasonDescription.cs">
+      <Link>Xml\Facturae\ReasonDescription.cs</Link>
+    </Compile>
+    <Compile Include="..\NetCore\Xml\Facturae\RegistrationData.cs">
+      <Link>Xml\Facturae\RegistrationData.cs</Link>
+    </Compile>
+    <Compile Include="..\NetCore\Xml\Facturae\ReimbursableExpenses.cs">
+      <Link>Xml\Facturae\ReimbursableExpenses.cs</Link>
+    </Compile>
+    <Compile Include="..\NetCore\Xml\Facturae\Repository.cs">
+      <Link>Xml\Facturae\Repository.cs</Link>
+    </Compile>
+    <Compile Include="..\NetCore\Xml\Facturae\ResidenceTypeCode.cs">
+      <Link>Xml\Facturae\ResidenceTypeCode.cs</Link>
+    </Compile>
+    <Compile Include="..\NetCore\Xml\Facturae\RoleTypeCode.cs">
+      <Link>Xml\Facturae\RoleTypeCode.cs</Link>
+    </Compile>
+    <Compile Include="..\NetCore\Xml\Facturae\SchemaVersion.cs">
+      <Link>Xml\Facturae\SchemaVersion.cs</Link>
+    </Compile>
+    <Compile Include="..\NetCore\Xml\Facturae\SpecialTaxableEvent.cs">
+      <Link>Xml\Facturae\SpecialTaxableEvent.cs</Link>
+    </Compile>
+    <Compile Include="..\NetCore\Xml\Facturae\SpecialTaxableEventCode.cs">
+      <Link>Xml\Facturae\SpecialTaxableEventCode.cs</Link>
+    </Compile>
+    <Compile Include="..\NetCore\Xml\Facturae\Subsidy.cs">
+      <Link>Xml\Facturae\Subsidy.cs</Link>
+    </Compile>
+    <Compile Include="..\NetCore\Xml\Facturae\Tax.cs">
+      <Link>Xml\Facturae\Tax.cs</Link>
+    </Compile>
+    <Compile Include="..\NetCore\Xml\Facturae\TaxIdentification.cs">
+      <Link>Xml\Facturae\TaxIdentification.cs</Link>
+    </Compile>
+    <Compile Include="..\NetCore\Xml\Facturae\TaxOutput.cs">
+      <Link>Xml\Facturae\TaxOutput.cs</Link>
+    </Compile>
+    <Compile Include="..\NetCore\Xml\Facturae\TaxTypeCode.cs">
+      <Link>Xml\Facturae\TaxTypeCode.cs</Link>
+    </Compile>
+    <Compile Include="..\NetCore\Xml\Facturae\ThirdParty.cs">
+      <Link>Xml\Facturae\ThirdParty.cs</Link>
+    </Compile>
+    <Compile Include="..\NetCore\Xml\Facturae\UnitOfMeasure.cs">
+      <Link>Xml\Facturae\UnitOfMeasure.cs</Link>
+    </Compile>
+    <Compile Include="..\NetCore\Xml\XmlParser.cs">
+      <Link>Xml\XmlParser.cs</Link>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Content Include="FACe.ico" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
