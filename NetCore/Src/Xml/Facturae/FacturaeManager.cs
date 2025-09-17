@@ -37,7 +37,9 @@
     address: info@irenesolutions.com
  */
 
+using FACe.Common;
 using FACe.Xml.Xades;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -141,19 +143,30 @@ namespace FACe.Xml.Facturae
 
             byte[] xml = null;
 
-            XmlSerializer serializer = new XmlSerializer(Facturae.GetType());
+            try 
+            {                
 
-            var xmlNs = new XmlSerializerNamespaces();
+                XmlSerializer serializer = new XmlSerializer(Facturae.GetType());
 
-            foreach (KeyValuePair<string, string> n in FacturaeNamespaces.Items)
-                xmlNs.Add(n.Key, n.Value);
+                var xmlNs = new XmlSerializerNamespaces();
 
-            var facturaeMS = new MemoryStream();
+                foreach (KeyValuePair<string, string> n in FacturaeNamespaces.Items)
+                    xmlNs.Add(n.Key, n.Value);
 
-            using (StreamWriter streamWriter = new StreamWriter(facturaeMS, Encoding.UTF8))
+                var facturaeMS = new MemoryStream();
+
+                using (StreamWriter streamWriter = new StreamWriter(facturaeMS, Encoding.UTF8))
+                {
+                    serializer.Serialize(streamWriter, Facturae, xmlNs);
+                    xml = facturaeMS.ToArray();
+                }                
+
+            }
+            catch (Exception ex) 
             {
-                serializer.Serialize(streamWriter, Facturae, xmlNs);
-                xml = facturaeMS.ToArray();
+
+                Utils.Throw($"Error serializando en xml el objeto Facturae.", ex);
+
             }
 
             return ClearUtf8BOM(xml);

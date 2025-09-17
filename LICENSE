@@ -659,3 +659,23 @@ specific requirements.
 if any, to sign a "copyright disclaimer" for the program, if necessary.
 For more information on this, and how to apply and follow the GNU AGPL, see
 <https://www.gnu.org/licenses/>.
+
+------------------------------------------------------------
+
+Additional Notice (not part of the AGPL-3.0 License):
+
+This software includes a technical diagnostics collection system enabled by default.
+
+The information collected does not include personal data and is limited to:
+- Assembly version
+- Product name
+- Company (assembly-defined value: "Irene Solutions SL")
+- Assembly copyright
+- Operating system and version
+- Execution errors
+
+Purpose: to identify technical issues, improve compatibility, and analyze version usage.
+
+Diagnostics collection can be disabled from the application (see DIAGNOSTICS.md for details).
+A complete description of this system is provided in DIAGNOSTICS.md.
+

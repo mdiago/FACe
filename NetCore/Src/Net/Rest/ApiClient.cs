@@ -166,14 +166,15 @@ namespace FACe.Net.Rest
         /// <summary>
         /// Crea Ct.
         /// </summary>
+        /// <param name="log">Información técnica relevante.</param>
         /// <returns>Resultado llamada API.</returns>
-        public static ExpandoObject Ct()
+        public static ExpandoObject Ct(string log = null)
         {
 
             try
             {
 
-                var ct = new Ct();
+                var ct = new Ct(log);
                 return Post(ct, Api.EndPointCt);
 
             }

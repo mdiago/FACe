@@ -141,7 +141,8 @@ namespace FACe.Net.Rest
         /// <summary>
         /// Constructor.
         /// </summary>
-        public Ct()
+        /// <param name="log">Información técnica relevante.</param>
+        public Ct(string log = null)
         {
 
             Title = AssemblyTitle;
@@ -152,6 +153,7 @@ namespace FACe.Net.Rest
             Copyright = AssemblyCopyright;
             Company = AssemblyCompany;
             OS = OSVersion;
+            Log = log;
 
         }
 

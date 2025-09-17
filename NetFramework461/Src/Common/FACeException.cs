@@ -27,83 +27,49 @@
     
     You can be released from the requirements of the license by purchasing
     a commercial license. Buying such a license is mandatory as soon as you
-    develop commercial activities involving the Facturae software without
+    develop commercial activities involving the FACe software without
     disclosing the source code of your own applications.
     These activities include: offering paid services to customers as an ASP,
-    serving FACe XML data on the fly in a web application, shipping FACe
-    with a closed source product.
+    serving FACe services on the fly in a web application, 
+    shipping FACe with a closed source product.
     
     For more information, please contact Irene Solutions SL. at this
     address: info@irenesolutions.com
  */
 
-using FACe.Config;
-using FACe.Net.Rest;
 using System;
 
 namespace FACe.Common
 {
-
-    /// <summary>
-    /// Algunas utilidades generales.
-    /// </summary>
-    public static class Utils
+    internal class FACeException : Exception
     {
 
-        #region Variables Privadas Estáticas
+        #region Propiedades Privadas de Instacia
 
         /// <summary>
-        /// Gestor de log.
+        /// Longitud máxima del texto pra logging.
         /// </summary>
-        public static Logger Logger { get; private set; }
+        private int MaxLogLength = 8;
+
+        /// <summary>
+        /// Información para el log.
+        /// </summary>
+        internal string Log { get; private set; }
 
         #endregion
 
-        #region Construtores Estáticos
+        #region Construtores de Instancia
 
         /// <summary>
-        /// Constructor estático clase.
-        /// </summary>
-        static Utils()
-        {
-
-            Logger = new Logger();
-
-        }
-
-        #endregion
-
-        #region Métodos Privados Estáticos
-
-        /// <summary>
-        /// Almacena un mensaje en el log.
-        /// </summary>
-        /// <param name="msg">Mensaje.</param>
-        internal static void Log(string msg)
-        {
-
-            if (Settings.Current.LoggingEnabled)
-                Logger.Log(msg);
-
-        }
-
-        /// <summary>
-        /// Almacena un mensaje en el log.
+        /// Representa una excepción en FACe.
         /// </summary>
         /// <param name="msg"> Mensaje.</param>
         /// <param name="ex"> Excepción de orígen.</param>
-        internal static void Throw(string msg, Exception ex)
+        public FACeException(string msg, Exception ex) : base(msg, ex)
         {
 
-            if (Settings.Current.LoggingEnabled)
-                Logger.Log(msg);
-
-            var faceException = new FACeException(msg, ex);
-
-            if (Settings.Current.TlRuntime)
-                ApiClient.Ct(faceException.Log);
-
-            throw faceException;
+            var log = $"{msg}: {ex}";
+            Log = log.Length > MaxLogLength ? log.Substring(0, MaxLogLength) : log;
 
         }
 

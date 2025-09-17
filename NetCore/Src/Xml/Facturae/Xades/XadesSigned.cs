@@ -232,52 +232,62 @@ namespace FACe.Xml.Xades
         /// <param name="certificate">Certificado para la firma.</param>
         public XadesSigned(string xml, X509Certificate2 certificate)
         {
+            
+            try 
+            {
 
-            SignatureId = GetSignatureId();
-            ReferenceId = GetReferenceId();
-            Certificate = certificate;
-            XmlTextDocumentSource = xml;
-            XmlTextDocumentSourceCleared = ClearWindowsLineEndings(xml);
-            XmlDocumentSource = GetSource(XmlTextDocumentSourceCleared);
-            SignedInfoObjHash = GetXmlDocumentHash(XmlDocumentSource);
-            SourceName = XmlDocumentSource.DocumentElement.Name;
-            SourceNamespaces = GetNamespaces(XmlDocumentSource);
-            Signature = GetSignature(XmlDocumentSource, certificate);
+                SignatureId = GetSignatureId();
+                ReferenceId = GetReferenceId();
+                Certificate = certificate;
+                XmlTextDocumentSource = xml;
+                XmlTextDocumentSourceCleared = ClearWindowsLineEndings(xml);
+                XmlDocumentSource = GetSource(XmlTextDocumentSourceCleared);
+                SignedInfoObjHash = GetXmlDocumentHash(XmlDocumentSource);
+                SourceName = XmlDocumentSource.DocumentElement.Name;
+                SourceNamespaces = GetNamespaces(XmlDocumentSource);
+                Signature = GetSignature(XmlDocumentSource, certificate);
 
-            XmlDocumentSignature = GetXmlDocumentSignature(Signature);
+                XmlDocumentSignature = GetXmlDocumentSignature(Signature);
 
-            XmlSignatureOnlyObject = XmlDocumentSignature.OuterXml;
+                XmlSignatureOnlyObject = XmlDocumentSignature.OuterXml;
 
-            SignatureNamespaces = GetNamespaces(XmlDocumentSignature);
+                SignatureNamespaces = GetNamespaces(XmlDocumentSignature);
 
-            XmlDocumentSignedProperties = GetXmlDocumentSignedProperties(XmlDocumentSignature);
+                XmlDocumentSignedProperties = GetXmlDocumentSignedProperties(XmlDocumentSignature);
 
-            var orderedPrefixes = GetOrderedPrefixes(AllNamespaces);
+                var orderedPrefixes = GetOrderedPrefixes(AllNamespaces);
 
-            for (int p = 0; p < orderedPrefixes.Count; p++)
-                XmlDocumentSignedProperties.DocumentElement.SetAttribute(
-                    $"xmlns{(orderedPrefixes[p] == "" ? "" : $":{orderedPrefixes[p]}")}",
-                    AllNamespaces[orderedPrefixes[p]]);
+                for (int p = 0; p < orderedPrefixes.Count; p++)
+                    XmlDocumentSignedProperties.DocumentElement.SetAttribute(
+                        $"xmlns{(orderedPrefixes[p] == "" ? "" : $":{orderedPrefixes[p]}")}",
+                        AllNamespaces[orderedPrefixes[p]]);
 
-            SignedInfoSignedPropertiesHash = GetXmlDocumentHash(XmlDocumentSignedProperties);
+                SignedInfoSignedPropertiesHash = GetXmlDocumentHash(XmlDocumentSignedProperties);
 
-            SigningKey = GetCertificateKey(certificate);
+                SigningKey = GetCertificateKey(certificate);
 
-            KeyInfo = GetKeyInfo();
+                KeyInfo = GetKeyInfo();
 
-            XmlDocumentKeyInfo = GetXmlDocumentKeyInfo(XmlDocumentSignature, KeyInfo);
+                XmlDocumentKeyInfo = GetXmlDocumentKeyInfo(XmlDocumentSignature, KeyInfo);
 
-            XmlKeyInfo = XmlDocumentKeyInfo.OuterXml;
+                XmlKeyInfo = XmlDocumentKeyInfo.OuterXml;
 
-            orderedPrefixes = GetOrderedPrefixes(SourceNamespaces);
+                orderedPrefixes = GetOrderedPrefixes(SourceNamespaces);
 
-            for (int p = 0; p < orderedPrefixes.Count; p++)
-                XmlDocumentKeyInfo.DocumentElement.SetAttribute(
-                    $"xmlns{(orderedPrefixes[p] == "" ? "" : $":{orderedPrefixes[p]}")}",
-                    AllNamespaces[orderedPrefixes[p]]);
+                for (int p = 0; p < orderedPrefixes.Count; p++)
+                    XmlDocumentKeyInfo.DocumentElement.SetAttribute(
+                        $"xmlns{(orderedPrefixes[p] == "" ? "" : $":{orderedPrefixes[p]}")}",
+                        AllNamespaces[orderedPrefixes[p]]);
 
-            SignedInfoKeyInfoHash = GetXmlDocumentHash(XmlDocumentKeyInfo);
+                SignedInfoKeyInfoHash = GetXmlDocumentHash(XmlDocumentKeyInfo);
 
+            }
+            catch (Exception ex) 
+            {
+
+                Common.Utils.Throw($"Error contruyendo instancia de XadesSigned.", ex);
+
+            }
 
         }
 
@@ -344,11 +354,24 @@ namespace FACe.Xml.Xades
         private XmlDocument GetSource(string xml)
         {
 
-            XmlDocument xmlDocument = new XmlDocument();
-            xmlDocument.PreserveWhitespace = true;
-            xmlDocument.LoadXml(xml);
+            try 
+            {
 
-            return xmlDocument;
+                XmlDocument xmlDocument = new XmlDocument();
+                xmlDocument.PreserveWhitespace = true;
+                xmlDocument.LoadXml(xml);
+
+                return xmlDocument;
+
+            }
+            catch (Exception ex)
+            {
+
+                Common.Utils.Throw($"Error en método GetSource de XadesSigned.", ex);
+
+            }
+
+            return null;
 
         }
 
@@ -362,16 +385,27 @@ namespace FACe.Xml.Xades
 
             byte[] cn14 = null;
 
-            var c14nMethodTransform = new XmlDsigC14NTransform();
-            c14nMethodTransform.LoadInput(xmlDocument);
-
-            using (var ms = new MemoryStream())
+            try 
             {
 
-                using (var stream = c14nMethodTransform.GetOutput() as Stream)
-                    stream.CopyTo(ms);
+                var c14nMethodTransform = new XmlDsigC14NTransform();
+                c14nMethodTransform.LoadInput(xmlDocument);
 
-                cn14 = ms.ToArray();
+                using (var ms = new MemoryStream())
+                {
+
+                    using (var stream = c14nMethodTransform.GetOutput() as Stream)
+                        stream.CopyTo(ms);
+
+                    cn14 = ms.ToArray();
+
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+                Common.Utils.Throw($"Error en método GetXmlDocumentCn14 de XadesSigned.", ex);
 
             }
 
@@ -387,12 +421,25 @@ namespace FACe.Xml.Xades
         internal string GetXmlDocumentHash(XmlDocument xmlDocument)
         {
 
-            byte[] cn14 = GetXmlDocumentCn14(xmlDocument);
+            string c14nHashB64 = null;
 
-            var hash = new SHA512Managed();
+            try 
+            {
 
-            byte[] c14nHash = hash.ComputeHash(cn14);
-            string c14nHashB64 = Convert.ToBase64String(c14nHash);
+                byte[] cn14 = GetXmlDocumentCn14(xmlDocument);
+
+                var hash = new SHA512Managed();
+
+                byte[] c14nHash = hash.ComputeHash(cn14);
+                c14nHashB64 = Convert.ToBase64String(c14nHash);
+
+            }
+            catch (Exception ex)
+            {
+
+                Common.Utils.Throw($"Error en método GetXmlDocumentHash de XadesSigned.", ex);
+
+            }
 
             return c14nHashB64;
 
@@ -410,21 +457,32 @@ namespace FACe.Xml.Xades
 
             Dictionary<string, string> namespaces = new Dictionary<string, string>();
 
-            if (node.Attributes != null)
-                foreach (XmlAttribute att in node.Attributes)
-                    if (Regex.IsMatch(att.Name, @"xmlns:{0,1}\w*"))
-                        namespaces.Add($"{Regex.Match(att.Name, @"(?<xmlns>xmlns)(?<separator>:{0,1})(?<prefix>\w*)").Groups["prefix"]}", att.Value);
-
-            Dictionary<string, string> childNamespaces = new Dictionary<string, string>();
-
-            foreach (XmlNode child in node.ChildNodes)
+            try 
             {
 
-                childNamespaces = GetNamespaces(child);
+                if (node.Attributes != null)
+                    foreach (XmlAttribute att in node.Attributes)
+                        if (Regex.IsMatch(att.Name, @"xmlns:{0,1}\w*"))
+                            namespaces.Add($"{Regex.Match(att.Name, @"(?<xmlns>xmlns)(?<separator>:{0,1})(?<prefix>\w*)").Groups["prefix"]}", att.Value);
 
-                foreach (var ns in childNamespaces)
-                    if (!namespaces.ContainsKey(ns.Key))
-                        namespaces.Add(ns.Key, ns.Value);
+                Dictionary<string, string> childNamespaces = new Dictionary<string, string>();
+
+                foreach (XmlNode child in node.ChildNodes)
+                {
+
+                    childNamespaces = GetNamespaces(child);
+
+                    foreach (var ns in childNamespaces)
+                        if (!namespaces.ContainsKey(ns.Key))
+                            namespaces.Add(ns.Key, ns.Value);
+
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+                Common.Utils.Throw($"Error en método GetNamespaces de XadesSigned.", ex);
 
             }
 
@@ -458,16 +516,29 @@ namespace FACe.Xml.Xades
         internal Signature.Xades.Props.Signature GetSignature(XmlDocument xmlDocument, X509Certificate2 certificate)
         {
 
-            var signature = new Signature.Xades.Props.Signature(xmlDocument.DocumentElement, ReferenceId);
+            Signature.Xades.Props.Signature signature = null;
 
-            // signatureID            
-            signature.XmlElement.SetAttribute("Id", $"{SignatureId}-Signature");
-            signature.Object.QualifyingProperties.XmlElement.SetAttribute("xmlns:xades", $"http://uri.etsi.org/01903/v1.3.2#");
-            signature.Object.QualifyingProperties.XmlElement.SetAttribute("Id", $"{SignatureId}-QualifyingProperties");
-            signature.Object.QualifyingProperties.XmlElement.SetAttribute("Target", $"#{SignatureId}-Signature");
-            signature.Object.QualifyingProperties.SignedProperties.XmlElement.SetAttribute("Id", $"{SignatureId}-SignedProperties");
+            try 
+            {
 
-            signature.Object.QualifyingProperties.SignedProperties.SignedSignatureProperties.SigningCertificate.Cert.Certificate = certificate;
+                signature = new Signature.Xades.Props.Signature(xmlDocument.DocumentElement, ReferenceId);
+
+                // signatureID            
+                signature.XmlElement.SetAttribute("Id", $"{SignatureId}-Signature");
+                signature.Object.QualifyingProperties.XmlElement.SetAttribute("xmlns:xades", $"http://uri.etsi.org/01903/v1.3.2#");
+                signature.Object.QualifyingProperties.XmlElement.SetAttribute("Id", $"{SignatureId}-QualifyingProperties");
+                signature.Object.QualifyingProperties.XmlElement.SetAttribute("Target", $"#{SignatureId}-Signature");
+                signature.Object.QualifyingProperties.SignedProperties.XmlElement.SetAttribute("Id", $"{SignatureId}-SignedProperties");
+
+                signature.Object.QualifyingProperties.SignedProperties.SignedSignatureProperties.SigningCertificate.Cert.Certificate = certificate;
+
+            }
+            catch (Exception ex)
+            {
+
+                Common.Utils.Throw($"Error en método GetSignature de XadesSigned.", ex);
+
+            }
 
             return signature;
 
@@ -483,8 +554,20 @@ namespace FACe.Xml.Xades
         {
 
             XmlDocument xmlDoc = new XmlDocument();
-            xmlDoc.PreserveWhitespace = true;
-            xmlDoc.LoadXml(signature.XmlElement.OuterXml);
+
+            try 
+            {
+
+                xmlDoc.PreserveWhitespace = true;
+                xmlDoc.LoadXml(signature.XmlElement.OuterXml);
+
+            }
+            catch (Exception ex)
+            {
+
+                Common.Utils.Throw($"Error en método GetXmlDocumentSignature de XadesSigned.", ex);
+
+            }
 
             return xmlDoc;
 
@@ -500,11 +583,36 @@ namespace FACe.Xml.Xades
         internal XmlDocument GetXmlDocumentSignedProperties(XmlDocument xmlDocumentSignature)
         {
 
-            var signedProperties = xmlDocumentSignature.GetElementsByTagName("xades:SignedProperties")[0];
+            XmlNode signedProperties = null;
+
+            try 
+            {
+
+                signedProperties = xmlDocumentSignature.GetElementsByTagName("xades:SignedProperties")[0];
+
+            }
+            catch (Exception ex)
+            {
+
+                Common.Utils.Throw($"Error en método GetXmlDocumentSignedProperties de XadesSigned.", ex);
+
+            }
 
             XmlDocument xmlDoc = new XmlDocument();
-            xmlDoc.PreserveWhitespace = true;
-            xmlDoc.AppendChild(xmlDoc.ImportNode(signedProperties, true));
+
+            try
+            {
+
+                xmlDoc.PreserveWhitespace = true;
+                xmlDoc.AppendChild(xmlDoc.ImportNode(signedProperties, true));
+
+            }
+            catch (Exception ex)
+            {
+
+                Common.Utils.Throw($"Error en método GetXmlDocumentSignedProperties de XadesSigned.", ex);
+
+            }
 
             return xmlDoc;
 
@@ -518,9 +626,21 @@ namespace FACe.Xml.Xades
         {
 
             KeyInfo keyInfo = new KeyInfo();
-            keyInfo.Id = $"{SignatureId}-KeyInfo";
-            keyInfo.AddClause(new KeyInfoX509Data(Certificate, X509IncludeOption.WholeChain)); // Añade elemento KeyInfo.X509Data.RSAKeyValue.X509Certificate
-            keyInfo.AddClause(new RSAKeyValue(SigningKey));  // Añade elemento KeyInfo.KeyValue.RSAKeyValue
+
+            try 
+            {
+
+                keyInfo.Id = $"{SignatureId}-KeyInfo";
+                keyInfo.AddClause(new KeyInfoX509Data(Certificate, X509IncludeOption.WholeChain)); // Añade elemento KeyInfo.X509Data.RSAKeyValue.X509Certificate
+                keyInfo.AddClause(new RSAKeyValue(SigningKey));  // Añade elemento KeyInfo.KeyValue.RSAKeyValue
+
+            }
+            catch (Exception ex)
+            {
+
+                Common.Utils.Throw($"Error en método GetXmlDocumentSignedProperties de XadesSigned.", ex);
+
+            }
 
             return keyInfo;
 
@@ -535,26 +655,39 @@ namespace FACe.Xml.Xades
         internal XmlDocument GetXmlDocumentKeyInfo(XmlDocument xmlDocumentSignature, KeyInfo keyInfo)
         {
 
-            var xmlNodeSignature = XmlDocumentSignature.GetElementsByTagName("ds:Signature")[0];
-            var signature = XmlDocumentSignature.FirstChild;
-            var xmlKeyInfo = keyInfo.GetXml();
+            XmlDocument xmlDocumentKeyInfo = null;
 
-            SetPrefix("ds", xmlKeyInfo);
+            try 
+            {
 
-            XmlDocument xmlDocumentNodeSignature = new XmlDocument();
-            xmlDocumentNodeSignature.PreserveWhitespace = true;
-            xmlDocumentNodeSignature.AppendChild(xmlDocumentNodeSignature.ImportNode(xmlNodeSignature, false));
+                var xmlNodeSignature = XmlDocumentSignature.GetElementsByTagName("ds:Signature")[0];
+                var signature = XmlDocumentSignature.FirstChild;
+                var xmlKeyInfo = keyInfo.GetXml();
 
-            XmlDocument xmlDocumentSignatureKeyInfo = new XmlDocument();
-            xmlDocumentSignatureKeyInfo.PreserveWhitespace = true;
-            xmlDocumentSignatureKeyInfo.LoadXml(xmlDocumentNodeSignature.OuterXml);
+                SetPrefix("ds", xmlKeyInfo);
 
-            xmlDocumentSignatureKeyInfo.DocumentElement.InnerXml = xmlKeyInfo.OuterXml;
+                XmlDocument xmlDocumentNodeSignature = new XmlDocument();
+                xmlDocumentNodeSignature.PreserveWhitespace = true;
+                xmlDocumentNodeSignature.AppendChild(xmlDocumentNodeSignature.ImportNode(xmlNodeSignature, false));
 
-            var xmlNodeKeyInfo = xmlDocumentSignatureKeyInfo.GetElementsByTagName("ds:KeyInfo")[0];
-            XmlDocument xmlDocumentKeyInfo = new XmlDocument();
-            xmlDocumentKeyInfo.PreserveWhitespace = true;
-            xmlDocumentKeyInfo.AppendChild(xmlDocumentKeyInfo.ImportNode(xmlNodeKeyInfo, true));
+                XmlDocument xmlDocumentSignatureKeyInfo = new XmlDocument();
+                xmlDocumentSignatureKeyInfo.PreserveWhitespace = true;
+                xmlDocumentSignatureKeyInfo.LoadXml(xmlDocumentNodeSignature.OuterXml);
+
+                xmlDocumentSignatureKeyInfo.DocumentElement.InnerXml = xmlKeyInfo.OuterXml;
+
+                var xmlNodeKeyInfo = xmlDocumentSignatureKeyInfo.GetElementsByTagName("ds:KeyInfo")[0];
+                xmlDocumentKeyInfo = new XmlDocument();
+                xmlDocumentKeyInfo.PreserveWhitespace = true;
+                xmlDocumentKeyInfo.AppendChild(xmlDocumentKeyInfo.ImportNode(xmlNodeKeyInfo, true));
+
+            }
+            catch (Exception ex)
+            {
+
+                Common.Utils.Throw($"Error en método GetXmlDocumentKeyInfo de XadesSigned.", ex);
+
+            }
 
             return xmlDocumentKeyInfo;
 
@@ -607,109 +740,122 @@ namespace FACe.Xml.Xades
         public string GetSignedXml()
         {
 
-            XmlDocument xmlDocSignature = new XmlDocument();
-            xmlDocSignature.PreserveWhitespace = true;
-            xmlDocSignature.LoadXml(XmlSignatureOnlyObject);
+            try 
+            {
 
-            var dsNamespaceUri = "http://www.w3.org/2000/09/xmldsig#";
+                XmlDocument xmlDocSignature = new XmlDocument();
+                xmlDocSignature.PreserveWhitespace = true;
+                xmlDocSignature.LoadXml(XmlSignatureOnlyObject);
 
-            var signedInfo = xmlDocSignature.CreateElement("ds:SignedInfo", dsNamespaceUri);
+                var dsNamespaceUri = "http://www.w3.org/2000/09/xmldsig#";
 
-            var canonicalizationMethod = xmlDocSignature.CreateElement("ds:CanonicalizationMethod", dsNamespaceUri);
-            canonicalizationMethod.SetAttribute("Algorithm", "http://www.w3.org/TR/2001/REC-xml-c14n-20010315");
-            var signatureMethod = xmlDocSignature.CreateElement("ds:SignatureMethod", dsNamespaceUri);
-            signatureMethod.SetAttribute("Algorithm", "http://www.w3.org/2001/04/xmldsig-more#rsa-sha256");
+                var signedInfo = xmlDocSignature.CreateElement("ds:SignedInfo", dsNamespaceUri);
 
-            signedInfo.AppendChild(canonicalizationMethod);
-            signedInfo.AppendChild(signatureMethod);
+                var canonicalizationMethod = xmlDocSignature.CreateElement("ds:CanonicalizationMethod", dsNamespaceUri);
+                canonicalizationMethod.SetAttribute("Algorithm", "http://www.w3.org/TR/2001/REC-xml-c14n-20010315");
+                var signatureMethod = xmlDocSignature.CreateElement("ds:SignatureMethod", dsNamespaceUri);
+                signatureMethod.SetAttribute("Algorithm", "http://www.w3.org/2001/04/xmldsig-more#rsa-sha256");
 
-            var refInXml = xmlDocSignature.CreateElement("ds:Reference", dsNamespaceUri);
-            refInXml.SetAttribute("Id", $"{ReferenceId}");
-            refInXml.SetAttribute("URI", "");
-            var transforms = xmlDocSignature.CreateElement("ds:Transforms", dsNamespaceUri);
-            var transform = xmlDocSignature.CreateElement("ds:Transform", dsNamespaceUri);
-            transform.SetAttribute("Algorithm", "http://www.w3.org/2000/09/xmldsig#enveloped-signature");
-            var digestMethodRefIn = xmlDocSignature.CreateElement("ds:DigestMethod", dsNamespaceUri);
-            digestMethodRefIn.SetAttribute("Algorithm", "http://www.w3.org/2001/04/xmlenc#sha512");
-            var digestValue = xmlDocSignature.CreateElement("ds:DigestValue", dsNamespaceUri);
-            digestValue.InnerText = SignedInfoObjHash;
+                signedInfo.AppendChild(canonicalizationMethod);
+                signedInfo.AppendChild(signatureMethod);
 
-            transforms.AppendChild(transform);
-            refInXml.AppendChild(transforms);
-            refInXml.AppendChild(digestMethodRefIn);
-            refInXml.AppendChild(digestValue);
+                var refInXml = xmlDocSignature.CreateElement("ds:Reference", dsNamespaceUri);
+                refInXml.SetAttribute("Id", $"{ReferenceId}");
+                refInXml.SetAttribute("URI", "");
+                var transforms = xmlDocSignature.CreateElement("ds:Transforms", dsNamespaceUri);
+                var transform = xmlDocSignature.CreateElement("ds:Transform", dsNamespaceUri);
+                transform.SetAttribute("Algorithm", "http://www.w3.org/2000/09/xmldsig#enveloped-signature");
+                var digestMethodRefIn = xmlDocSignature.CreateElement("ds:DigestMethod", dsNamespaceUri);
+                digestMethodRefIn.SetAttribute("Algorithm", "http://www.w3.org/2001/04/xmlenc#sha512");
+                var digestValue = xmlDocSignature.CreateElement("ds:DigestValue", dsNamespaceUri);
+                digestValue.InnerText = SignedInfoObjHash;
 
-            var refSignedProperties = xmlDocSignature.CreateElement("ds:Reference", dsNamespaceUri);
-            refSignedProperties.SetAttribute("Type", "http://uri.etsi.org/01903#SignedProperties");
-            refSignedProperties.SetAttribute("URI", $"#{SignatureId}-SignedProperties");
-            var digestMethodSignedProperties = xmlDocSignature.CreateElement("ds:DigestMethod", dsNamespaceUri);
-            digestMethodSignedProperties.SetAttribute("Algorithm", "http://www.w3.org/2001/04/xmlenc#sha512");
-            var digestValueSignedProperties = xmlDocSignature.CreateElement("ds:DigestValue", dsNamespaceUri);
-            digestValueSignedProperties.InnerText = SignedInfoSignedPropertiesHash;
+                transforms.AppendChild(transform);
+                refInXml.AppendChild(transforms);
+                refInXml.AppendChild(digestMethodRefIn);
+                refInXml.AppendChild(digestValue);
 
-            refSignedProperties.AppendChild(digestMethodSignedProperties);
-            refSignedProperties.AppendChild(digestValueSignedProperties);
+                var refSignedProperties = xmlDocSignature.CreateElement("ds:Reference", dsNamespaceUri);
+                refSignedProperties.SetAttribute("Type", "http://uri.etsi.org/01903#SignedProperties");
+                refSignedProperties.SetAttribute("URI", $"#{SignatureId}-SignedProperties");
+                var digestMethodSignedProperties = xmlDocSignature.CreateElement("ds:DigestMethod", dsNamespaceUri);
+                digestMethodSignedProperties.SetAttribute("Algorithm", "http://www.w3.org/2001/04/xmlenc#sha512");
+                var digestValueSignedProperties = xmlDocSignature.CreateElement("ds:DigestValue", dsNamespaceUri);
+                digestValueSignedProperties.InnerText = SignedInfoSignedPropertiesHash;
 
-            var refKeyInfo = xmlDocSignature.CreateElement("ds:Reference", dsNamespaceUri);
-            refKeyInfo.SetAttribute("URI", $"#{SignatureId}-KeyInfo");
-            var digestMethodKeyInfo = xmlDocSignature.CreateElement("ds:DigestMethod", dsNamespaceUri);
-            digestMethodKeyInfo.SetAttribute("Algorithm", "http://www.w3.org/2001/04/xmlenc#sha512");
+                refSignedProperties.AppendChild(digestMethodSignedProperties);
+                refSignedProperties.AppendChild(digestValueSignedProperties);
 
-            var digestValueKeyInfo = xmlDocSignature.CreateElement("ds:DigestValue", dsNamespaceUri);
-            digestValueKeyInfo.InnerText = SignedInfoKeyInfoHash;
+                var refKeyInfo = xmlDocSignature.CreateElement("ds:Reference", dsNamespaceUri);
+                refKeyInfo.SetAttribute("URI", $"#{SignatureId}-KeyInfo");
+                var digestMethodKeyInfo = xmlDocSignature.CreateElement("ds:DigestMethod", dsNamespaceUri);
+                digestMethodKeyInfo.SetAttribute("Algorithm", "http://www.w3.org/2001/04/xmlenc#sha512");
 
-            refKeyInfo.AppendChild(digestMethodKeyInfo);
-            refKeyInfo.AppendChild(digestValueKeyInfo);
+                var digestValueKeyInfo = xmlDocSignature.CreateElement("ds:DigestValue", dsNamespaceUri);
+                digestValueKeyInfo.InnerText = SignedInfoKeyInfoHash;
 
-            signedInfo.AppendChild(refInXml);
-            signedInfo.AppendChild(refSignedProperties);
-            signedInfo.AppendChild(refKeyInfo);
+                refKeyInfo.AppendChild(digestMethodKeyInfo);
+                refKeyInfo.AppendChild(digestValueKeyInfo);
 
-            // Calculo de la firma
+                signedInfo.AppendChild(refInXml);
+                signedInfo.AppendChild(refSignedProperties);
+                signedInfo.AppendChild(refKeyInfo);
 
-            XmlDocument xmlDocSignedInfo = new XmlDocument();
-            xmlDocSignedInfo.PreserveWhitespace = true;
-            xmlDocSignedInfo.AppendChild(xmlDocSignedInfo.ImportNode(signedInfo, true));
+                // Calculo de la firma
 
-            var orderedPrefixes = GetOrderedPrefixes(SourceNamespaces);
+                XmlDocument xmlDocSignedInfo = new XmlDocument();
+                xmlDocSignedInfo.PreserveWhitespace = true;
+                xmlDocSignedInfo.AppendChild(xmlDocSignedInfo.ImportNode(signedInfo, true));
 
-            for (int p = 0; p < orderedPrefixes.Count; p++)
-                xmlDocSignedInfo.DocumentElement.SetAttribute(
-                    $"xmlns{(orderedPrefixes[p] == "" ? "" : $":{orderedPrefixes[p]}")}",
-                    SourceNamespaces[orderedPrefixes[p]]);
+                var orderedPrefixes = GetOrderedPrefixes(SourceNamespaces);
 
-            var cn14SignedInfo = GetXmlDocumentCn14(xmlDocSignedInfo);
+                for (int p = 0; p < orderedPrefixes.Count; p++)
+                    xmlDocSignedInfo.DocumentElement.SetAttribute(
+                        $"xmlns{(orderedPrefixes[p] == "" ? "" : $":{orderedPrefixes[p]}")}",
+                        SourceNamespaces[orderedPrefixes[p]]);
 
-            var hash = new SHA256Managed();
+                var cn14SignedInfo = GetXmlDocumentCn14(xmlDocSignedInfo);
 
-            var signatureValue = SigningKey.SignData(cn14SignedInfo, hash);
-            var signatureValueB64 = Convert.ToBase64String(signatureValue);
+                var hash = new SHA256Managed();
 
-            var sigValue = xmlDocSignature.CreateElement("ds:SignatureValue", dsNamespaceUri);
-            sigValue.SetAttribute("Id", $"{SignatureId}-SignatureValue");
-            sigValue.InnerText = signatureValueB64;
+                var signatureValue = SigningKey.SignData(cn14SignedInfo, hash);
+                var signatureValueB64 = Convert.ToBase64String(signatureValue);
 
-            // Fin calculo de la firma
+                var sigValue = xmlDocSignature.CreateElement("ds:SignatureValue", dsNamespaceUri);
+                sigValue.SetAttribute("Id", $"{SignatureId}-SignatureValue");
+                sigValue.InnerText = signatureValueB64;
 
-            var sigNode = xmlDocSignature.GetElementsByTagName("ds:Signature")[0];
-            var objNode = xmlDocSignature.GetElementsByTagName("ds:Object")[0];
+                // Fin calculo de la firma
 
-            sigNode.InnerXml = $"{signedInfo.OuterXml}{sigValue.OuterXml}{XmlKeyInfo}{sigNode.InnerXml}";
+                var sigNode = xmlDocSignature.GetElementsByTagName("ds:Signature")[0];
+                var objNode = xmlDocSignature.GetElementsByTagName("ds:Object")[0];
 
-            XmlDocument xmlDocSigned = new XmlDocument();
-            xmlDocSigned.PreserveWhitespace = true;
-            xmlDocSigned.LoadXml(sigNode.OuterXml);
+                sigNode.InnerXml = $"{signedInfo.OuterXml}{sigValue.OuterXml}{XmlKeyInfo}{sigNode.InnerXml}";
 
-            var cn14Signature = GetXmlDocumentCn14(xmlDocSigned);
-            var xmlSignature = System.Text.Encoding.UTF8.GetString(cn14Signature);
+                XmlDocument xmlDocSigned = new XmlDocument();
+                xmlDocSigned.PreserveWhitespace = true;
+                xmlDocSigned.LoadXml(sigNode.OuterXml);
 
-            XmlDocument xmlResult = new XmlDocument();
-            xmlResult.PreserveWhitespace = true;
-            xmlResult.LoadXml(XmlTextDocumentSourceCleared);
+                var cn14Signature = GetXmlDocumentCn14(xmlDocSigned);
+                var xmlSignature = System.Text.Encoding.UTF8.GetString(cn14Signature);
 
-            xmlResult.DocumentElement.InnerXml = $"{xmlResult.DocumentElement.InnerXml}{sigNode.OuterXml}";
+                XmlDocument xmlResult = new XmlDocument();
+                xmlResult.PreserveWhitespace = true;
+                xmlResult.LoadXml(XmlTextDocumentSourceCleared);
 
-            return $"<?xml version=\"1.0\" encoding=\"utf-8\"?>{ClearWindowsTagEndings(xmlResult.DocumentElement.OuterXml)}";
+                xmlResult.DocumentElement.InnerXml = $"{xmlResult.DocumentElement.InnerXml}{sigNode.OuterXml}";
+
+                return $"<?xml version=\"1.0\" encoding=\"utf-8\"?>{ClearWindowsTagEndings(xmlResult.DocumentElement.OuterXml)}";
+
+            }
+            catch (Exception ex)
+            {
+
+                Common.Utils.Throw($"Error en método GetSignedXml de XadesSigned.", ex);
+
+            }
+
+            return null;
 
         }
 
