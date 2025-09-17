@@ -57,7 +57,51 @@ Para cualquier duda o consulta, puedes escribirnos a **info@irenesolutions.com**
 
 <br>
 <br>
- 
+
+ ## Establecer en la configuración los valores para el uso del certificado
+
+
+| Propiedad  | Descripción |
+| ------------- | ------------- |
+| CertificatePath  | Ruta al archivo del certificado a utilizar.   |
+| CertificatePassword  | Password del certificado. Este valor sólo es necesario si tenemos establecido el valor para 'CertificatePath' y el certificado tiene clave de acceso. Sólo se utiliza en los certificados cargados desde el sistema de archivos.  |
+| CertificateSerial  | Número de serie del certificado a utilizar. Mediante este número de serie se selecciona del almacén de certificados de windows el certificado con el que realizar las comunicaciones.  |
+| CertificateThumbprint  | Hash o Huella digital del certificado a utilizar. Mediante esta huella digital se selecciona del almacén de certificados de windows el certificado con el que realizar las comunicaciones.    |
+
+En el siguiente ejemplo estableceremos la configuración de nuestro certificado para cargarlo desde el sitema de archivos:
+
+### C#
+```C#
+
+// Valores actuales de configuración de certificado
+Debug.Print($"{Settings.Current.CertificatePath}");
+Debug.Print($"{Settings.Current.CertificatePassword}");
+
+// Establezco nuevos valores
+Settings.Current.CertificatePath = @"C:\CERTIFICADO.pfx";
+Settings.Current.CertificatePassword = "pass certificado";
+
+// Guardo los cambios
+Settings.Save();
+
+```
+
+### VB
+```VB
+
+' Valores actuales de configuración de certificado
+Debug.Print($"{Settings.Current.CertificatePath}")
+Debug.Print($"{Settings.Current.CertificatePassword}")
+
+' Establezco nuevos valores
+Settings.Current.CertificatePath = "C:\CERTIFICADO.pfx"
+Settings.Current.CertificatePassword = "pass certificado"
+
+' Guardo los cambios
+Settings.Save()
+
+```
+
 
 ```
 ## Ejemplo envío factura
