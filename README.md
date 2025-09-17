@@ -6,7 +6,7 @@ Biblioteca **open source en C#** para la **emisión, firma XAdES y envío de fac
 
 ## ✨ Características
 
-- 📑 Generación de facturas electrónicas en formato **Facturae 3.2.1 y 3.2.2**  
+- 📑 Generación de facturas electrónicas en formato **Facturae 3.2.2**  
 - ✅ Validación contra los **esquemas XSD oficiales**  
 - 🔐 Firma digital **XAdES-EPES/T** con **política de firma Facturae**  
 - ☁️ Envío a la **plataforma FACe REST** (nueva entrada de facturas de las AAPP)  
