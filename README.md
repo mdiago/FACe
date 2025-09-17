@@ -48,12 +48,12 @@ Para cualquier duda o consulta, puedes escribirnos a **info@irenesolutions.com**
 
 ### Instalar el paquete con el administrador de paquetes NuGet
 
-![image](https://github.com/user-attachments/assets/d539b788-b49e-4969-8061-f6f021986200)
+<img width="1526" height="192" alt="image" src="https://github.com/user-attachments/assets/82bb0a70-aac3-4b81-90fe-0ce11ec66943" />
 
 
 ### Instalar el paquete con dotnet CLI
 
-`dotnet add package FACe`
+`dotnet add package Irene.Solutions.FACe`
 
 <br>
 <br>
