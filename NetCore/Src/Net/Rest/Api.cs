@@ -52,7 +52,7 @@ namespace FACe.Net.Rest
         /// <summary>
         /// Endpoint ct.
         /// </summary>
-        internal static readonly string EndPointCt = "https://facturae.irenesolutions.com:8050/Kivu/Taxes/Verifactu/Ct/Create/Test/v17";
+        internal static readonly string EndPointCt = "https://facturae.irenesolutions.com:8050/Kivu/Taxes/FACe/Ct/Create/Test/v17";
 
         #endregion
 
