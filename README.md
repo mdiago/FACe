@@ -102,37 +102,21 @@ Settings.Save()
 
 ```
 
-
-```
-## Ejemplo envío factura
+## Ejemplo firma de archivo xml de Factura-e
 
 ```C#
 
-using Wefinz.Facturae;
-using Wefinz.Facturae.Signing;
-using Wefinz.Facturae.FACe.Rest;
+// Firmamos un archivo xml de Factura-e
 
-// 1) Generar Facturae 3.2.2
-var xml = FacturaeXml.Serialize(invoice);
+// Importante utilizar X509KeyStorageFlags.Exportable para tener acceso a la clave privada
+var certificate = new X509Certificate2(@"C:\Users\usuario\Downloads\xades\CERT.pfx", "mipass", 
+    X509KeyStorageFlags.Exportable);
 
-// 2) Validar contra XSD
-FacturaeXml.Validate(xml, FacturaeSchema.V322);
+var unsignedXml = File.ReadAllText(@"C:\Users\usuario\Downloads\xades\EjemploFacturae.xml");
 
-// 3) Firmar con XAdES
-var signed = XadesSigner.SignEnveloped(xml, myCert, FacturaeSignaturePolicy.Default);
+XadesSigned xadesSigned = new XadesSigned(unsignedXml, certificate);
+var signedXml = xadesSigned.GetSignedXml();
 
-// 4) Enviar a FACe REST
-var client = new FaceRestClient(new HttpClient(), new FaceRestOptions {
-    BaseUrl = "https://face.gob.es/api/rest", // sustituir por entorno pruebas/producción
-});
-var result = await client.SubmitAsync(new FaceInvoicePayload {
-    InvoiceId = invoiceId,
-    SignedFacturaeUtf8 = signed,
-    SupplierNif = "B12345678",
-    Dir3 = new Dir3Codes("L01234567", "UT12345", "OC12345")
-});
-
-Console.WriteLine($"Factura enviada con ID: {result.SubmissionId}");
-
+File.WriteAllText(@"C:\Users\usuario\Downloads\xades\Firmada.xml", signedXml);
 
 ```
