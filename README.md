@@ -104,6 +104,10 @@ Settings.Save()
 
 ## Ejemplo firma de archivo xml de Factura-e
 
+En este ejemplo firmamos un archivo xml en formato Factura-e. Una vez lo firmemos, lo podemos validar por ejemplo con [la herramienta de FACe](https://se-proveedores-face.redsara.es/proveedores/validar-factura).
+
+### C#
+
 ```C#
 
 // Firmamos un archivo xml de Factura-e
