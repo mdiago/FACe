@@ -161,11 +161,23 @@ var invoice = new Business.Invoice.Invoice($"FRA0001",
     BuyerName = "AYUNTAMIENTO DE MONCOFA",
     Parties = new List<Party>()
         {
-            new Party(){TaxID =  "B12959755", PartyType = "J", Address = "PZ ESTANY COLOBRI 3B", PostalCode = "12530", City = "BURRIANA", Region = "CASTELLON", Phone = " 964679395", Mail = "info@irenesolutions.com", WebAddress = "https://www.irenesolutions.com"},
-            new Party(){TaxID =  "P1207700D", PartyType = "J", Address = "PLAZA CONSTITUCION, 1", PostalCode = "12593", City = "MONCOFAR", Region = "CASTELLON", Phone = "964580421", Mail = "info@moncofa.com", WebAddress = "https://www.moncofa.com"},
-            new Party(){PartyRole =  "OC", PartyID = "L01120770", Address = "PLAZA CONSTITUCION, 1", PostalCode = "12593", City = "MONCOFAR", Region = "CASTELLON"}, // Oficina contable
-            new Party(){PartyRole =  "OG", PartyID = "L01120770", Address = "PLAZA CONSTITUCION, 1", PostalCode = "12593", City = "MONCOFAR", Region = "CASTELLON"}, // Organo gestor
-            new Party(){PartyRole =  "UT", PartyID = "L01120770", Address = "PLAZA CONSTITUCION, 1", PostalCode = "12593", City = "MONCOFAR", Region = "CASTELLON"}  // Unidad tramitadora
+            // Vendedor
+            new Party(){TaxID =  "B12959755", PartyType = "J", Address = "PZ ESTANY COLOBRI 3B", PostalCode = "12530", 
+                City = "BURRIANA", Region = "CASTELLON", Phone = " 964679395", Mail = "info@irenesolutions.com", 
+                WebAddress = "https://www.irenesolutions.com"},
+            //Comprador
+            new Party(){TaxID =  "P1207700D", PartyType = "J", Address = "PLAZA CONSTITUCION, 1", PostalCode = "12593", 
+                City = "MONCOFAR", Region = "CASTELLON", Phone = "964580421", Mail = "info@moncofa.com", 
+                WebAddress = "https://www.moncofa.com"},
+            // Oficina contable
+            new Party(){PartyRole =  "OC", PartyID = "L01120770", Address = "PLAZA CONSTITUCION, 1", PostalCode = "12593", 
+                City = "MONCOFAR", Region = "CASTELLON"}, 
+            // Organo gestor
+            new Party(){PartyRole =  "OG", PartyID = "L01120770", Address = "PLAZA CONSTITUCION, 1", PostalCode = "12593", 
+                City = "MONCOFAR", Region = "CASTELLON"}, 
+            // Unidad tramitadora
+            new Party(){PartyRole =  "UT", PartyID = "L01120770", Address = "PLAZA CONSTITUCION, 1", PostalCode = "12593", 
+                City = "MONCOFAR", Region = "CASTELLON"}  
         },
     TaxItems = new List<Business.Invoice.TaxItem>()
         {
@@ -222,7 +234,6 @@ var facturae = invoice.GetFacturae();
 var facturaeManager = new FacturaeManager(facturae);
 
 File.WriteAllBytes(fileName, facturaeManager.GetUTF8Xml());
-
 
 ```
 
