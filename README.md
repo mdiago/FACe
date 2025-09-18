@@ -142,7 +142,7 @@ Dim signedXml As String = xadesSigned.GetSignedXml()
 File.WriteAllText("C:\Users\usuario\Downloads\xades\Firmada.xml", signedXml)
 
 ```
-## Ejemplo creación de docoumento Factura-e 3.2
+## Ejemplo creación de documento Factura-e 3.2
 
 En este ejemplo creamos un documento Factura-e a partir de una instancia de la clase de negocio `Invoice`.
 
