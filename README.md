@@ -144,7 +144,9 @@ File.WriteAllText("C:\Users\usuario\Downloads\xades\Firmada.xml", signedXml)
 ```
 ## Ejemplo creación de documento Factura-e 3.2
 
-En este ejemplo creamos un documento Factura-e a partir de una instancia de la clase de negocio `Invoice`. La propiedad `Invoice.Parties`, es una lista con los datos de los interlocutores que intervienen en el documento. En las facturas emitidas a las administraciones públicas es obligatorio informar de la oficina contable, órgano gerstor y unidad tramitadora.
+En este ejemplo creamos un documento Factura-e a partir de una instancia de la clase de negocio `Invoice`. La propiedad `Invoice.Parties`, es una lista con los datos de los interlocutores que intervienen en el documento. 
+
+En las facturas emitidas a las administraciones públicas es obligatorio informar de la **oficina contable, órgano gerstor y unidad tramitadora**.
 Identificamos estos datos en la lista de interlocutores mediante el rol del interlocutor en el documento, el cual está determinado por el valor de la propiedad `Invoice.PartyRole`:
 
 * 'OC': Oficina contable
