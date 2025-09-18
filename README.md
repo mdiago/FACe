@@ -442,3 +442,16 @@ Basándonos en la instancia de la clase `Invoice` creada en el ejemplo anterior,
 
 
 ```
+
+## Ejemplo de envío de una factura a FACe utilizando el API REST
+
+>[!IMPORTANT]  
+> Es importante antes de utilizar esta clase que hayamos obtenido nuestra `ServiceKey` accediendo a este [enlace](https://facturae.irenesolutions.com/verifactu/go). Una vez tengamos nuestra `ServiceKey` debemos guardarla en la configuración editando nuestro archivo Settings.xml o mediante programación.
+
+```C#
+
+// Guardar ServiceKey
+Settings.Current.Api.ServiceKey = "My_ServiceKey";
+Settings.Save();
+
+```
