@@ -368,4 +368,38 @@ File.WriteAllBytes(fileName, facturaeManager.GetUTF8Xml());
 
 ```
 
+## Ejemplo creación de documento Factura-e 3.2 firmado
 
+Basándonos en la instancia de la clase `Invoice` creada en el ejemplo anterior, vamos a obtener el documento xml firmado.
+
+### C#
+
+```C#
+
+// Importante utilizar X509KeyStorageFlags.Exportable para tener acceso a la clave privada
+var certificate = new X509Certificate2(@"C:\Users\usuario\Downloads\xades\CERT.pfx", "mipass",
+    X509KeyStorageFlags.Exportable);
+
+var facturae = invoice.GetFacturae();
+var facturaeManager = new FacturaeManager(facturae);
+var signedXml = facturaeManager.GetXmlTextSigned(certificate);
+
+File.WriteAllText(@"C:\Users\usuario\Downloads\xades\EjemploFacturaeFirmada.xml", signedXml);
+
+```
+
+### VB
+```VB
+
+        ' Importante utilizar X509KeyStorageFlags.Exportable para tener acceso a la clave privada
+        Dim certificate = New X509Certificate2("C:\Users\usuario\Downloads\xades\CERT.pfx", "mipass",
+                X509KeyStorageFlags.Exportable)
+
+        Dim facturae = invoice.GetFacturae()
+        Dim facturaeManager = New FacturaeManager(facturae)
+        Dim signedXml = facturaeManager.GetXmlTextSigned(certificate)
+
+        File.WriteAllText("C:\Users\usuario\Downloads\xades\EjemploFacturaeFirmada.xml", signedXml)
+
+
+```
