@@ -141,8 +141,8 @@ namespace FACe.Net.Rest.Json.Parser.Lexer.Tokens
 
             var value = Value.Substring(1, Value.Length - 2);
 
-            if (Regex.IsMatch(value, @"\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z"))
-                return Convert.ToDateTime(value);
+            if (Regex.IsMatch(value, @"^\s*\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z\s*$"))
+                return Convert.ToDateTime(value.Trim());
 
             return value;
 
