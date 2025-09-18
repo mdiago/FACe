@@ -5,7 +5,7 @@
     <Modality>I</Modality>
     <InvoiceIssuerType>EM</InvoiceIssuerType>
     <Batch>
-      <BatchIdentifier>BATCH-FR20250916124002-1758019202593</BatchIdentifier>
+      <BatchIdentifier>BATCH-FR20250918083445-1758177285499</BatchIdentifier>
       <InvoicesCount>1</InvoicesCount>
       <TotalInvoicesAmount>
         <TotalAmount>106.00</TotalAmount>
@@ -108,12 +108,12 @@
   <Invoices>
     <Invoice>
       <InvoiceHeader>
-        <InvoiceNumber>FR20250916124002</InvoiceNumber>
+        <InvoiceNumber>FR20250918083445</InvoiceNumber>
         <InvoiceDocumentType>FC</InvoiceDocumentType>
         <InvoiceClass>OO</InvoiceClass>
       </InvoiceHeader>
       <InvoiceIssueData>
-        <IssueDate>2025-09-16</IssueDate>
+        <IssueDate>2025-09-18</IssueDate>
         <InvoiceCurrencyCode>EUR</InvoiceCurrencyCode>
         <TaxCurrencyCode>EUR</TaxCurrencyCode>
         <LanguageName>es</LanguageName>
@@ -186,7 +186,7 @@
       </Items>
       <PaymentDetails>
         <Installment>
-          <InstallmentDueDate>2025-10-01</InstallmentDueDate>
+          <InstallmentDueDate>2025-10-03</InstallmentDueDate>
           <InstallmentAmount>106.00</InstallmentAmount>
           <PaymentMeans>04</PaymentMeans>
           <AccountToBeCredited>

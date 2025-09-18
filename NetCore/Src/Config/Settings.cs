@@ -223,15 +223,10 @@ namespace FACe.Config
                 {
                     EndPointCreate = "https://facturae.irenesolutions.com:8050/Kivu/Taxes/FACe/Invoices/Create",
                     EndPointCancel = "https://facturae.irenesolutions.com:8050/Kivu/Taxes/FACe/Invoices/Cancel",
-                    EndPointGetQrCode = "https://facturae.irenesolutions.com:8050/Kivu/Taxes/FACe/Invoices/GetQrCode",
                     EndPointGetSellers = "https://facturae.irenesolutions.com:8050/Kivu/Taxes/FACe/Invoices/GetSellers",
                     EndPointGetRecords = "https://facturae.irenesolutions.com:8050/Kivu/Taxes/FACe/Invoices/GetFilteredList",
-                    EndPointValidateNIF = "https://facturae.irenesolutions.com:8050/Kivu/Taxes/FACe/Invoices/ValidateNIF",
-                    EndPointGetAeatInvoices = "https://facturae.irenesolutions.com:8050/Kivu/Taxes/FACe/Invoices/GetAeatInvoices",
+                    EndPointGetFACeInvoices = "https://facturae.irenesolutions.com:8050/Kivu/Taxes/FACe/Invoices/GetAeatInvoices",
                     EndPointGetFilteredList = "https://facturae.irenesolutions.com:8050/Kivu/Taxes/FACe/Invoices/GetFilteredList",
-                    EndPointCreateBatch = "https://facturae.irenesolutions.com:8050/Kivu/Taxes/FACe/CreateBatch",
-                    EndPointValidateNIFs = "https://facturae.irenesolutions.com:8050/Kivu/Taxes/FACe/Invoices/ValidateNIFs",
-                    EndPointValidateViesVatNumber = "https://facturae.irenesolutions.com:8050/Kivu/Taxes/FACe/Invoices/ValidateViesVatNumber",
                     ServiceKey = "1234"
                 },
                 TlRuntime = true

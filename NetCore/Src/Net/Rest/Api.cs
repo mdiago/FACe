@@ -80,11 +80,6 @@ namespace FACe.Net.Rest
         public string EndPointCancel { get; set; }
 
         /// <summary>
-        /// Endpoint generación código QR.
-        /// </summary>
-        public string EndPointGetQrCode { get; set; }
-
-        /// <summary>
         /// Endpoint consulta emisores.
         /// </summary>
         public string EndPointGetSellers { get; set; }
@@ -95,14 +90,9 @@ namespace FACe.Net.Rest
         public string EndPointGetRecords { get; set; }
 
         /// <summary>
-        /// Endpoint validación NIF.
+        /// Endpoint consulta registros en FACe.
         /// </summary>
-        public string EndPointValidateNIF { get; set; }
-
-        /// <summary>
-        /// Endpoint consulta registros en AEAT.
-        /// </summary>
-        public string EndPointGetAeatInvoices { get; set; }
+        public string EndPointGetFACeInvoices { get; set; }
 
         /// <summary>
         /// Endpoint consulta envíos realizados.
@@ -110,24 +100,9 @@ namespace FACe.Net.Rest
         public string EndPointGetFilteredList { get; set; }
 
         /// <summary>
-        /// Endpoint envío de lotes.
-        /// </summary>
-        public string EndPointCreateBatch { get; set; }
-
-        /// <summary>
-        /// Endpoint validación NIF por lotes.
-        /// </summary>
-        public string EndPointValidateNIFs { get; set; }
-
-        /// <summary>
-        /// Endpoint validación número IVA intracomunitario.
-        /// </summary>
-        public string EndPointValidateViesVatNumber { get; set; }
-
-        /// <summary>
-        /// Clave de acceso al API REST para Verifactu de
+        /// Clave de acceso al API REST para FACe de
         /// Irene Solutions. Puede conseguir su clave en
-        /// https://facturae.irenesolutions.com/verifactu/go
+        /// https://facturae.irenesolutions.com/face/go
         /// </summary>
         public string ServiceKey { get; set; }
 

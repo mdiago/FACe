@@ -136,7 +136,7 @@ namespace FACe.Net.Rest.Json
                 {                   
                     
                     var jsonAtt = pInf.GetCustomAttribute(typeof(JsonAttribute)) as JsonAttribute;
-                    var key = string.IsNullOrEmpty(jsonAtt.Name) ? pInf.Name : jsonAtt.Name;
+                    var key = string.IsNullOrEmpty(jsonAtt?.Name) ? pInf.Name : jsonAtt.Name;
 
                     string[] jsons = new string[iList.Count];
 
