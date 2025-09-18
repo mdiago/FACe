@@ -220,7 +220,7 @@ var invoice = new Business.Invoice.Invoice($"FRA0001",
                 GrossAmount = 105,
                 TaxesOutputBase = 100,
                 TaxesOutputRate = 21,
-                TaxesOutputAmount = 21,
+                TaxesOutputAmount = 21
 
             }
         },
