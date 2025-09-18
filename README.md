@@ -246,4 +246,126 @@ File.WriteAllBytes(fileName, facturaeManager.GetUTF8Xml());
 
 ### VB
 
+```VB
+        Dim fileName As String = "C:\Users\usuario\Downloads\xades\EjemploFacturae.xml"
+
+        ' Creamos una nueva instancia de Invoice
+        Dim invoice = New Business.Invoice.Invoice($"FRA0001", DateTime.Now, "B12959755")
+        With invoice
+            .SellerName = "IRENE SOLUTIONS SL"
+            .BuyerID = "P1207700D"
+            .BuyerName = "AYUNTAMIENTO DE MONCOFA"
+            .Parties = New List(Of Party) From {
+            New Party() With
+            {
+                .TaxID = "B12959755", ' Vendedor
+                .PartyType = "J",
+                .Address = "PZ ESTANY COLOBRI 3B",
+                .PostalCode = "12530",
+                .City = "BURRIANA",
+                .Region = "CASTELLON",
+                .Phone = " 964679395",
+                .Mail = "info@irenesolutions.com",
+                .WebAddress = "https://www.irenesolutions.com"
+            },
+            New Party() With
+            {
+                .TaxID = "P1207700D", ' Comprador
+                .PartyType = "J",
+                .Address = "PLAZA CONSTITUCION, 1",
+                .PostalCode = "12593",
+                .City = "MONCOFAR",
+                .Region = "CASTELLON",
+                .Phone = "964580421",
+                .Mail = "info@moncofa.com",
+                .WebAddress = "https://www.moncofa.com"
+            },
+            New Party() With
+            {
+                .PartyRole = "OC",' Oficina contable
+                .PartyID = "L01120770",
+                .Address = "PLAZA CONSTITUCION, 1",
+                .PostalCode = "12593",
+                .City = "MONCOFAR",
+                .Region = "CASTELLON"
+            },
+            New Party() With
+            {
+                .PartyRole = "OG",' Organo gestor
+                .PartyID = "L01120770",
+                .Address = "PLAZA CONSTITUCION, 1",
+                .PostalCode = "12593",
+                .City = "MONCOFAR",
+                .Region = "CASTELLON"
+            },
+            New Party() With
+            {
+                .PartyRole = "UT",' Unidad tramitadora
+                .PartyID = "L01120770",
+                .Address = "PLAZA CONSTITUCION, 1",
+                .PostalCode = "12593",
+                .City = "MONCOFAR",
+                .Region = "CASTELLON"
+            }
+        }
+        End With
+
+        ' Impuestos
+        invoice.TaxItems = New List(Of TaxItem) From {
+            New TaxItem() With
+            {
+                .TaxClass = "TO", ' TaxesOutputs (IVA)
+                .TaxRate = 21,
+                .TaxBase = 100,
+                .TaxAmount = 21
+            },
+            New TaxItem() With
+            {
+                .Tax = "04", ' IRPF
+                .TaxClass = "TW", ' TaxesWithheld (Retenciones)
+                .TaxRate = 15,
+                .TaxBase = 100,
+                .TaxAmount = -15
+            }
+        }
+
+        ' Líneas de factura
+        invoice.InvoiceLines = New List(Of Business.Invoice.InvoiceLine) From {
+        New Business.Invoice.InvoiceLine() With
+            {
+                .ItemPosition = 1,
+                .BuyerReference = "PEDIDO0001",
+                .ItemID = "COD001",
+                .ItemName = "SERVICIOS DESARROLLO SOFTWARE",
+                .Quantity = 1,
+                .NetPrice = 100,
+                .DiscountRate = 4.76,
+                .DiscountAmount = 5,
+                .NetAmount = 100,
+                .GrossAmount = 105,
+                .TaxesOutputBase = 100,
+                .TaxesOutputRate = 21,
+                .TaxesOutputAmount = 21
+            }
+        }
+
+        ' Vencimientos
+        invoice.Installments = New List(Of Business.Invoice.Installment) From {
+            New Business.Invoice.Installment() With
+            {
+                .DueDate = DateTime.Now.AddDays(15),
+                .Amount = 106,
+                .PaymentMeans = "04",
+                .BankAccountType = "IBAN",
+                .BankAccount = "ES7731127473172720020181"
+            }
+        }
+
+        Dim facturae = invoice.GetFacturae()
+        Dim facturaeManager = New FacturaeManager(facturae)
+
+        File.WriteAllBytes(fileName, facturaeManager.GetUTF8Xml())
+
+```
+
 
