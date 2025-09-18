@@ -71,6 +71,9 @@
     <Compile Include="..\NetCore\Src\Business\Invoice\TaxItem.cs">
       <Link>Src\Business\Invoice\TaxItem.cs</Link>
     </Compile>
+    <Compile Include="..\NetCore\Src\Common\FACeException.cs">
+      <Link>Src\Common\FACeException.cs</Link>
+    </Compile>
     <Compile Include="..\NetCore\Src\Common\Logger.cs">
       <Link>Src\Common\Logger.cs</Link>
     </Compile>
@@ -540,7 +543,6 @@
       <Link>Src\Xml\XmlParser.cs</Link>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Src\Common\FACeException.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -8,7 +8,7 @@
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <AssemblyName>FACe</AssemblyName>
     <Title>FACe</Title>
-    <Version>1.0.0</Version>
+    <Version>1.0.1</Version>
     <Authors>Manuel Diago</Authors>
     <Company>Irene Solutions SL</Company>
     <Description>Generación, firma y envío de facturas eletrónicas facturae a FACe
@@ -23,6 +23,9 @@
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
     <RootNamespace>FACe</RootNamespace>
+    <AssemblyVersion>1.0.0.1</AssemblyVersion>
+    <FileVersion>1.0.0.1</FileVersion>
+    <PackageId>Irene.Solutions.FACe</PackageId>
   </PropertyGroup>
 
   <ItemGroup>
@@ -43,6 +46,33 @@
       <PackagePath>\</PackagePath>
     </None>
   </ItemGroup>
+  
+   <Target Name="CustomContentTarget">
+    <ItemGroup>
+      <TfmSpecificPackageFile Include="..\NetFramework480\bin\Debug\FACe.dll">
+        <PackagePath>lib/net48</PackagePath>
+      </TfmSpecificPackageFile>
+       <TfmSpecificPackageFile Include="..\NetFramework480\bin\Debug\FACe.xml">
+        <PackagePath>lib/net48</PackagePath>
+      </TfmSpecificPackageFile>
+    </ItemGroup>
+	<ItemGroup>
+      <TfmSpecificPackageFile Include="..\NetFramework472\bin\Debug\FACe.dll">
+        <PackagePath>lib/net472</PackagePath>
+      </TfmSpecificPackageFile>
+       <TfmSpecificPackageFile Include="..\NetFramework472\bin\Debug\FACe.xml">
+        <PackagePath>lib/net472</PackagePath>
+      </TfmSpecificPackageFile>
+    </ItemGroup>
+	<ItemGroup>
+      <TfmSpecificPackageFile Include="..\NetFramework461\bin\Debug\FACe.dll">
+        <PackagePath>lib/net461</PackagePath>
+      </TfmSpecificPackageFile>
+       <TfmSpecificPackageFile Include="..\NetFramework461\bin\Debug\FACe.xml">
+        <PackagePath>lib/net461</PackagePath>
+      </TfmSpecificPackageFile>
+    </ItemGroup>
+  </Target> 
 
   <ItemGroup>
     <PackageReference Include="System.Security.Cryptography.Xml" Version="9.0.9" />

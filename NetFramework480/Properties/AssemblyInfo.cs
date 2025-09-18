@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyCompany("Irene Solutions SL")]
 [assembly: AssemblyProduct("FACe")]
 [assembly: AssemblyCopyright("Copyright © Irene Solutions SL 2025")]
-[assembly: AssemblyTrademark("")]
+[assembly: AssemblyTrademark("Irene Solutions")]
 [assembly: AssemblyCulture("")]
 
 // Si establece ComVisible en false, los tipos de este ensamblado no estarán visibles 
@@ -28,5 +28,5 @@ using System.Runtime.InteropServices;
 //      Número de compilación
 //      Revisión
 //
-[assembly: AssemblyVersion("1.0.0.0")]
-[assembly: AssemblyFileVersion("1.0.0.0")]
+[assembly: AssemblyVersion("1.0.0.1")]
+[assembly: AssemblyFileVersion("1.0.0.1")]
