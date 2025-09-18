@@ -458,93 +458,142 @@ Settings.Save();
 
 ```C#
 
-            var invoice = new Business.Invoice.Invoice($"FR{DateTime.Now:yyyyMMddhhmmss}",
-                DateTime.Now, "B12959755")
-            {
-                SellerName = "IRENE SOLUTIONS SL",
-                BuyerID = "P1207700D",
-                BuyerName = "AYUNTAMIENTO DE MONCOFA",
-                Parties = new List<Party>()
-                        {
-                            new Party(){TaxID =  "B12959755", PartyType = "J", Address = "PZ ESTANY COLOBRI 3B", PostalCode = "12530", City = "BURRIANA", Region = "CASTELLON", Phone = " 964679395", Mail = "info@irenesolutions.com", WebAddress = "https://www.irenesolutions.com"},
-                            new Party(){TaxID =  "P1207700D", PartyType = "J", Address = "PLAZA CONSTITUCION, 1", PostalCode = "12593", City = "MONCOFAR", Region = "CASTELLON", Phone = "964580421", Mail = "info@moncofa.com", WebAddress = "https://www.moncofa.com"},
-                            new Party(){PartyRole =  "OC", PartyID = "L01120770", Address = "PLAZA CONSTITUCION, 1", PostalCode = "12593", City = "MONCOFAR", Region = "CASTELLON"}, // Oficina contable
-                            new Party(){PartyRole =  "OG", PartyID = "L01120770", Address = "PLAZA CONSTITUCION, 1", PostalCode = "12593", City = "MONCOFAR", Region = "CASTELLON"}, // Organo gestor
-                            new Party(){PartyRole =  "UT", PartyID = "L01120770", Address = "PLAZA CONSTITUCION, 1", PostalCode = "12593", City = "MONCOFAR", Region = "CASTELLON"}  // Unidad tramitadora
-                        },
-                TaxItems = new List<TaxItem>()
-                        {
-                            new TaxItem()
-                            {
-                                TaxClass = "TO", // TaxesOutputs (soportados)
-                                TaxRate = 21,
-                                TaxBase = 100,
-                                TaxAmount = 21
-                            },
-                            new TaxItem()
-                            {
-                                Tax = "04", // IRPF
-                                TaxClass = "TW", // TaxesWithheld (retenciones)
-                                TaxRate = 15,
-                                TaxBase = 100,
-                                TaxAmount = -15
-                            }
-                        },
-                InvoiceLines = new List<Business.Invoice.InvoiceLine>()
-                        {
-                            new Business.Invoice.InvoiceLine()
-                            {
-                                ItemPosition = 1,
-                                BuyerReference = "PEDIDO0001",
-                                ItemID = "COD001",
-                                ItemName = "SERVICIOS DESARROLLO SOFTWARE",
-                                Quantity = 1,
-                                NetPrice = 100,
-                                DiscountRate = 4.76m,
-                                DiscountAmount = 5,
-                                NetAmount = 100,
-                                GrossAmount = 105,
-                                TaxesOutputBase = 100,
-                                TaxesOutputRate = 21,
-                                TaxesOutputAmount = 21,
-                                //TaxesWithheldBase = 100, // DE MOMENTO EL VALIDADOR DE FACE NO ACEPTA IMPUESTOS RETENIDOS EN LA LÍNEA 
-                                //TaxesWithheldRate = 15,
-                                //TaxesWithheldAmount = -15
+var invoice = new Business.Invoice.Invoice($"FR{DateTime.Now:yyyyMMddhhmmss}",
+    DateTime.Now, "B12959755")
+{
+    SellerName = "IRENE SOLUTIONS SL",
+    BuyerID = "P1207700D",
+    BuyerName = "AYUNTAMIENTO DE MONCOFA",
+    Parties = new List<Party>()
+    {
+        // Vendedor
+        new Party()
+        {
+            TaxID =  "B12959755", 
+            PartyType = "J", 
+            Address = "PZ ESTANY COLOBRI 3B", 
+            PostalCode = "12530", 
+            City = "BURRIANA", 
+            Region = "CASTELLON", 
+            Phone = " 964679395", 
+            Mail = "info@irenesolutions.com", 
+            WebAddress = "https://www.irenesolutions.com"
+        },
+        // Comprador
+        new Party()
+        {
+            TaxID =  "P1207700D", 
+            PartyType = "J", 
+            Address = "PLAZA CONSTITUCION, 1", 
+            PostalCode = "12593", 
+            City = "MONCOFAR", 
+            Region = "CASTELLON",
+            Phone = "964580421", 
+            Mail = "info@moncofa.com", 
+            WebAddress = "https://www.moncofa.com"
+        },
+        // Oficina contable
+        new Party()
+        {
+            PartyRole =  "OC", 
+            PartyID = "L01120770", 
+            Address = "PLAZA CONSTITUCION, 1", 
+            PostalCode = "12593", 
+            City = "MONCOFAR", 
+            Region = "CASTELLON"
+        }, 
+        // Organo gestor
+        new Party()
+        {
+            PartyRole =  "OG", 
+            PartyID = "L01120770", 
+            Address = "PLAZA CONSTITUCION, 1", 
+            PostalCode = "12593", 
+            City = "MONCOFAR", 
+            Region = "CASTELLON"
+        }, 
+        // Unidad tramitadora
+        new Party()
+        {
+            PartyRole =  "UT", 
+            PartyID = "L01120770", 
+            Address = "PLAZA CONSTITUCION, 1", 
+            PostalCode = "12593", 
+            City = "MONCOFAR", 
+            Region = "CASTELLON"
+        }  
+    },
+    // Líneas de impuestos
+    TaxItems = new List<TaxItem>()
+    {
+        new TaxItem()
+        {
+            TaxClass = "TO", // TaxesOutputs (soportados)
+            TaxRate = 21,
+            TaxBase = 100,
+            TaxAmount = 21
+        },
+        new TaxItem()
+        {
+            Tax = "04", // IRPF
+            TaxClass = "TW", // TaxesWithheld (retenciones)
+            TaxRate = 15,
+            TaxBase = 100,
+            TaxAmount = -15
+        }
+    },
+    // Líneas factura
+    InvoiceLines = new List<Business.Invoice.InvoiceLine>()
+    {
+        new Business.Invoice.InvoiceLine()
+        {
+            ItemPosition = 1,
+            BuyerReference = "PEDIDO0001",
+            ItemID = "COD001",
+            ItemName = "SERVICIOS DESARROLLO SOFTWARE",
+            Quantity = 1,
+            NetPrice = 100,
+            DiscountRate = 4.76m,
+            DiscountAmount = 5,
+            NetAmount = 100,
+            GrossAmount = 105,
+            TaxesOutputBase = 100,
+            TaxesOutputRate = 21,
+            TaxesOutputAmount = 21
+        }
+    },
+    // Vencimientos
+    Installments = new List<Business.Invoice.Installment>()
+    {
+        new Business.Invoice.Installment()
+        {
+            DueDate = DateTime.Now.AddDays(15),
+            Amount = 106m,
+            PaymentMeans = "04",
+            BankAccountType = "IBAN",
+            BankAccount = "ES7731127473172720020181"
+        }
+    }
+};
 
-                            }
-                        },
-                Installments = new List<Business.Invoice.Installment>()
-                        {
-                            new Business.Invoice.Installment()
-                            {
-                                DueDate = DateTime.Now.AddDays(15),
-                                Amount = 106m,
-                                PaymentMeans = "04",
-                                BankAccountType = "IBAN",
-                                BankAccount = "ES7731127473172720020181"
-                            }
-                        }
-            };
+dynamic result = ApiClient.Create(invoice);
 
-            dynamic result = ApiClient.Create(invoice);
+if (result.ResultCode != 0)
+{
 
-            if (result.ResultCode != 0)
-            {
+    Debug.Print($"Se ha producido un error al llamar al API: {result.ResultMessage}");
 
-                Debug.Print($"Se ha producido un error al llamar al API: {result.ResultMessage}");
+}
+else
+{
 
-            }
-            else
-            {
+    var registryCode = $"{result.Return.CSV}";
 
-                var registryCode = $"{result.Return.CSV}";
+    if (!string.IsNullOrEmpty(registryCode))
+        Debug.Print($"Documento envíado con número de registro: {registryCode}");
+    else
+        Debug.Print($"El envío no se ha realizado con éxito: {result.Return.ErrorDescription}");
 
-                if (!string.IsNullOrEmpty(registryCode))
-                    Debug.Print($"Documento envíado con número de registro: {registryCode}");
-                else
-                    Debug.Print($"El envío no se ha realizado con éxito: {result.Return.ErrorDescription}");
-
-            }
-
+}
 
 ```
