@@ -157,90 +157,90 @@ Identificamos estos datos en la lista de interlocutores mediante el rol del inte
 
 ```C#
 
-var fileName = @"C:\Users\usuario\Downloads\xades\EjemploFacturae.xml";
+            var fileName = @"C:\Users\usuario\Downloads\xades\EjemploFacturae.xml";
 
-// Creamos una nueva instancia de Invoice
-var invoice = new Business.Invoice.Invoice($"FRA0001",
-    DateTime.Now, "B12959755")
-{
-    SellerName = "IRENE SOLUTIONS SL",
-    BuyerID = "P1207700D",
-    BuyerName = "AYUNTAMIENTO DE MONCOFA",
-    Parties = new List<Party>()
-        {
-            // Vendedor
-            new Party(){TaxID =  "B12959755", PartyType = "J", Address = "PZ ESTANY COLOBRI 3B", PostalCode = "12530", 
-                City = "BURRIANA", Region = "CASTELLON", Phone = " 964679395", Mail = "info@irenesolutions.com", 
-                WebAddress = "https://www.irenesolutions.com"},
-            //Comprador
-            new Party(){TaxID =  "P1207700D", PartyType = "J", Address = "PLAZA CONSTITUCION, 1", PostalCode = "12593", 
-                City = "MONCOFAR", Region = "CASTELLON", Phone = "964580421", Mail = "info@moncofa.com", 
-                WebAddress = "https://www.moncofa.com"},
-            // Oficina contable
-            new Party(){PartyRole =  "OC", PartyID = "L01120770", Address = "PLAZA CONSTITUCION, 1", PostalCode = "12593", 
-                City = "MONCOFAR", Region = "CASTELLON"}, 
-            // Organo gestor
-            new Party(){PartyRole =  "OG", PartyID = "L01120770", Address = "PLAZA CONSTITUCION, 1", PostalCode = "12593", 
-                City = "MONCOFAR", Region = "CASTELLON"}, 
-            // Unidad tramitadora
-            new Party(){PartyRole =  "UT", PartyID = "L01120770", Address = "PLAZA CONSTITUCION, 1", PostalCode = "12593", 
-                City = "MONCOFAR", Region = "CASTELLON"}  
-        },
-    TaxItems = new List<Business.Invoice.TaxItem>()
-        {
-            new Business.Invoice.TaxItem()
+            // Creamos una nueva instancia de Invoice
+            var invoice = new Business.Invoice.Invoice($"FRA0001",
+                DateTime.Now, "B12959755")
             {
-                TaxClass = "TO", // TaxesOutputs (IVA)
-                TaxRate = 21,
-                TaxBase = 100,
-                TaxAmount = 21
-            },
-            new Business.Invoice.TaxItem()
-            {
-                Tax = "04", // IRPF
-                TaxClass = "TW", // TaxesWithheld (Retenciones)
-                TaxRate = 15,
-                TaxBase = 100,
-                TaxAmount = -15
-            }
-        },
-    InvoiceLines = new List<Business.Invoice.InvoiceLine>()
-        {
-            new Business.Invoice.InvoiceLine()
-            {
-                ItemPosition = 1,
-                BuyerReference = "PEDIDO0001",
-                ItemID = "COD001",
-                ItemName = "SERVICIOS DESARROLLO SOFTWARE",
-                Quantity = 1,
-                NetPrice = 100,
-                DiscountRate = 4.76m,
-                DiscountAmount = 5,
-                NetAmount = 100,
-                GrossAmount = 105,
-                TaxesOutputBase = 100,
-                TaxesOutputRate = 21,
-                TaxesOutputAmount = 21
+                SellerName = "IRENE SOLUTIONS SL",
+                BuyerID = "P1207700D",
+                BuyerName = "AYUNTAMIENTO DE MONCOFA",
+                Parties = new List<Party>()
+                    {
+                        // Vendedor
+                        new Party(){TaxID =  "B12959755", PartyType = "J", Address = "PZ ESTANY COLOBRI 3B", PostalCode = "12530", 
+                            City = "BURRIANA", Region = "CASTELLON", Phone = " 964679395", Mail = "info@irenesolutions.com", 
+                            WebAddress = "https://www.irenesolutions.com"},
+                        //Comprador
+                        new Party(){TaxID =  "P1207700D", PartyType = "J", Address = "PLAZA CONSTITUCION, 1", PostalCode = "12593", 
+                            City = "MONCOFAR", Region = "CASTELLON", Phone = "964580421", Mail = "info@moncofa.com", 
+                            WebAddress = "https://www.moncofa.com"},
+                        // Oficina contable
+                        new Party(){PartyRole =  "OC", PartyID = "L01120770", Address = "PLAZA CONSTITUCION, 1", PostalCode = "12593", 
+                            City = "MONCOFAR", Region = "CASTELLON"}, 
+                        // Organo gestor
+                        new Party(){PartyRole =  "OG", PartyID = "L01120770", Address = "PLAZA CONSTITUCION, 1", PostalCode = "12593", 
+                            City = "MONCOFAR", Region = "CASTELLON"}, 
+                        // Unidad tramitadora
+                        new Party(){PartyRole =  "UT", PartyID = "L01120770", Address = "PLAZA CONSTITUCION, 1", PostalCode = "12593", 
+                            City = "MONCOFAR", Region = "CASTELLON"}  
+                    },
+                TaxItems = new List<Business.Invoice.TaxItem>()
+                    {
+                        new Business.Invoice.TaxItem()
+                        {
+                            TaxClass = "TO", // TaxesOutputs (IVA)
+                            TaxRate = 21,
+                            TaxBase = 100,
+                            TaxAmount = 21
+                        },
+                        new Business.Invoice.TaxItem()
+                        {
+                            Tax = "04", // IRPF
+                            TaxClass = "TW", // TaxesWithheld (Retenciones)
+                            TaxRate = 15,
+                            TaxBase = 100,
+                            TaxAmount = -15
+                        }
+                    },
+                InvoiceLines = new List<Business.Invoice.InvoiceLine>()
+                    {
+                        new Business.Invoice.InvoiceLine()
+                        {
+                            ItemPosition = 1,
+                            BuyerReference = "PEDIDO0001",
+                            ItemID = "COD001",
+                            ItemName = "SERVICIOS DESARROLLO SOFTWARE",
+                            Quantity = 1,
+                            NetPrice = 100,
+                            DiscountRate = 4.76m,
+                            DiscountAmount = 5,
+                            NetAmount = 100,
+                            GrossAmount = 105,
+                            TaxesOutputBase = 100,
+                            TaxesOutputRate = 21,
+                            TaxesOutputAmount = 21,
 
-            }
-        },
-    Installments = new List<Business.Invoice.Installment>()
-        {
-            new Business.Invoice.Installment()
-            {
-                DueDate = DateTime.Now.AddDays(15),
-                Amount = 106m,
-                PaymentMeans = "04",
-                BankAccountType = "IBAN",
-                BankAccount = "ES7731127473172720020181"
-            }
-        }
-};
+                        }
+                    },
+                Installments = new List<Business.Invoice.Installment>()
+                    {
+                        new Business.Invoice.Installment()
+                        {
+                            DueDate = DateTime.Now.AddDays(15),
+                            Amount = 106m,
+                            PaymentMeans = "04",
+                            BankAccountType = "IBAN",
+                            BankAccount = "ES7731127473172720020181"
+                        }
+                    }
+            };
 
-var facturae = invoice.GetFacturae();
-var facturaeManager = new FacturaeManager(facturae);
+            var facturae = invoice.GetFacturae();
+            var facturaeManager = new FacturaeManager(facturae);
 
-File.WriteAllBytes(fileName, facturaeManager.GetUTF8Xml());
+            File.WriteAllBytes(fileName, facturaeManager.GetUTF8Xml());
 
 ```
 
