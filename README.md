@@ -376,15 +376,15 @@ Basándonos en la instancia de la clase `Invoice` creada en el ejemplo anterior,
 
 ```C#
 
-// Importante utilizar X509KeyStorageFlags.Exportable para tener acceso a la clave privada
-var certificate = new X509Certificate2(@"C:\Users\usuario\Downloads\xades\CERT.pfx", "mipass",
-    X509KeyStorageFlags.Exportable);
+            // Importante utilizar X509KeyStorageFlags.Exportable para tener acceso a la clave privada
+            var certificate = new X509Certificate2(@"C:\Users\usuario\Downloads\xades\CERT.pfx", "mipass",
+                X509KeyStorageFlags.Exportable);
 
-var facturae = invoice.GetFacturae();
-var facturaeManager = new FacturaeManager(facturae);
-var signedXml = facturaeManager.GetXmlTextSigned(certificate);
+            var facturae = invoice.GetFacturae();
+            var facturaeManager = new FacturaeManager(facturae);
+            var signedXml = facturaeManager.GetXmlTextSigned(certificate);
 
-File.WriteAllText(@"C:\Users\usuario\Downloads\xades\EjemploFacturaeFirmada.xml", signedXml);
+            File.WriteAllText(@"C:\Users\usuario\Downloads\xades\EjemploFacturaeFirmada.xml", signedXml);
 
 ```
 
