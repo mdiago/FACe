@@ -48,47 +48,97 @@ Para cualquier duda o consulta, puedes escribirnos a **info@irenesolutions.com**
 
 ### Instalar el paquete con el administrador de paquetes NuGet
 
-![image](https://github.com/user-attachments/assets/d539b788-b49e-4969-8061-f6f021986200)
+<img width="1526" height="192" alt="image" src="https://github.com/user-attachments/assets/82bb0a70-aac3-4b81-90fe-0ce11ec66943" />
 
 
 ### Instalar el paquete con dotnet CLI
 
-`dotnet add package FACe`
+`dotnet add package Irene.Solutions.FACe`
 
 <br>
 <br>
- 
+
+ ## Establecer en la configuración los valores para el uso del certificado
+
+
+| Propiedad  | Descripción |
+| ------------- | ------------- |
+| CertificatePath  | Ruta al archivo del certificado a utilizar.   |
+| CertificatePassword  | Password del certificado. Este valor sólo es necesario si tenemos establecido el valor para 'CertificatePath' y el certificado tiene clave de acceso. Sólo se utiliza en los certificados cargados desde el sistema de archivos.  |
+| CertificateSerial  | Número de serie del certificado a utilizar. Mediante este número de serie se selecciona del almacén de certificados de windows el certificado con el que realizar las comunicaciones.  |
+| CertificateThumbprint  | Hash o Huella digital del certificado a utilizar. Mediante esta huella digital se selecciona del almacén de certificados de windows el certificado con el que realizar las comunicaciones.    |
+
+En el siguiente ejemplo estableceremos la configuración de nuestro certificado para cargarlo desde el sitema de archivos:
+
+### C#
+```C#
+
+// Valores actuales de configuración de certificado
+Debug.Print($"{Settings.Current.CertificatePath}");
+Debug.Print($"{Settings.Current.CertificatePassword}");
+
+// Establezco nuevos valores
+Settings.Current.CertificatePath = @"C:\CERTIFICADO.pfx";
+Settings.Current.CertificatePassword = "pass certificado";
+
+// Guardo los cambios
+Settings.Save();
 
 ```
-## Ejemplo envío factura
+
+### VB
+```VB
+
+' Valores actuales de configuración de certificado
+Debug.Print($"{Settings.Current.CertificatePath}")
+Debug.Print($"{Settings.Current.CertificatePassword}")
+
+' Establezco nuevos valores
+Settings.Current.CertificatePath = "C:\CERTIFICADO.pfx"
+Settings.Current.CertificatePassword = "pass certificado"
+
+' Guardo los cambios
+Settings.Save()
+
+```
+
+## Ejemplo firma de archivo xml de Factura-e
+
+En este ejemplo firmamos un archivo xml en formato Factura-e. Una vez lo firmemos, lo podemos validar por ejemplo con [la herramienta de FACe](https://se-proveedores-face.redsara.es/proveedores/validar-factura).
+
+### C#
 
 ```C#
 
-using Wefinz.Facturae;
-using Wefinz.Facturae.Signing;
-using Wefinz.Facturae.FACe.Rest;
+// Firmamos un archivo xml de Factura-e
 
-// 1) Generar Facturae 3.2.2
-var xml = FacturaeXml.Serialize(invoice);
+// Importante utilizar X509KeyStorageFlags.Exportable para tener acceso a la clave privada
+var certificate = new X509Certificate2(@"C:\Users\usuario\Downloads\xades\CERT.pfx", "mipass", 
+    X509KeyStorageFlags.Exportable);
 
-// 2) Validar contra XSD
-FacturaeXml.Validate(xml, FacturaeSchema.V322);
+var unsignedXml = File.ReadAllText(@"C:\Users\usuario\Downloads\xades\EjemploFacturae.xml");
 
-// 3) Firmar con XAdES
-var signed = XadesSigner.SignEnveloped(xml, myCert, FacturaeSignaturePolicy.Default);
+XadesSigned xadesSigned = new XadesSigned(unsignedXml, certificate);
+var signedXml = xadesSigned.GetSignedXml();
 
-// 4) Enviar a FACe REST
-var client = new FaceRestClient(new HttpClient(), new FaceRestOptions {
-    BaseUrl = "https://face.gob.es/api/rest", // sustituir por entorno pruebas/producción
-});
-var result = await client.SubmitAsync(new FaceInvoicePayload {
-    InvoiceId = invoiceId,
-    SignedFacturaeUtf8 = signed,
-    SupplierNif = "B12345678",
-    Dir3 = new Dir3Codes("L01234567", "UT12345", "OC12345")
-});
+File.WriteAllText(@"C:\Users\usuario\Downloads\xades\Firmada.xml", signedXml);
 
-Console.WriteLine($"Factura enviada con ID: {result.SubmissionId}");
+```
 
+### VB
+```VB
+
+' Firmamos un archivo xml de Factura-e
+
+' Importante utilizar X509KeyStorageFlags.Exportable para tener acceso a la clave privada
+Dim certificate As New X509Certificate2("C:\Users\usuario\Downloads\xades\CERT.pfx", "mipass",
+  X509KeyStorageFlags.Exportable)
+
+Dim unsignedXml As String = File.ReadAllText("C:\Users\usuario\Downloads\xades\EjemploFacturae.xml")
+
+Dim xadesSigned As New XadesSigned(unsignedXml, certificate)
+Dim signedXml As String = xadesSigned.GetSignedXml()
+
+File.WriteAllText("C:\Users\usuario\Downloads\xades\Firmada.xml", signedXml)
 
 ```
