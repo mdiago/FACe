@@ -5,7 +5,7 @@
 ## :receipt: ¡Automatiza el envío de facturas a FACe de forma fácil y eficiente utilizando FACe!
 <br>
 
-Biblioteca **open source en C#** para la **emisión, firma XAdES y envío de facturas electrónicas en formato Facturae 3.2.2 a la plataforma FACe** mediante su nueva **API REST**.
+Biblioteca **open source en C#** para la **emisión, firma XAdES y envío de facturas electrónicas en formato Facturae 3.2 a la plataforma FACe** mediante su nueva **API REST**.
 
 La finalidad de esta biblioteca es la generación, conservación y envío de facturas; relacionados con FACe, Punto General de Entrada de Facturas Electrónicas de la Administración General del Estado.
 
@@ -35,7 +35,7 @@ Para cualquier duda o consulta, puedes escribirnos a **info@irenesolutions.com**
 
 ## ✨ Características
 
-- 📑 Generación de facturas electrónicas en formato **Facturae 3.2.2**  
+- 📑 Generación de facturas electrónicas en formato **Facturae 3.2**  
 - ✅ Validación contra los **esquemas XSD oficiales**  
 - 🔐 Firma digital **XAdES-EPES/T** con **política de firma Facturae**  
 - ☁️ Envío a la **plataforma FACe REST** (nueva entrada de facturas de las AAPP)  
