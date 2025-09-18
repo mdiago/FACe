@@ -157,7 +157,7 @@ Identificamos estos datos en la lista de interlocutores mediante el rol del inte
 
 ```C#
 
-            var fileName = @"C:\Users\usuario\Downloads\xades\EjemploFacturae.xml";
+              var fileName = @"C:\Users\usuario\Downloads\xades\EjemploFacturae.xml";
 
             // Creamos una nueva instancia de Invoice
             var invoice = new Business.Invoice.Invoice($"FRA0001",
@@ -169,22 +169,61 @@ Identificamos estos datos en la lista de interlocutores mediante el rol del inte
                 Parties = new List<Party>()
                     {
                         // Vendedor
-                        new Party(){TaxID =  "B12959755", PartyType = "J", Address = "PZ ESTANY COLOBRI 3B", PostalCode = "12530", 
-                            City = "BURRIANA", Region = "CASTELLON", Phone = " 964679395", Mail = "info@irenesolutions.com", 
-                            WebAddress = "https://www.irenesolutions.com"},
+                        new Party()
+                        {
+                            TaxID =  "B12959755", 
+                            PartyType = "J", 
+                            Address = "PZ ESTANY COLOBRI 3B", 
+                            PostalCode = "12530", 
+                            City = "BURRIANA", 
+                            Region = "CASTELLON", 
+                            Phone = " 964679395", 
+                            Mail = "info@irenesolutions.com", 
+                            WebAddress = "https://www.irenesolutions.com"
+                        },
                         //Comprador
-                        new Party(){TaxID =  "P1207700D", PartyType = "J", Address = "PLAZA CONSTITUCION, 1", PostalCode = "12593", 
-                            City = "MONCOFAR", Region = "CASTELLON", Phone = "964580421", Mail = "info@moncofa.com", 
-                            WebAddress = "https://www.moncofa.com"},
+                        new Party()
+                        {
+                            TaxID =  "P1207700D", 
+                            PartyType = "J", 
+                            Address = "PLAZA CONSTITUCION, 1", 
+                            PostalCode = "12593", 
+                            City = "MONCOFAR", 
+                            Region = "CASTELLON", 
+                            Phone = "964580421", 
+                            Mail = "info@moncofa.com", 
+                            WebAddress = "https://www.moncofa.com"
+                        },
                         // Oficina contable
-                        new Party(){PartyRole =  "OC", PartyID = "L01120770", Address = "PLAZA CONSTITUCION, 1", PostalCode = "12593", 
-                            City = "MONCOFAR", Region = "CASTELLON"}, 
+                        new Party()
+                        {
+                            PartyRole =  "OC", 
+                            PartyID = "L01120770", 
+                            Address = "PLAZA CONSTITUCION, 1", 
+                            PostalCode = "12593", 
+                            City = "MONCOFAR", 
+                            Region = "CASTELLON"
+                        }, 
                         // Organo gestor
-                        new Party(){PartyRole =  "OG", PartyID = "L01120770", Address = "PLAZA CONSTITUCION, 1", PostalCode = "12593", 
-                            City = "MONCOFAR", Region = "CASTELLON"}, 
+                        new Party()
+                        {
+                            PartyRole =  "OG", 
+                            PartyID = "L01120770", 
+                            Address = "PLAZA CONSTITUCION, 1", 
+                            PostalCode = "12593", 
+                            City = "MONCOFAR", 
+                            Region = "CASTELLON"
+                        }, 
                         // Unidad tramitadora
-                        new Party(){PartyRole =  "UT", PartyID = "L01120770", Address = "PLAZA CONSTITUCION, 1", PostalCode = "12593", 
-                            City = "MONCOFAR", Region = "CASTELLON"}  
+                        new Party()
+                        {
+                            PartyRole =  "UT", 
+                            PartyID = "L01120770", 
+                            Address = "PLAZA CONSTITUCION, 1", 
+                            PostalCode = "12593", 
+                            City = "MONCOFAR", 
+                            Region = "CASTELLON"
+                        }  
                     },
                 TaxItems = new List<Business.Invoice.TaxItem>()
                     {
