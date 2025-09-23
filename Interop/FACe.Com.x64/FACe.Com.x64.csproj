@@ -4,12 +4,12 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{A2D48916-AAAD-40BB-9A0E-89BC200E0891}</ProjectGuid>
+    <ProjectGuid>{7286F94F-9188-4FCF-A47C-059CF585440A}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>FACe</RootNamespace>
     <AssemblyName>FACe</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
     <TargetFrameworkProfile />
@@ -18,11 +18,13 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>..\FACeLibs\FACeLib x64\</OutputPath>
     <DefineConstants>TRACE;DEBUG;LE_461</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Debug\FACe.xml</DocumentationFile>
+    <DocumentationFile>..\FACeLibs\FACe.xml</DocumentationFile>
+    <RegisterForComInterop>true</RegisterForComInterop>
+    <PlatformTarget>x64</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -50,502 +52,510 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\NetCore\Src\Business\FACeManager.cs">
+    <Compile Include="..\..\NetCore\Src\Business\FACeManager.cs">
       <Link>Src\Business\FACeManager.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Business\Invoice\Installment.cs">
+    <Compile Include="..\..\NetCore\Src\Business\Invoice\Installment.cs">
       <Link>Src\Business\Invoice\Installment.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Business\Invoice\Invoice.cs">
+    <Compile Include="..\..\NetCore\Src\Business\Invoice\Invoice.cs">
       <Link>Src\Business\Invoice\Invoice.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Business\Invoice\InvoiceLine.cs">
+    <Compile Include="..\..\NetCore\Src\Business\Invoice\InvoiceLine.cs">
       <Link>Src\Business\Invoice\InvoiceLine.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Business\Invoice\Party.cs">
+    <Compile Include="..\..\NetCore\Src\Business\Invoice\Party.cs">
       <Link>Src\Business\Invoice\Party.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Business\Invoice\RectificationItem.cs">
+    <Compile Include="..\..\NetCore\Src\Business\Invoice\RectificationItem.cs">
       <Link>Src\Business\Invoice\RectificationItem.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Business\Invoice\TaxItem.cs">
+    <Compile Include="..\..\NetCore\Src\Business\Invoice\TaxItem.cs">
       <Link>Src\Business\Invoice\TaxItem.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Common\CertManager.cs">
+    <Compile Include="..\..\NetCore\Src\Common\CertManager.cs">
       <Link>Src\Common\CertManager.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Common\FACeException.cs">
+    <Compile Include="..\..\NetCore\Src\Common\FACeException.cs">
       <Link>Src\Common\FACeException.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Common\Logger.cs">
+    <Compile Include="..\..\NetCore\Src\Common\Logger.cs">
       <Link>Src\Common\Logger.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Common\Utils.cs">
+    <Compile Include="..\..\NetCore\Src\Common\Utils.cs">
       <Link>Src\Common\Utils.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Config\FACeEndPointPrefixes.cs">
+    <Compile Include="..\..\NetCore\Src\Config\FACeEndPointPrefixes.cs">
       <Link>Src\Config\FACeEndPointPrefixes.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Config\FACeSettings.cs">
+    <Compile Include="..\..\NetCore\Src\Config\FACeSettings.cs">
       <Link>Src\Config\FACeSettings.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Config\Settings.cs">
+    <Compile Include="..\..\NetCore\Src\Config\Settings.cs">
       <Link>Src\Config\Settings.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Net\Rest\Api.cs">
+    <Compile Include="..\..\NetCore\Src\Net\Rest\Api.cs">
       <Link>Src\Net\Rest\Api.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Net\Rest\ApiClient.cs">
+    <Compile Include="..\..\NetCore\Src\Net\Rest\ApiClient.cs">
       <Link>Src\Net\Rest\ApiClient.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Net\Rest\Ct.cs">
+    <Compile Include="..\..\NetCore\Src\Net\Rest\Ct.cs">
       <Link>Src\Net\Rest\Ct.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Net\Rest\Json\JsonAttribute.cs">
+    <Compile Include="..\..\NetCore\Src\Net\Rest\Json\JsonAttribute.cs">
       <Link>Src\Net\Rest\Json\JsonAttribute.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Net\Rest\Json\JsonSerializable.cs">
+    <Compile Include="..\..\NetCore\Src\Net\Rest\Json\JsonSerializable.cs">
       <Link>Src\Net\Rest\Json\JsonSerializable.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Net\Rest\Json\Kivu\JsonSerializableKivu.cs">
+    <Compile Include="..\..\NetCore\Src\Net\Rest\Json\Kivu\JsonSerializableKivu.cs">
       <Link>Src\Net\Rest\Json\Kivu\JsonSerializableKivu.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Net\Rest\Json\Parser\JsonParser.cs">
+    <Compile Include="..\..\NetCore\Src\Net\Rest\Json\Parser\JsonParser.cs">
       <Link>Src\Net\Rest\Json\Parser\JsonParser.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Net\Rest\Json\Parser\JsonParserReader.cs">
+    <Compile Include="..\..\NetCore\Src\Net\Rest\Json\Parser\JsonParserReader.cs">
       <Link>Src\Net\Rest\Json\Parser\JsonParserReader.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Net\Rest\Json\Parser\Lexer\JsonLexer.cs">
+    <Compile Include="..\..\NetCore\Src\Net\Rest\Json\Parser\Lexer\JsonLexer.cs">
       <Link>Src\Net\Rest\Json\Parser\Lexer\JsonLexer.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Net\Rest\Json\Parser\Lexer\Tokens\JsonColon.cs">
+    <Compile Include="..\..\NetCore\Src\Net\Rest\Json\Parser\Lexer\Tokens\JsonColon.cs">
       <Link>Src\Net\Rest\Json\Parser\Lexer\Tokens\JsonColon.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Net\Rest\Json\Parser\Lexer\Tokens\JsonComma.cs">
+    <Compile Include="..\..\NetCore\Src\Net\Rest\Json\Parser\Lexer\Tokens\JsonComma.cs">
       <Link>Src\Net\Rest\Json\Parser\Lexer\Tokens\JsonComma.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Net\Rest\Json\Parser\Lexer\Tokens\JsonFalse.cs">
+    <Compile Include="..\..\NetCore\Src\Net\Rest\Json\Parser\Lexer\Tokens\JsonFalse.cs">
       <Link>Src\Net\Rest\Json\Parser\Lexer\Tokens\JsonFalse.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Net\Rest\Json\Parser\Lexer\Tokens\JsonLeftBrace.cs">
+    <Compile Include="..\..\NetCore\Src\Net\Rest\Json\Parser\Lexer\Tokens\JsonLeftBrace.cs">
       <Link>Src\Net\Rest\Json\Parser\Lexer\Tokens\JsonLeftBrace.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Net\Rest\Json\Parser\Lexer\Tokens\JsonLeftBracket.cs">
+    <Compile Include="..\..\NetCore\Src\Net\Rest\Json\Parser\Lexer\Tokens\JsonLeftBracket.cs">
       <Link>Src\Net\Rest\Json\Parser\Lexer\Tokens\JsonLeftBracket.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Net\Rest\Json\Parser\Lexer\Tokens\JsonNull.cs">
+    <Compile Include="..\..\NetCore\Src\Net\Rest\Json\Parser\Lexer\Tokens\JsonNull.cs">
       <Link>Src\Net\Rest\Json\Parser\Lexer\Tokens\JsonNull.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Net\Rest\Json\Parser\Lexer\Tokens\JsonNumber.cs">
+    <Compile Include="..\..\NetCore\Src\Net\Rest\Json\Parser\Lexer\Tokens\JsonNumber.cs">
       <Link>Src\Net\Rest\Json\Parser\Lexer\Tokens\JsonNumber.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Net\Rest\Json\Parser\Lexer\Tokens\JsonRightBrace.cs">
+    <Compile Include="..\..\NetCore\Src\Net\Rest\Json\Parser\Lexer\Tokens\JsonRightBrace.cs">
       <Link>Src\Net\Rest\Json\Parser\Lexer\Tokens\JsonRightBrace.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Net\Rest\Json\Parser\Lexer\Tokens\JsonRightBracket.cs">
+    <Compile Include="..\..\NetCore\Src\Net\Rest\Json\Parser\Lexer\Tokens\JsonRightBracket.cs">
       <Link>Src\Net\Rest\Json\Parser\Lexer\Tokens\JsonRightBracket.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Net\Rest\Json\Parser\Lexer\Tokens\JsonString.cs">
+    <Compile Include="..\..\NetCore\Src\Net\Rest\Json\Parser\Lexer\Tokens\JsonString.cs">
       <Link>Src\Net\Rest\Json\Parser\Lexer\Tokens\JsonString.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Net\Rest\Json\Parser\Lexer\Tokens\JsonToken.cs">
+    <Compile Include="..\..\NetCore\Src\Net\Rest\Json\Parser\Lexer\Tokens\JsonToken.cs">
       <Link>Src\Net\Rest\Json\Parser\Lexer\Tokens\JsonToken.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Net\Rest\Json\Parser\Lexer\Tokens\JsonTrue.cs">
+    <Compile Include="..\..\NetCore\Src\Net\Rest\Json\Parser\Lexer\Tokens\JsonTrue.cs">
       <Link>Src\Net\Rest\Json\Parser\Lexer\Tokens\JsonTrue.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Net\Rest\Json\Serializer\IJsonSerializer.cs">
+    <Compile Include="..\..\NetCore\Src\Net\Rest\Json\Serializer\IJsonSerializer.cs">
       <Link>Src\Net\Rest\Json\Serializer\IJsonSerializer.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Net\Rest\Json\Serializer\JsonBooleanSerializer.cs">
+    <Compile Include="..\..\NetCore\Src\Net\Rest\Json\Serializer\JsonBooleanSerializer.cs">
       <Link>Src\Net\Rest\Json\Serializer\JsonBooleanSerializer.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Net\Rest\Json\Serializer\JsonByteArraySerializer.cs">
+    <Compile Include="..\..\NetCore\Src\Net\Rest\Json\Serializer\JsonByteArraySerializer.cs">
       <Link>Src\Net\Rest\Json\Serializer\JsonByteArraySerializer.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Net\Rest\Json\Serializer\JsonDateTimeSerializer.cs">
+    <Compile Include="..\..\NetCore\Src\Net\Rest\Json\Serializer\JsonDateTimeSerializer.cs">
       <Link>Src\Net\Rest\Json\Serializer\JsonDateTimeSerializer.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Net\Rest\Json\Serializer\JsonDecimalSerializer.cs">
+    <Compile Include="..\..\NetCore\Src\Net\Rest\Json\Serializer\JsonDecimalSerializer.cs">
       <Link>Src\Net\Rest\Json\Serializer\JsonDecimalSerializer.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Net\Rest\Json\Serializer\JsonDefaulSerializer.cs">
+    <Compile Include="..\..\NetCore\Src\Net\Rest\Json\Serializer\JsonDefaulSerializer.cs">
       <Link>Src\Net\Rest\Json\Serializer\JsonDefaulSerializer.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Net\Rest\Json\Serializer\JsonEnumSerializer.cs">
+    <Compile Include="..\..\NetCore\Src\Net\Rest\Json\Serializer\JsonEnumSerializer.cs">
       <Link>Src\Net\Rest\Json\Serializer\JsonEnumSerializer.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Net\Rest\Json\Serializer\JsonIntSerializer.cs">
+    <Compile Include="..\..\NetCore\Src\Net\Rest\Json\Serializer\JsonIntSerializer.cs">
       <Link>Src\Net\Rest\Json\Serializer\JsonIntSerializer.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Net\Rest\Json\Serializer\JsonSerializer.cs">
+    <Compile Include="..\..\NetCore\Src\Net\Rest\Json\Serializer\JsonSerializer.cs">
       <Link>Src\Net\Rest\Json\Serializer\JsonSerializer.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Net\Rest\Json\Serializer\JsonStringSerializer.cs">
+    <Compile Include="..\..\NetCore\Src\Net\Rest\Json\Serializer\JsonStringSerializer.cs">
       <Link>Src\Net\Rest\Json\Serializer\JsonStringSerializer.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Net\Rest\List\FieldOperation.cs">
+    <Compile Include="..\..\NetCore\Src\Net\Rest\List\FieldOperation.cs">
       <Link>Src\Net\Rest\List\FieldOperation.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Net\Rest\List\Filter.cs">
+    <Compile Include="..\..\NetCore\Src\Net\Rest\List\Filter.cs">
       <Link>Src\Net\Rest\List\Filter.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Net\Rest\List\FilterSet.cs">
+    <Compile Include="..\..\NetCore\Src\Net\Rest\List\FilterSet.cs">
       <Link>Src\Net\Rest\List\FilterSet.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Providers\Api\ApiRequest.cs">
+    <Compile Include="..\..\NetCore\Src\Providers\Api\ApiRequest.cs">
       <Link>Src\Providers\Api\ApiRequest.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Providers\Api\InvoiceEntry.cs">
+    <Compile Include="..\..\NetCore\Src\Providers\Api\InvoiceEntry.cs">
       <Link>Src\Providers\Api\InvoiceEntry.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Providers\Api\InvoiceEntryAttachment.cs">
+    <Compile Include="..\..\NetCore\Src\Providers\Api\InvoiceEntryAttachment.cs">
       <Link>Src\Providers\Api\InvoiceEntryAttachment.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Providers\Jwt\Header.cs">
+    <Compile Include="..\..\NetCore\Src\Providers\Jwt\Header.cs">
       <Link>Src\Providers\Jwt\Header.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Providers\Jwt\JwtBuilder.cs">
+    <Compile Include="..\..\NetCore\Src\Providers\Jwt\JwtBuilder.cs">
       <Link>Src\Providers\Jwt\JwtBuilder.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Providers\Jwt\Payload.cs">
+    <Compile Include="..\..\NetCore\Src\Providers\Jwt\Payload.cs">
       <Link>Src\Providers\Jwt\Payload.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Xml\FacturaeNamespaces.cs">
+    <Compile Include="..\..\NetCore\Src\Xml\FacturaeNamespaces.cs">
       <Link>Src\Xml\FacturaeNamespaces.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Xml\Facturae\Bies\Account.cs">
+    <Compile Include="..\..\NetCore\Src\Xml\Facturae\Bies\Account.cs">
       <Link>Src\Xml\Facturae\Bies\Account.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Xml\Facturae\Bies\AccountChoice.cs">
+    <Compile Include="..\..\NetCore\Src\Xml\Facturae\Bies\AccountChoice.cs">
       <Link>Src\Xml\Facturae\Bies\AccountChoice.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Xml\Facturae\Bies\AdditionalData.cs">
+    <Compile Include="..\..\NetCore\Src\Xml\Facturae\Bies\AdditionalData.cs">
       <Link>Src\Xml\Facturae\Bies\AdditionalData.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Xml\Facturae\Bies\Address.cs">
+    <Compile Include="..\..\NetCore\Src\Xml\Facturae\Bies\Address.cs">
       <Link>Src\Xml\Facturae\Bies\Address.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Xml\Facturae\Bies\AdministrativeCentre.cs">
+    <Compile Include="..\..\NetCore\Src\Xml\Facturae\Bies\AdministrativeCentre.cs">
       <Link>Src\Xml\Facturae\Bies\AdministrativeCentre.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Xml\Facturae\Bies\Amount.cs">
+    <Compile Include="..\..\NetCore\Src\Xml\Facturae\Bies\Amount.cs">
       <Link>Src\Xml\Facturae\Bies\Amount.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Xml\Facturae\Bies\AmountsWithheld.cs">
+    <Compile Include="..\..\NetCore\Src\Xml\Facturae\Bies\AmountsWithheld.cs">
       <Link>Src\Xml\Facturae\Bies\AmountsWithheld.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Xml\Facturae\Bies\Assignee.cs">
+    <Compile Include="..\..\NetCore\Src\Xml\Facturae\Bies\Assignee.cs">
       <Link>Src\Xml\Facturae\Bies\Assignee.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Xml\Facturae\Bies\Attachment.cs">
+    <Compile Include="..\..\NetCore\Src\Xml\Facturae\Bies\Attachment.cs">
       <Link>Src\Xml\Facturae\Bies\Attachment.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Xml\Facturae\Bies\AttachmentCompressionAlgorithm.cs">
+    <Compile Include="..\..\NetCore\Src\Xml\Facturae\Bies\AttachmentCompressionAlgorithm.cs">
       <Link>Src\Xml\Facturae\Bies\AttachmentCompressionAlgorithm.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Xml\Facturae\Bies\AttachmentEncoding.cs">
+    <Compile Include="..\..\NetCore\Src\Xml\Facturae\Bies\AttachmentEncoding.cs">
       <Link>Src\Xml\Facturae\Bies\AttachmentEncoding.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Xml\Facturae\Bies\AttachmentFormat.cs">
+    <Compile Include="..\..\NetCore\Src\Xml\Facturae\Bies\AttachmentFormat.cs">
       <Link>Src\Xml\Facturae\Bies\AttachmentFormat.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Xml\Facturae\Bies\Batch.cs">
+    <Compile Include="..\..\NetCore\Src\Xml\Facturae\Bies\Batch.cs">
       <Link>Src\Xml\Facturae\Bies\Batch.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Xml\Facturae\Bies\Business.cs">
+    <Compile Include="..\..\NetCore\Src\Xml\Facturae\Bies\Business.cs">
       <Link>Src\Xml\Facturae\Bies\Business.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Xml\Facturae\Bies\Charge.cs">
+    <Compile Include="..\..\NetCore\Src\Xml\Facturae\Bies\Charge.cs">
       <Link>Src\Xml\Facturae\Bies\Charge.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Xml\Facturae\Bies\ContactDetails.cs">
+    <Compile Include="..\..\NetCore\Src\Xml\Facturae\Bies\ContactDetails.cs">
       <Link>Src\Xml\Facturae\Bies\ContactDetails.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Xml\Facturae\Bies\CorrectionMethod.cs">
+    <Compile Include="..\..\NetCore\Src\Xml\Facturae\Bies\CorrectionMethod.cs">
       <Link>Src\Xml\Facturae\Bies\CorrectionMethod.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Xml\Facturae\Bies\CorrectionMethodDescription.cs">
+    <Compile Include="..\..\NetCore\Src\Xml\Facturae\Bies\CorrectionMethodDescription.cs">
       <Link>Src\Xml\Facturae\Bies\CorrectionMethodDescription.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Xml\Facturae\Bies\Corrective.cs">
+    <Compile Include="..\..\NetCore\Src\Xml\Facturae\Bies\Corrective.cs">
       <Link>Src\Xml\Facturae\Bies\Corrective.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Xml\Facturae\Bies\Country.cs">
+    <Compile Include="..\..\NetCore\Src\Xml\Facturae\Bies\Country.cs">
       <Link>Src\Xml\Facturae\Bies\Country.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Xml\Facturae\Bies\CurrencyCode.cs">
+    <Compile Include="..\..\NetCore\Src\Xml\Facturae\Bies\CurrencyCode.cs">
       <Link>Src\Xml\Facturae\Bies\CurrencyCode.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Xml\Facturae\Bies\DeliveryNote.cs">
+    <Compile Include="..\..\NetCore\Src\Xml\Facturae\Bies\DeliveryNote.cs">
       <Link>Src\Xml\Facturae\Bies\DeliveryNote.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Xml\Facturae\Bies\Discount.cs">
+    <Compile Include="..\..\NetCore\Src\Xml\Facturae\Bies\Discount.cs">
       <Link>Src\Xml\Facturae\Bies\Discount.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Xml\Facturae\Bies\ExchangeRateDetails.cs">
+    <Compile Include="..\..\NetCore\Src\Xml\Facturae\Bies\ExchangeRateDetails.cs">
       <Link>Src\Xml\Facturae\Bies\ExchangeRateDetails.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Xml\Facturae\Bies\Extensions.cs">
+    <Compile Include="..\..\NetCore\Src\Xml\Facturae\Bies\Extensions.cs">
       <Link>Src\Xml\Facturae\Bies\Extensions.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Xml\Facturae\Bies\FactoringAssignmentData.cs">
+    <Compile Include="..\..\NetCore\Src\Xml\Facturae\Bies\FactoringAssignmentData.cs">
       <Link>Src\Xml\Facturae\Bies\FactoringAssignmentData.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Xml\Facturae\Bies\FactoringAssignmentDocument.cs">
+    <Compile Include="..\..\NetCore\Src\Xml\Facturae\Bies\FactoringAssignmentDocument.cs">
       <Link>Src\Xml\Facturae\Bies\FactoringAssignmentDocument.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Xml\Facturae\Bies\Facturae.cs">
+    <Compile Include="..\..\NetCore\Src\Xml\Facturae\Bies\Facturae.cs">
       <Link>Src\Xml\Facturae\Bies\Facturae.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Xml\Facturae\Bies\FileHeader.cs">
+    <Compile Include="..\..\NetCore\Src\Xml\Facturae\Bies\FileHeader.cs">
       <Link>Src\Xml\Facturae\Bies\FileHeader.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Xml\Facturae\Bies\Individual.cs">
+    <Compile Include="..\..\NetCore\Src\Xml\Facturae\Bies\Individual.cs">
       <Link>Src\Xml\Facturae\Bies\Individual.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Xml\Facturae\Bies\Installment.cs">
+    <Compile Include="..\..\NetCore\Src\Xml\Facturae\Bies\Installment.cs">
       <Link>Src\Xml\Facturae\Bies\Installment.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Xml\Facturae\Bies\Invoice.cs">
+    <Compile Include="..\..\NetCore\Src\Xml\Facturae\Bies\Invoice.cs">
       <Link>Src\Xml\Facturae\Bies\Invoice.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Xml\Facturae\Bies\InvoiceClass.cs">
+    <Compile Include="..\..\NetCore\Src\Xml\Facturae\Bies\InvoiceClass.cs">
       <Link>Src\Xml\Facturae\Bies\InvoiceClass.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Xml\Facturae\Bies\InvoiceDocumentType.cs">
+    <Compile Include="..\..\NetCore\Src\Xml\Facturae\Bies\InvoiceDocumentType.cs">
       <Link>Src\Xml\Facturae\Bies\InvoiceDocumentType.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Xml\Facturae\Bies\InvoiceHeader.cs">
+    <Compile Include="..\..\NetCore\Src\Xml\Facturae\Bies\InvoiceHeader.cs">
       <Link>Src\Xml\Facturae\Bies\InvoiceHeader.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Xml\Facturae\Bies\InvoiceIssueData.cs">
+    <Compile Include="..\..\NetCore\Src\Xml\Facturae\Bies\InvoiceIssueData.cs">
       <Link>Src\Xml\Facturae\Bies\InvoiceIssueData.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Xml\Facturae\Bies\InvoiceIssuerType.cs">
+    <Compile Include="..\..\NetCore\Src\Xml\Facturae\Bies\InvoiceIssuerType.cs">
       <Link>Src\Xml\Facturae\Bies\InvoiceIssuerType.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Xml\Facturae\Bies\InvoiceLine.cs">
+    <Compile Include="..\..\NetCore\Src\Xml\Facturae\Bies\InvoiceLine.cs">
       <Link>Src\Xml\Facturae\Bies\InvoiceLine.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Xml\Facturae\Bies\InvoiceLineBase.cs">
+    <Compile Include="..\..\NetCore\Src\Xml\Facturae\Bies\InvoiceLineBase.cs">
       <Link>Src\Xml\Facturae\Bies\InvoiceLineBase.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Xml\Facturae\Bies\InvoiceLineTax.cs">
+    <Compile Include="..\..\NetCore\Src\Xml\Facturae\Bies\InvoiceLineTax.cs">
       <Link>Src\Xml\Facturae\Bies\InvoiceLineTax.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Xml\Facturae\Bies\InvoiceTotals.cs">
+    <Compile Include="..\..\NetCore\Src\Xml\Facturae\Bies\InvoiceTotals.cs">
       <Link>Src\Xml\Facturae\Bies\InvoiceTotals.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Xml\Facturae\Bies\InvoiceTotalsBase.cs">
+    <Compile Include="..\..\NetCore\Src\Xml\Facturae\Bies\InvoiceTotalsBase.cs">
       <Link>Src\Xml\Facturae\Bies\InvoiceTotalsBase.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Xml\Facturae\Bies\LanguageCode.cs">
+    <Compile Include="..\..\NetCore\Src\Xml\Facturae\Bies\LanguageCode.cs">
       <Link>Src\Xml\Facturae\Bies\LanguageCode.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Xml\Facturae\Bies\LegalEntity.cs">
+    <Compile Include="..\..\NetCore\Src\Xml\Facturae\Bies\LegalEntity.cs">
       <Link>Src\Xml\Facturae\Bies\LegalEntity.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Xml\Facturae\Bies\Modality.cs">
+    <Compile Include="..\..\NetCore\Src\Xml\Facturae\Bies\Modality.cs">
       <Link>Src\Xml\Facturae\Bies\Modality.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Xml\Facturae\Bies\OverseasAddress.cs">
+    <Compile Include="..\..\NetCore\Src\Xml\Facturae\Bies\OverseasAddress.cs">
       <Link>Src\Xml\Facturae\Bies\OverseasAddress.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Xml\Facturae\Bies\Parties.cs">
+    <Compile Include="..\..\NetCore\Src\Xml\Facturae\Bies\Parties.cs">
       <Link>Src\Xml\Facturae\Bies\Parties.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Xml\Facturae\Bies\PaymentInKind.cs">
+    <Compile Include="..\..\NetCore\Src\Xml\Facturae\Bies\PaymentInKind.cs">
       <Link>Src\Xml\Facturae\Bies\PaymentInKind.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Xml\Facturae\Bies\PaymentMeans.cs">
+    <Compile Include="..\..\NetCore\Src\Xml\Facturae\Bies\PaymentMeans.cs">
       <Link>Src\Xml\Facturae\Bies\PaymentMeans.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Xml\Facturae\Bies\PaymentOnAccount.cs">
+    <Compile Include="..\..\NetCore\Src\Xml\Facturae\Bies\PaymentOnAccount.cs">
       <Link>Src\Xml\Facturae\Bies\PaymentOnAccount.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Xml\Facturae\Bies\PeriodDates.cs">
+    <Compile Include="..\..\NetCore\Src\Xml\Facturae\Bies\PeriodDates.cs">
       <Link>Src\Xml\Facturae\Bies\PeriodDates.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Xml\Facturae\Bies\PersonTypeCode.cs">
+    <Compile Include="..\..\NetCore\Src\Xml\Facturae\Bies\PersonTypeCode.cs">
       <Link>Src\Xml\Facturae\Bies\PersonTypeCode.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Xml\Facturae\Bies\PlaceOfIssue.cs">
+    <Compile Include="..\..\NetCore\Src\Xml\Facturae\Bies\PlaceOfIssue.cs">
       <Link>Src\Xml\Facturae\Bies\PlaceOfIssue.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Xml\Facturae\Bies\ReasonCode.cs">
+    <Compile Include="..\..\NetCore\Src\Xml\Facturae\Bies\ReasonCode.cs">
       <Link>Src\Xml\Facturae\Bies\ReasonCode.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Xml\Facturae\Bies\ReasonDescription.cs">
+    <Compile Include="..\..\NetCore\Src\Xml\Facturae\Bies\ReasonDescription.cs">
       <Link>Src\Xml\Facturae\Bies\ReasonDescription.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Xml\Facturae\Bies\RegistrationData.cs">
+    <Compile Include="..\..\NetCore\Src\Xml\Facturae\Bies\RegistrationData.cs">
       <Link>Src\Xml\Facturae\Bies\RegistrationData.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Xml\Facturae\Bies\ReimbursableExpenses.cs">
+    <Compile Include="..\..\NetCore\Src\Xml\Facturae\Bies\ReimbursableExpenses.cs">
       <Link>Src\Xml\Facturae\Bies\ReimbursableExpenses.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Xml\Facturae\Bies\Repository.cs">
+    <Compile Include="..\..\NetCore\Src\Xml\Facturae\Bies\Repository.cs">
       <Link>Src\Xml\Facturae\Bies\Repository.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Xml\Facturae\Bies\ResidenceTypeCode.cs">
+    <Compile Include="..\..\NetCore\Src\Xml\Facturae\Bies\ResidenceTypeCode.cs">
       <Link>Src\Xml\Facturae\Bies\ResidenceTypeCode.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Xml\Facturae\Bies\RoleTypeCode.cs">
+    <Compile Include="..\..\NetCore\Src\Xml\Facturae\Bies\RoleTypeCode.cs">
       <Link>Src\Xml\Facturae\Bies\RoleTypeCode.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Xml\Facturae\Bies\SchemaVersion.cs">
+    <Compile Include="..\..\NetCore\Src\Xml\Facturae\Bies\SchemaVersion.cs">
       <Link>Src\Xml\Facturae\Bies\SchemaVersion.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Xml\Facturae\Bies\SpecialTaxableEvent.cs">
+    <Compile Include="..\..\NetCore\Src\Xml\Facturae\Bies\SpecialTaxableEvent.cs">
       <Link>Src\Xml\Facturae\Bies\SpecialTaxableEvent.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Xml\Facturae\Bies\SpecialTaxableEventCode.cs">
+    <Compile Include="..\..\NetCore\Src\Xml\Facturae\Bies\SpecialTaxableEventCode.cs">
       <Link>Src\Xml\Facturae\Bies\SpecialTaxableEventCode.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Xml\Facturae\Bies\Subsidy.cs">
+    <Compile Include="..\..\NetCore\Src\Xml\Facturae\Bies\Subsidy.cs">
       <Link>Src\Xml\Facturae\Bies\Subsidy.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Xml\Facturae\Bies\Tax.cs">
+    <Compile Include="..\..\NetCore\Src\Xml\Facturae\Bies\Tax.cs">
       <Link>Src\Xml\Facturae\Bies\Tax.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Xml\Facturae\Bies\TaxIdentification.cs">
+    <Compile Include="..\..\NetCore\Src\Xml\Facturae\Bies\TaxIdentification.cs">
       <Link>Src\Xml\Facturae\Bies\TaxIdentification.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Xml\Facturae\Bies\TaxOutput.cs">
+    <Compile Include="..\..\NetCore\Src\Xml\Facturae\Bies\TaxOutput.cs">
       <Link>Src\Xml\Facturae\Bies\TaxOutput.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Xml\Facturae\Bies\TaxTypeCode.cs">
+    <Compile Include="..\..\NetCore\Src\Xml\Facturae\Bies\TaxTypeCode.cs">
       <Link>Src\Xml\Facturae\Bies\TaxTypeCode.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Xml\Facturae\Bies\ThirdParty.cs">
+    <Compile Include="..\..\NetCore\Src\Xml\Facturae\Bies\ThirdParty.cs">
       <Link>Src\Xml\Facturae\Bies\ThirdParty.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Xml\Facturae\Bies\UnitOfMeasure.cs">
+    <Compile Include="..\..\NetCore\Src\Xml\Facturae\Bies\UnitOfMeasure.cs">
       <Link>Src\Xml\Facturae\Bies\UnitOfMeasure.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Xml\Facturae\FacturaeManager.cs">
+    <Compile Include="..\..\NetCore\Src\Xml\Facturae\FacturaeManager.cs">
       <Link>Src\Xml\Facturae\FacturaeManager.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Xml\Facturae\Xades\Props\BigInt\BByte.cs">
+    <Compile Include="..\..\NetCore\Src\Xml\Facturae\Xades\Props\BigInt\BByte.cs">
       <Link>Src\Xml\Facturae\Xades\Props\BigInt\BByte.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Xml\Facturae\Xades\Props\BigInt\BInt.cs">
+    <Compile Include="..\..\NetCore\Src\Xml\Facturae\Xades\Props\BigInt\BInt.cs">
       <Link>Src\Xml\Facturae\Xades\Props\BigInt\BInt.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Xml\Facturae\Xades\Props\Cert.cs">
+    <Compile Include="..\..\NetCore\Src\Xml\Facturae\Xades\Props\Cert.cs">
       <Link>Src\Xml\Facturae\Xades\Props\Cert.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Xml\Facturae\Xades\Props\CertDigest.cs">
+    <Compile Include="..\..\NetCore\Src\Xml\Facturae\Xades\Props\CertDigest.cs">
       <Link>Src\Xml\Facturae\Xades\Props\CertDigest.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Xml\Facturae\Xades\Props\ClaimedRole.cs">
+    <Compile Include="..\..\NetCore\Src\Xml\Facturae\Xades\Props\ClaimedRole.cs">
       <Link>Src\Xml\Facturae\Xades\Props\ClaimedRole.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Xml\Facturae\Xades\Props\ClaimedRoles.cs">
+    <Compile Include="..\..\NetCore\Src\Xml\Facturae\Xades\Props\ClaimedRoles.cs">
       <Link>Src\Xml\Facturae\Xades\Props\ClaimedRoles.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Xml\Facturae\Xades\Props\DataObjectFormat .cs">
+    <Compile Include="..\..\NetCore\Src\Xml\Facturae\Xades\Props\DataObjectFormat .cs">
       <Link>Src\Xml\Facturae\Xades\Props\DataObjectFormat .cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Xml\Facturae\Xades\Props\Description.cs">
+    <Compile Include="..\..\NetCore\Src\Xml\Facturae\Xades\Props\Description.cs">
       <Link>Src\Xml\Facturae\Xades\Props\Description.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Xml\Facturae\Xades\Props\DigestMethod.cs">
+    <Compile Include="..\..\NetCore\Src\Xml\Facturae\Xades\Props\DigestMethod.cs">
       <Link>Src\Xml\Facturae\Xades\Props\DigestMethod.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Xml\Facturae\Xades\Props\DigestValue.cs">
+    <Compile Include="..\..\NetCore\Src\Xml\Facturae\Xades\Props\DigestValue.cs">
       <Link>Src\Xml\Facturae\Xades\Props\DigestValue.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Xml\Facturae\Xades\Props\Encoding.cs">
+    <Compile Include="..\..\NetCore\Src\Xml\Facturae\Xades\Props\Encoding.cs">
       <Link>Src\Xml\Facturae\Xades\Props\Encoding.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Xml\Facturae\Xades\Props\Identifier.cs">
+    <Compile Include="..\..\NetCore\Src\Xml\Facturae\Xades\Props\Identifier.cs">
       <Link>Src\Xml\Facturae\Xades\Props\Identifier.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Xml\Facturae\Xades\Props\IssuerSerial.cs">
+    <Compile Include="..\..\NetCore\Src\Xml\Facturae\Xades\Props\IssuerSerial.cs">
       <Link>Src\Xml\Facturae\Xades\Props\IssuerSerial.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Xml\Facturae\Xades\Props\MimeType.cs">
+    <Compile Include="..\..\NetCore\Src\Xml\Facturae\Xades\Props\MimeType.cs">
       <Link>Src\Xml\Facturae\Xades\Props\MimeType.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Xml\Facturae\Xades\Props\Object.cs">
+    <Compile Include="..\..\NetCore\Src\Xml\Facturae\Xades\Props\Object.cs">
       <Link>Src\Xml\Facturae\Xades\Props\Object.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Xml\Facturae\Xades\Props\ObjectIdentifier.cs">
+    <Compile Include="..\..\NetCore\Src\Xml\Facturae\Xades\Props\ObjectIdentifier.cs">
       <Link>Src\Xml\Facturae\Xades\Props\ObjectIdentifier.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Xml\Facturae\Xades\Props\PropertyElementWithSigId.cs">
+    <Compile Include="..\..\NetCore\Src\Xml\Facturae\Xades\Props\PropertyElementWithSigId.cs">
       <Link>Src\Xml\Facturae\Xades\Props\PropertyElementWithSigId.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Xml\Facturae\Xades\Props\PropXmlElement.cs">
+    <Compile Include="..\..\NetCore\Src\Xml\Facturae\Xades\Props\PropXmlElement.cs">
       <Link>Src\Xml\Facturae\Xades\Props\PropXmlElement.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Xml\Facturae\Xades\Props\PropXmlElementWithValue.cs">
+    <Compile Include="..\..\NetCore\Src\Xml\Facturae\Xades\Props\PropXmlElementWithValue.cs">
       <Link>Src\Xml\Facturae\Xades\Props\PropXmlElementWithValue.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Xml\Facturae\Xades\Props\QualifyingProperties.cs">
+    <Compile Include="..\..\NetCore\Src\Xml\Facturae\Xades\Props\QualifyingProperties.cs">
       <Link>Src\Xml\Facturae\Xades\Props\QualifyingProperties.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Xml\Facturae\Xades\Props\Signature.cs">
+    <Compile Include="..\..\NetCore\Src\Xml\Facturae\Xades\Props\Signature.cs">
       <Link>Src\Xml\Facturae\Xades\Props\Signature.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Xml\Facturae\Xades\Props\SignaturePolicyId.cs">
+    <Compile Include="..\..\NetCore\Src\Xml\Facturae\Xades\Props\SignaturePolicyId.cs">
       <Link>Src\Xml\Facturae\Xades\Props\SignaturePolicyId.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Xml\Facturae\Xades\Props\SignaturePolicyIdentifier.cs">
+    <Compile Include="..\..\NetCore\Src\Xml\Facturae\Xades\Props\SignaturePolicyIdentifier.cs">
       <Link>Src\Xml\Facturae\Xades\Props\SignaturePolicyIdentifier.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Xml\Facturae\Xades\Props\SignedDataObjectProperties.cs">
+    <Compile Include="..\..\NetCore\Src\Xml\Facturae\Xades\Props\SignedDataObjectProperties.cs">
       <Link>Src\Xml\Facturae\Xades\Props\SignedDataObjectProperties.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Xml\Facturae\Xades\Props\SignedProperties.cs">
+    <Compile Include="..\..\NetCore\Src\Xml\Facturae\Xades\Props\SignedProperties.cs">
       <Link>Src\Xml\Facturae\Xades\Props\SignedProperties.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Xml\Facturae\Xades\Props\SignedSignatureProperties.cs">
+    <Compile Include="..\..\NetCore\Src\Xml\Facturae\Xades\Props\SignedSignatureProperties.cs">
       <Link>Src\Xml\Facturae\Xades\Props\SignedSignatureProperties.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Xml\Facturae\Xades\Props\SignerRole.cs">
+    <Compile Include="..\..\NetCore\Src\Xml\Facturae\Xades\Props\SignerRole.cs">
       <Link>Src\Xml\Facturae\Xades\Props\SignerRole.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Xml\Facturae\Xades\Props\SigningCertificate.cs">
+    <Compile Include="..\..\NetCore\Src\Xml\Facturae\Xades\Props\SigningCertificate.cs">
       <Link>Src\Xml\Facturae\Xades\Props\SigningCertificate.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Xml\Facturae\Xades\Props\SigningTime.cs">
+    <Compile Include="..\..\NetCore\Src\Xml\Facturae\Xades\Props\SigningTime.cs">
       <Link>Src\Xml\Facturae\Xades\Props\SigningTime.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Xml\Facturae\Xades\Props\SigPolicyHash.cs">
+    <Compile Include="..\..\NetCore\Src\Xml\Facturae\Xades\Props\SigPolicyHash.cs">
       <Link>Src\Xml\Facturae\Xades\Props\SigPolicyHash.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Xml\Facturae\Xades\Props\SigPolicyId.cs">
+    <Compile Include="..\..\NetCore\Src\Xml\Facturae\Xades\Props\SigPolicyId.cs">
       <Link>Src\Xml\Facturae\Xades\Props\SigPolicyId.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Xml\Facturae\Xades\Props\SigPolicyQualifier.cs">
+    <Compile Include="..\..\NetCore\Src\Xml\Facturae\Xades\Props\SigPolicyQualifier.cs">
       <Link>Src\Xml\Facturae\Xades\Props\SigPolicyQualifier.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Xml\Facturae\Xades\Props\SigPolicyQualifiers.cs">
+    <Compile Include="..\..\NetCore\Src\Xml\Facturae\Xades\Props\SigPolicyQualifiers.cs">
       <Link>Src\Xml\Facturae\Xades\Props\SigPolicyQualifiers.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Xml\Facturae\Xades\Props\SPURI.cs">
+    <Compile Include="..\..\NetCore\Src\Xml\Facturae\Xades\Props\SPURI.cs">
       <Link>Src\Xml\Facturae\Xades\Props\SPURI.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Xml\Facturae\Xades\Props\X509IssuerName.cs">
+    <Compile Include="..\..\NetCore\Src\Xml\Facturae\Xades\Props\X509IssuerName.cs">
       <Link>Src\Xml\Facturae\Xades\Props\X509IssuerName.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Xml\Facturae\Xades\Props\X509SerialNumber.cs">
+    <Compile Include="..\..\NetCore\Src\Xml\Facturae\Xades\Props\X509SerialNumber.cs">
       <Link>Src\Xml\Facturae\Xades\Props\X509SerialNumber.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Xml\Facturae\Xades\Rfc2253IssuerFormatter.cs">
+    <Compile Include="..\..\NetCore\Src\Xml\Facturae\Xades\Rfc2253IssuerFormatter.cs">
       <Link>Src\Xml\Facturae\Xades\Rfc2253IssuerFormatter.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Xml\Facturae\Xades\XadesSigned.cs">
+    <Compile Include="..\..\NetCore\Src\Xml\Facturae\Xades\XadesSigned.cs">
       <Link>Src\Xml\Facturae\Xades\XadesSigned.cs</Link>
     </Compile>
-    <Compile Include="..\NetCore\Src\Xml\XmlParser.cs">
+    <Compile Include="..\..\NetCore\Src\Xml\XmlParser.cs">
       <Link>Src\Xml\XmlParser.cs</Link>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Src\Com\Interop\FeParty.cs" />
+    <Compile Include="Src\Com\Interop\FeInvoice.cs" />
+    <Compile Include="Src\Com\Interop\FeInstallment.cs" />
+    <Compile Include="Src\Com\Interop\FeInvoiceResult.cs" />
+    <Compile Include="Src\Com\Interop\FeRectificationItem.cs" />
+    <Compile Include="Src\Com\Interop\FeSettings.cs" />
+    <Compile Include="Src\Com\Interop\FeInvoiceLine.cs" />
+    <Compile Include="Src\Com\Interop\FeTaxItem.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

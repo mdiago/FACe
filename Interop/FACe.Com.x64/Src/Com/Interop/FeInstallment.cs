@@ -1,0 +1,189 @@
+﻿/* 
+    This file is part of the FACe (R) project.
+    Copyright (c) 2025-2026 Irene Solutions SL
+    Authors: Irene Solutions SL.
+
+    This program is free software; you can redistribute it and/or modify
+    it under the terms of the GNU Affero General Public License version 3
+    as published by the Free Software Foundation with the addition of the
+    following permission added to Section 15 as permitted in Section 7(a):
+    FOR ANY PART OF THE COVERED WORK IN WHICH THE COPYRIGHT IS OWNED BY
+    IRENE SOLUTIONS SL. IRENE SOLUTIONS SL DISCLAIMS THE WARRANTY OF NON INFRINGEMENT
+    OF THIRD PARTY RIGHTS
+    
+    This program is distributed in the hope that it will be useful, but
+    WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+    or FITNESS FOR A PARTICULAR PURPOSE.
+    See the GNU Affero General Public License for more details.
+    You should have received a copy of the GNU Affero General Public License
+    along with this program; if not, see http://www.gnu.org/licenses or write to
+    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+    Boston, MA, 02110-1301 USA, or download the license from the following URL:
+        http://www.irenesolutions.com/terms-of-use.pdf
+    
+    The interactive user interfaces in modified source and object code versions
+    of this program must display Appropriate Legal Notices, as required under
+    Section 5 of the GNU Affero General Public License.
+    
+    You can be released from the requirements of the license by purchasing
+    a commercial license. Buying such a license is mandatory as soon as you
+    develop commercial activities involving the VeriFactu software without
+    disclosing the source code of your own applications.
+    These activities include: offering paid services to customers as an ASP,
+    serving FACe XML data on the fly in a web application, shipping FACe
+    with a closed source product.
+    
+    For more information, please contact Irene Solutions SL. at this
+    address: info@irenesolutions.com
+ */
+
+using System;
+using System.Runtime.InteropServices;
+
+namespace FACe
+{
+
+    #region Interfaz COM
+
+    /// <summary>
+    /// Interfaz COM para la clase Installment.
+    /// </summary>
+    [Guid("26F948FA-4218-4002-9F51-920DB7ACBDC1")]
+    [InterfaceType(ComInterfaceType.InterfaceIsDual)]
+    [ComVisible(true)]
+    public interface IFeInstallment
+    {
+
+        #region Propiedades Públicas de Instancia
+
+        /// <summary>
+        /// Fechas en las que se deben atender los pagos. ISO 8601:2004.
+        /// </summary>        
+        DateTime DueDate { get; set; }
+
+        /// <summary>
+        ///Importe a satisfacer en cada plazo. Siempre con dos decimales.
+        /// </summary>        
+        float Amount { get; set; }
+
+        /// <summary>
+        /// Cada vencimiento/importe podrá tener un medio de pago concreto.
+        /// <para>'01': Al contado.</para>
+        /// <para>'02': Recibo Domiciliado.</para>
+        /// <para>'03': Recibo.</para>
+        /// <para>'04': Transferencia.</para>
+        /// <para>'05': Letra Aceptada.</para>
+        /// <para>'06': Crédito Documentario.</para>
+        /// <para>'07': Contrato Adjudicación.</para>
+        /// <para>'08': Letra de cambio.</para>
+        /// <para>'09': Pagaré a la  Orden.</para>
+        /// <para>'10': Pagaré No a la Orden.</para>
+        /// <para>'11': Cheque.</para>
+        /// <para>'12': Reposición.</para>
+        /// <para>'13': Especiales.</para>
+        /// <para>'14': Compensación.</para>
+        /// <para>'15': Giro postal.</para>
+        /// <para>'16': Cheque conformado.</para>
+        /// <para>'17': Cheque bancario.</para>
+        /// <para>'18': Pago contra reembolso.</para>
+        /// <para>'19': Pago mediante tarjeta.</para>
+        /// </summary>
+        string PaymentMeans { get; set; }
+
+        /// <summary>
+        /// Tipo de identificador de cuenta.
+        /// <para>'IBAN': IBAN</para>
+        /// </summary>
+        string BankAccountType { get; set; }
+
+        /// <summary>
+        /// Identificador de la cuenta bancaria. En versión Facturae 3.0
+        /// sólo es válido el valor IBAN.
+        /// </summary>
+        string BankAccount { get; set; }
+
+        #endregion
+
+    }
+
+    #endregion
+
+    #region Clase COM
+
+    /// <summary>
+    /// Representa una línea de vencimiento.
+    /// </summary>
+    [Guid("30EC22CE-8653-4DD0-BF9F-54DD49D66D1A")]
+    [ClassInterface(ClassInterfaceType.None)]
+    [ComVisible(true)]
+    [ProgId("FACe.FeInstallment")]
+    public class FeInstallment : IFeInstallment
+    {
+
+        #region Construtores de Instancia
+
+        /// <summary>
+        /// Constructor. Para COM necesitamos un constructor
+        /// sin parametros.
+        /// </summary>
+        public FeInstallment()
+        {
+        }
+
+        #endregion
+
+        #region Propiedades Públicas de Instancia
+
+        /// <summary>
+        /// Fechas en las que se deben atender los pagos. ISO 8601:2004.
+        /// </summary>        
+        public DateTime DueDate { get; set; }
+
+        /// <summary>
+        ///Importe a satisfacer en cada plazo. Siempre con dos decimales.
+        /// </summary>        
+        public float Amount { get; set; }
+
+        /// <summary>
+        /// Cada vencimiento/importe podrá tener un medio de pago concreto.
+        /// <para>'01': Al contado.</para>
+        /// <para>'02': Recibo Domiciliado.</para>
+        /// <para>'03': Recibo.</para>
+        /// <para>'04': Transferencia.</para>
+        /// <para>'05': Letra Aceptada.</para>
+        /// <para>'06': Crédito Documentario.</para>
+        /// <para>'07': Contrato Adjudicación.</para>
+        /// <para>'08': Letra de cambio.</para>
+        /// <para>'09': Pagaré a la  Orden.</para>
+        /// <para>'10': Pagaré No a la Orden.</para>
+        /// <para>'11': Cheque.</para>
+        /// <para>'12': Reposición.</para>
+        /// <para>'13': Especiales.</para>
+        /// <para>'14': Compensación.</para>
+        /// <para>'15': Giro postal.</para>
+        /// <para>'16': Cheque conformado.</para>
+        /// <para>'17': Cheque bancario.</para>
+        /// <para>'18': Pago contra reembolso.</para>
+        /// <para>'19': Pago mediante tarjeta.</para>
+        /// </summary>
+        public string PaymentMeans { get; set; }
+
+        /// <summary>
+        /// Tipo de identificador de cuenta.
+        /// <para>'IBAN': IBAN</para>
+        /// </summary>
+        public string BankAccountType { get; set; }
+
+        /// <summary>
+        /// Identificador de la cuenta bancaria. En versión Facturae 3.0
+        /// sólo es válido el valor IBAN.
+        /// </summary>
+        public string BankAccount { get; set; }
+
+        #endregion
+
+    }
+
+    #endregion
+
+}

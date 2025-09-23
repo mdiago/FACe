@@ -220,7 +220,7 @@ namespace FACe.Xml.Facturae.Bies
                 {
                     NumberDecimalSeparator = ".",
                     NumberGroupSeparator = "",
-                    NumberDecimalDigits = 1
+                    NumberDecimalDigits = 2
                 };
 
                 return Quantity.ToString("N", quantityFormatInfo);

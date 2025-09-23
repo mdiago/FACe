@@ -71,6 +71,9 @@
     <Compile Include="..\NetCore\Src\Business\Invoice\TaxItem.cs">
       <Link>Src\Business\Invoice\TaxItem.cs</Link>
     </Compile>
+    <Compile Include="..\NetCore\Src\Common\CertManager.cs">
+      <Link>Src\Common\CertManager.cs</Link>
+    </Compile>
     <Compile Include="..\NetCore\Src\Common\FACeException.cs">
       <Link>Src\Common\FACeException.cs</Link>
     </Compile>

@@ -139,7 +139,7 @@ namespace FACe.Business.Invoice
         /// <summary>
         /// Total recargo impuestos soportados / repercutidos.
         /// </summary>        
-        public decimal TaxesOutputAmounSurcharget { get; set; }
+        public decimal TaxesOutputAmounSurcharge { get; set; }
 
         /// <summary>
         /// <para>Impuesto de aplicación. Si no se informa este campo
@@ -183,7 +183,6 @@ namespace FACe.Business.Invoice
         /// <para>05: Otros</para>
         /// </summary>
         public string TaxesWithheldTax { get; set; }
-
 
         #endregion
 

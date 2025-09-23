@@ -138,6 +138,9 @@ namespace FACe.Net.Rest.Json.Parser
                     _Key = keyToken.Value;
                 }
 
+                if(_CurrentIndex + 1>= _Tokens.Count)
+                    return result;
+
                 if (_Tokens[++_CurrentIndex].Value != ":")
                     throw new InvalidOperationException("Esperado ':'.");
 

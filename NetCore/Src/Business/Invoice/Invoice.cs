@@ -533,13 +533,13 @@ namespace FACe.Business.Invoice
         #region Propiedades Públicas de Instancia
 
         /// <summary>
-        /// <para>Clave del tipo de factura (L2).</para>
+        /// <para>Clave del tipo de factura.</para>
         /// </summary>
         public string InvoiceType { get; set; }
 
         /// <summary>
         ///  Identifica si el tipo de factura rectificativa
-        ///  es por sustitución o por diferencia (L3).
+        ///  es por sustitución o por diferencia.
         /// </summary>
         public string RectificationType { get; set; }
 
@@ -597,7 +597,7 @@ namespace FACe.Business.Invoice
 
         /// <summary>
         /// Clave para establecer el tipo de identificación
-        /// en el pais de residencia. L7.
+        /// en el pais de residencia.
         /// </summary>        
         [Json(Name = "RelatedPartyIDType")]
         public string BuyerIDType { get; set; }

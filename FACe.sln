@@ -11,6 +11,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FACe.NetFramework472", "Net
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FACe.NetFramework480", "NetFramework480\FACe.NetFramework480.csproj", "{40ECBC01-AD01-4219-9C32-49A0F932D1D5}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Interop", "Interop", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FACe.Com.x64", "Interop\FACe.Com.x64\FACe.Com.x64.csproj", "{7286F94F-9188-4FCF-A47C-059CF585440A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,9 +37,16 @@ Global
 		{40ECBC01-AD01-4219-9C32-49A0F932D1D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{40ECBC01-AD01-4219-9C32-49A0F932D1D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{40ECBC01-AD01-4219-9C32-49A0F932D1D5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7286F94F-9188-4FCF-A47C-059CF585440A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7286F94F-9188-4FCF-A47C-059CF585440A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7286F94F-9188-4FCF-A47C-059CF585440A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7286F94F-9188-4FCF-A47C-059CF585440A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{7286F94F-9188-4FCF-A47C-059CF585440A} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3E8A5326-A582-4D34-A4A8-33092DBF8642}
