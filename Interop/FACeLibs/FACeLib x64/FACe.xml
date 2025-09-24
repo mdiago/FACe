@@ -978,17 +978,6 @@
             Ruta al directorio de configuración.
             </summary>
         </member>
-        <member name="P:FACe.Config.Settings.IDVersion">
-            <summary>
-            <para>Identificación de la versión actual del esquema o
-            estructura de información utilizada para la generación y
-            conservación / remisión de los registros de facturación.
-            Este campo forma parte del detalle de las circunstancias
-            de generación de los registros de facturación.</para>
-            <para>Alfanumérico(3) L15:</para>
-            <para>1.0: Versión actual (1.0) del esquema utilizado </para>
-            </summary>
-        </member>
         <member name="P:FACe.Config.Settings.InstallationNumber">
             <summary>
             <para>Número de instalación del sistema informático de facturación (SIF) utilizado.
@@ -997,26 +986,6 @@
             presentes o futuras utilizadas para realizar la facturación del obligado a expedir
             facturas, incluso aunque en dichas instalaciones se emplee el mismo SIF de un productor.</para>
             <para>Alfanumérico(100).</para>
-            </summary>
-        </member>
-        <member name="P:FACe.Config.Settings.InboxPath">
-            <summary>
-            Ruta al directorio que actuará como bandeja de entrada.
-            En este directorio se almacenarán todos los mensajes
-            recibidos de la AEAT mediante VERI*FACTU.
-            </summary>
-        </member>
-        <member name="P:FACe.Config.Settings.OutboxPath">
-            <summary>
-            Ruta al directorio que actuará como bandeja de salida.
-            En este directorio se almacenará una copia de cualquier
-            envío realizado a la AEAT mediante el VERI*FACTU.
-            </summary>
-        </member>
-        <member name="P:FACe.Config.Settings.InvoicePath">
-            <summary>
-            Ruta al directorio que actuará almacenamiento
-            de las facturas emitidas por emisor.
             </summary>
         </member>
         <member name="P:FACe.Config.Settings.LogPath">
@@ -9030,196 +8999,112 @@
             <param name="omitXmlDeclaration">Indica si se se omite la delcaración xml.</param>
             <returns>string con el archivo xml.</returns>
         </member>
-        <member name="T:FACe.IFeParty">
+        <member name="T:FACe.IFeInstallment">
             <summary>
-            Interfaz COM para la clase Party.
+            Interfaz COM para la clase Installment.
             </summary>
         </member>
-        <member name="P:FACe.IFeParty.PartyType">
+        <member name="P:FACe.IFeInstallment.DueDate">
             <summary>
-            <para>'P':Persona física.</para>
-            <para>'J':Persona jurídica.</para>
-            </summary>
-        </member>
-        <member name="P:FACe.IFeParty.PartyRole">
-            <summary>
-            <para>'SL': Seller.</para>
-            <para>'BY': Buyer.</para>
-            <para>'OC': Oficina contable.</para>
-            <para>'OG': Organo gestor.</para>
-            <para>'UT': Unidad tramitadora.</para>
-            <para>'OT': Otros.</para>
-            </summary>
-        </member>
-        <member name="P:FACe.IFeParty.PartyID">
-            <summary>
-            Identificador del interlocutor de negocio.
-            Texto (20).
-            </summary>
-        </member>
-        <member name="P:FACe.IFeParty.PartyName">
-            <summary>
-            Nombre asignado al interlocutor.
-            Texto (150).
+            Fechas en las que se deben atender los pagos. ISO 8601:2004.
             </summary>        
         </member>
-        <member name="P:FACe.IFeParty.TaxID">
-            <summary>
-            Código de identificación fiscal.
-            Texto (30).
-            </summary>        
+        <member name="P:FACe.IFeInstallment.Amount">
+             <summary>
+            Importe a satisfacer en cada plazo. Siempre con dos decimales.
+             </summary>        
         </member>
-        <member name="P:FACe.IFeParty.Address">
+        <member name="P:FACe.IFeInstallment.PaymentMeans">
             <summary>
-            Dirección.
-            Texto (120).
-            </summary>        
-        </member>
-        <member name="P:FACe.IFeParty.City">
-            <summary>
-            Población.
-            Texto (70).
-            </summary>        
-        </member>
-        <member name="P:FACe.IFeParty.PostalCode">
-            <summary>
-            Código postal.
-            Texto (120).
-            </summary>        
-        </member>
-        <member name="P:FACe.IFeParty.Region">
-            <summary>
-            Código región: Ej. provincia.
-            Texto (120).
-            </summary>        
-        </member>
-        <member name="P:FACe.IFeParty.CountryID">
-            <summary>
-            Código país ISO-3166 (EJ. ES).
-            Texto (2).
-            </summary>        
-        </member>
-        <member name="P:FACe.IFeParty.Mail">
-            <summary>
-            Dirección de correo principal.
-            Texto (150).
+            Cada vencimiento/importe podrá tener un medio de pago concreto.
+            <para>'01': Al contado.</para>
+            <para>'02': Recibo Domiciliado.</para>
+            <para>'03': Recibo.</para>
+            <para>'04': Transferencia.</para>
+            <para>'05': Letra Aceptada.</para>
+            <para>'06': Crédito Documentario.</para>
+            <para>'07': Contrato Adjudicación.</para>
+            <para>'08': Letra de cambio.</para>
+            <para>'09': Pagaré a la  Orden.</para>
+            <para>'10': Pagaré No a la Orden.</para>
+            <para>'11': Cheque.</para>
+            <para>'12': Reposición.</para>
+            <para>'13': Especiales.</para>
+            <para>'14': Compensación.</para>
+            <para>'15': Giro postal.</para>
+            <para>'16': Cheque conformado.</para>
+            <para>'17': Cheque bancario.</para>
+            <para>'18': Pago contra reembolso.</para>
+            <para>'19': Pago mediante tarjeta.</para>
             </summary>
         </member>
-        <member name="P:FACe.IFeParty.Mobile">
+        <member name="P:FACe.IFeInstallment.BankAccountType">
             <summary>
-            Número de teléfono movil.
-            Texto (20).
+            Tipo de identificador de cuenta.
+            <para>'IBAN': IBAN</para>
             </summary>
         </member>
-        <member name="P:FACe.IFeParty.Phone">
+        <member name="P:FACe.IFeInstallment.BankAccount">
             <summary>
-            Número de teléfono fijo.
-            Texto (20).
+            Identificador de la cuenta bancaria. En versión Facturae 3.0
+            sólo es válido el valor IBAN.
             </summary>
         </member>
-        <member name="P:FACe.IFeParty.WebAddress">
+        <member name="T:FACe.FeInstallment">
             <summary>
-            Página web.
-            Texto (200).
+            Representa una línea de vencimiento.
             </summary>
         </member>
-        <member name="T:FACe.FeParty">
-            <summary>
-            Representa un interlocutor de negocio.
-            </summary>
-        </member>
-        <member name="M:FACe.FeParty.#ctor">
+        <member name="M:FACe.FeInstallment.#ctor">
             <summary>
             Constructor. Para COM necesitamos un constructor
             sin parametros.
             </summary>
         </member>
-        <member name="P:FACe.FeParty.PartyType">
+        <member name="P:FACe.FeInstallment.DueDate">
             <summary>
-            <para>'P':Persona física.</para>
-            <para>'J':Persona jurídica.</para>
+            Fechas en las que se deben atender los pagos. ISO 8601:2004.
+            </summary>        
+        </member>
+        <member name="P:FACe.FeInstallment.Amount">
+             <summary>
+            Importe a satisfacer en cada plazo. Siempre con dos decimales.
+             </summary>        
+        </member>
+        <member name="P:FACe.FeInstallment.PaymentMeans">
+            <summary>
+            Cada vencimiento/importe podrá tener un medio de pago concreto.
+            <para>'01': Al contado.</para>
+            <para>'02': Recibo Domiciliado.</para>
+            <para>'03': Recibo.</para>
+            <para>'04': Transferencia.</para>
+            <para>'05': Letra Aceptada.</para>
+            <para>'06': Crédito Documentario.</para>
+            <para>'07': Contrato Adjudicación.</para>
+            <para>'08': Letra de cambio.</para>
+            <para>'09': Pagaré a la  Orden.</para>
+            <para>'10': Pagaré No a la Orden.</para>
+            <para>'11': Cheque.</para>
+            <para>'12': Reposición.</para>
+            <para>'13': Especiales.</para>
+            <para>'14': Compensación.</para>
+            <para>'15': Giro postal.</para>
+            <para>'16': Cheque conformado.</para>
+            <para>'17': Cheque bancario.</para>
+            <para>'18': Pago contra reembolso.</para>
+            <para>'19': Pago mediante tarjeta.</para>
             </summary>
         </member>
-        <member name="P:FACe.FeParty.PartyRole">
+        <member name="P:FACe.FeInstallment.BankAccountType">
             <summary>
-            <para>'SL': Seller.</para>
-            <para>'BY': Buyer.</para>
-            <para>'OC': Oficina contable.</para>
-            <para>'OG': Organo gestor.</para>
-            <para>'UT': Unidad tramitadora.</para>
-            <para>'OT': Otros.</para>
+            Tipo de identificador de cuenta.
+            <para>'IBAN': IBAN</para>
             </summary>
         </member>
-        <member name="P:FACe.FeParty.PartyID">
+        <member name="P:FACe.FeInstallment.BankAccount">
             <summary>
-            Identificador del interlocutor de negocio.
-            Texto (20).
-            </summary>
-        </member>
-        <member name="P:FACe.FeParty.PartyName">
-            <summary>
-            Nombre asignado al interlocutor.
-            Texto (150).
-            </summary>        
-        </member>
-        <member name="P:FACe.FeParty.TaxID">
-            <summary>
-            Código de identificación fiscal.
-            Texto (30).
-            </summary>        
-        </member>
-        <member name="P:FACe.FeParty.Address">
-            <summary>
-            Dirección.
-            Texto (120).
-            </summary>        
-        </member>
-        <member name="P:FACe.FeParty.City">
-            <summary>
-            Población.
-            Texto (70).
-            </summary>        
-        </member>
-        <member name="P:FACe.FeParty.PostalCode">
-            <summary>
-            Código postal.
-            Texto (120).
-            </summary>        
-        </member>
-        <member name="P:FACe.FeParty.Region">
-            <summary>
-            Código región: Ej. provincia.
-            Texto (120).
-            </summary>        
-        </member>
-        <member name="P:FACe.FeParty.CountryID">
-            <summary>
-            Código país ISO-3166 (EJ. ES).
-            Texto (2).
-            </summary>        
-        </member>
-        <member name="P:FACe.FeParty.Mail">
-            <summary>
-            Dirección de correo principal.
-            Texto (150).
-            </summary>
-        </member>
-        <member name="P:FACe.FeParty.Mobile">
-            <summary>
-            Número de teléfono movil.
-            Texto (20).
-            </summary>
-        </member>
-        <member name="P:FACe.FeParty.Phone">
-            <summary>
-            Número de teléfono fijo.
-            Texto (20).
-            </summary>
-        </member>
-        <member name="P:FACe.FeParty.WebAddress">
-            <summary>
-            Página web.
-            Texto (200).
+            Identificador de la cuenta bancaria. En versión Facturae 3.0
+            sólo es válido el valor IBAN.
             </summary>
         </member>
         <member name="T:FACe.IFeInvoice">
@@ -9703,434 +9588,6 @@
             </summary>
             <returns>Resultado de la operación.</returns>
         </member>
-        <member name="T:FACe.IFeInstallment">
-            <summary>
-            Interfaz COM para la clase Installment.
-            </summary>
-        </member>
-        <member name="P:FACe.IFeInstallment.DueDate">
-            <summary>
-            Fechas en las que se deben atender los pagos. ISO 8601:2004.
-            </summary>        
-        </member>
-        <member name="P:FACe.IFeInstallment.Amount">
-             <summary>
-            Importe a satisfacer en cada plazo. Siempre con dos decimales.
-             </summary>        
-        </member>
-        <member name="P:FACe.IFeInstallment.PaymentMeans">
-            <summary>
-            Cada vencimiento/importe podrá tener un medio de pago concreto.
-            <para>'01': Al contado.</para>
-            <para>'02': Recibo Domiciliado.</para>
-            <para>'03': Recibo.</para>
-            <para>'04': Transferencia.</para>
-            <para>'05': Letra Aceptada.</para>
-            <para>'06': Crédito Documentario.</para>
-            <para>'07': Contrato Adjudicación.</para>
-            <para>'08': Letra de cambio.</para>
-            <para>'09': Pagaré a la  Orden.</para>
-            <para>'10': Pagaré No a la Orden.</para>
-            <para>'11': Cheque.</para>
-            <para>'12': Reposición.</para>
-            <para>'13': Especiales.</para>
-            <para>'14': Compensación.</para>
-            <para>'15': Giro postal.</para>
-            <para>'16': Cheque conformado.</para>
-            <para>'17': Cheque bancario.</para>
-            <para>'18': Pago contra reembolso.</para>
-            <para>'19': Pago mediante tarjeta.</para>
-            </summary>
-        </member>
-        <member name="P:FACe.IFeInstallment.BankAccountType">
-            <summary>
-            Tipo de identificador de cuenta.
-            <para>'IBAN': IBAN</para>
-            </summary>
-        </member>
-        <member name="P:FACe.IFeInstallment.BankAccount">
-            <summary>
-            Identificador de la cuenta bancaria. En versión Facturae 3.0
-            sólo es válido el valor IBAN.
-            </summary>
-        </member>
-        <member name="T:FACe.FeInstallment">
-            <summary>
-            Representa una línea de vencimiento.
-            </summary>
-        </member>
-        <member name="M:FACe.FeInstallment.#ctor">
-            <summary>
-            Constructor. Para COM necesitamos un constructor
-            sin parametros.
-            </summary>
-        </member>
-        <member name="P:FACe.FeInstallment.DueDate">
-            <summary>
-            Fechas en las que se deben atender los pagos. ISO 8601:2004.
-            </summary>        
-        </member>
-        <member name="P:FACe.FeInstallment.Amount">
-             <summary>
-            Importe a satisfacer en cada plazo. Siempre con dos decimales.
-             </summary>        
-        </member>
-        <member name="P:FACe.FeInstallment.PaymentMeans">
-            <summary>
-            Cada vencimiento/importe podrá tener un medio de pago concreto.
-            <para>'01': Al contado.</para>
-            <para>'02': Recibo Domiciliado.</para>
-            <para>'03': Recibo.</para>
-            <para>'04': Transferencia.</para>
-            <para>'05': Letra Aceptada.</para>
-            <para>'06': Crédito Documentario.</para>
-            <para>'07': Contrato Adjudicación.</para>
-            <para>'08': Letra de cambio.</para>
-            <para>'09': Pagaré a la  Orden.</para>
-            <para>'10': Pagaré No a la Orden.</para>
-            <para>'11': Cheque.</para>
-            <para>'12': Reposición.</para>
-            <para>'13': Especiales.</para>
-            <para>'14': Compensación.</para>
-            <para>'15': Giro postal.</para>
-            <para>'16': Cheque conformado.</para>
-            <para>'17': Cheque bancario.</para>
-            <para>'18': Pago contra reembolso.</para>
-            <para>'19': Pago mediante tarjeta.</para>
-            </summary>
-        </member>
-        <member name="P:FACe.FeInstallment.BankAccountType">
-            <summary>
-            Tipo de identificador de cuenta.
-            <para>'IBAN': IBAN</para>
-            </summary>
-        </member>
-        <member name="P:FACe.FeInstallment.BankAccount">
-            <summary>
-            Identificador de la cuenta bancaria. En versión Facturae 3.0
-            sólo es válido el valor IBAN.
-            </summary>
-        </member>
-        <member name="T:FACe.IFeInvoiceResult">
-            <summary>
-            Interfaz COM para la clase RectificationItem.
-            </summary>
-        </member>
-        <member name="P:FACe.IFeInvoiceResult.ResultCode">
-            <summary>
-            Código del resultado de la operación. '0' si todo
-            ha ido vien.
-            </summary>
-        </member>
-        <member name="P:FACe.IFeInvoiceResult.ResultMessage">
-            <summary>
-            Mensaje del resultado de la petición. 'OK' si todo ha ido
-            bien.
-            </summary>
-        </member>
-        <member name="P:FACe.IFeInvoiceResult.CSV">
-            <summary>
-            Código seguro de verificación devuelto por la AEAT
-            si todo ha ido bien.
-            </summary>
-        </member>
-        <member name="T:FACe.FeInvoiceResult">
-            <summary>
-            Resultado de un envio de alta o anulación a la AEAT.
-            </summary>
-        </member>
-        <member name="M:FACe.FeInvoiceResult.#ctor">
-            <summary>
-            Constructor. Para COM necesitamos un constructor
-            sin parametros.
-            </summary>
-        </member>
-        <member name="P:FACe.FeInvoiceResult.ResultCode">
-            <summary>
-            Código del resultado de la operación. '0' si todo
-            ha ido vien.
-            </summary>
-        </member>
-        <member name="P:FACe.FeInvoiceResult.ResultMessage">
-            <summary>
-            Mensaje del resultado de la petición. 'OK' si todo ha ido
-            bien.
-            </summary>
-        </member>
-        <member name="P:FACe.FeInvoiceResult.CSV">
-            <summary>
-            Código seguro de verificación devuelto por la AEAT
-            si todo ha ido bien.
-            </summary>
-        </member>
-        <member name="T:FACe.IFeRectificationItem">
-            <summary>
-            Interfaz COM para la clase RectificationItem.
-            </summary>
-        </member>
-        <member name="P:FACe.IFeRectificationItem.InvoiceID">
-            <summary>
-            Identificador de la factura.
-            </summary>
-        </member>
-        <member name="P:FACe.IFeRectificationItem.InvoiceDate">
-            <summary>
-            Fecha emisión de documento.
-            </summary>        
-        </member>
-        <member name="T:FACe.FeRectificationItem">
-            <summary>
-            Representa información sobre la factura
-            a la que se refiere una rectificación.
-            </summary>
-        </member>
-        <member name="M:FACe.FeRectificationItem.#ctor">
-            <summary>
-            Constructor. Para COM necesitamos un constructor
-            sin parametros.
-            </summary>
-        </member>
-        <member name="P:FACe.FeRectificationItem.InvoiceID">
-            <summary>
-            Identificador de la factura.
-            </summary>
-        </member>
-        <member name="P:FACe.FeRectificationItem.InvoiceDate">
-            <summary>
-            Fecha emisión de documento.
-            </summary>        
-        </member>
-        <member name="T:FACe.IFeSettings">
-            <summary>
-            Interfaz COM para la clase RectificationItem.
-            </summary>
-        </member>
-        <member name="P:FACe.IFeSettings.IDVersion">
-            <summary>
-            <para>Identificación de la versión actual del esquema o
-            estructura de información utilizada para la generación y
-            conservación / remisión de los registros de facturación.
-            Este campo forma parte del detalle de las circunstancias
-            de generación de los registros de facturación.</para>
-            <para>Alfanumérico(3) L15:</para>
-            <para>1.0: Versión actual (1.0) del esquema utilizado </para>
-            </summary>
-        </member>
-        <member name="P:FACe.IFeSettings.InboxPath">
-            <summary>
-            Ruta al directorio que actuará como bandeja de entrada.
-            En este directorio se almacenarán todos los mensajes
-            recibidos de la AEAT mediante VERI*FACTU.
-            </summary>
-        </member>
-        <member name="P:FACe.IFeSettings.OutboxPath">
-            <summary>
-            Ruta al directorio que actuará como bandeja de salida.
-            En este directorio se almacenará una copia de cualquier
-            envío realizado a la AEAT mediante el VERI*FACTU.
-            </summary>
-        </member>
-        <member name="P:FACe.IFeSettings.BlockchainPath">
-            <summary>
-            Ruta al directorio que actuará como almacén
-            de las distintas cadenas de bloques por emisor.
-            </summary>
-        </member>
-        <member name="P:FACe.IFeSettings.InvoicePath">
-            <summary>
-            Ruta al directorio que actuará almacenamiento
-            de las facturas emitidas por emisor.
-            </summary>
-        </member>
-        <member name="P:FACe.IFeSettings.LogPath">
-            <summary>
-            Ruta al directorio que actuará almacenamiento
-            del registro de mensajes del sistema.
-            </summary>
-        </member>
-        <member name="P:FACe.IFeSettings.CertificateSerial">
-            <summary>
-            Número de serie del certificado a utilizar. Mediante este número
-            de serie se selecciona del almacén de certificados de windows
-            el certificado con el que realizar las comunicaciones.
-            </summary>
-        </member>
-        <member name="P:FACe.IFeSettings.CertificateThumbprint">
-            <summary>
-            Hash o Huella digital del certificado a utilizar. Mediante esta
-            huella digital se selecciona del almacén de certificados de
-            windows el certificado con el que realizar las comunicaciones.
-            </summary>
-        </member>
-        <member name="P:FACe.IFeSettings.CertificatePath">
-            <summary>
-            Ruta al archivo del certificado a utilizar.
-            Sólo se utiliza en los certificados cargados desde el sistema de archivos. 
-            </summary>
-        </member>
-        <member name="P:FACe.IFeSettings.CertificatePassword">
-            <summary>
-            Password del certificado. Este valor sólo es necesario si
-            tenemos establecido el valor para 'CertificatePath' y el certificado
-            tiene clave de acceso. Sólo se utiliza en los certificados
-            cargados desde el sistema de archivos.
-            </summary>
-        </member>
-        <member name="P:FACe.IFeSettings.FACeEndPointPrefix">
-            <summary>
-            EndPoint del web service de la AEAT para envío registros alta y anulación.
-            </summary>
-        </member>
-        <member name="P:FACe.IFeSettings.LoggingEnabled">
-            <summary>
-            Indica si está activado el log de mensajes
-            del sistema.
-            </summary>
-        </member>
-        <member name="P:FACe.IFeSettings.TlRuntime">
-            <summary>
-            Desactiva TL.
-            del sistema.
-            </summary>
-        </member>
-        <member name="M:FACe.IFeSettings.Save">
-            <summary>
-            Guarda la configuración.
-            </summary>
-        </member>
-        <member name="M:FACe.IFeSettings.Load">
-            <summary>
-            Carga la configuración.
-            </summary>
-        </member>
-        <member name="M:FACe.IFeSettings.SetConfigFileName(System.String)">
-            <summary>
-            Esteblece el archivo de configuración con el cual trabajar.
-            </summary>
-            <param name="fileName">Nombre del archivo de configuración a utilizar.</param>
-        </member>
-        <member name="T:FACe.FeSettings">
-            <summary>
-            Representa una línea de impuestos.
-            </summary>
-        </member>
-        <member name="M:FACe.FeSettings.#ctor">
-            <summary>
-            Constructor. Para COM necesitamos un constructor
-            sin parametros.
-            </summary>
-        </member>
-        <member name="M:FACe.FeSettings.GetSettings">
-            <summary>
-            Devuelve una instancia de clase Settings creada a partir
-            de los datos de esta instancia.
-            </summary>
-            <returns>Instancia de clase Settings.</returns>
-        </member>
-        <member name="M:FACe.FeSettings.Save">
-            <summary>
-            Guarda la configuración.
-            </summary>
-        </member>
-        <member name="M:FACe.FeSettings.Load">
-            <summary>
-            Carga la configuración.
-            </summary>
-        </member>
-        <member name="M:FACe.FeSettings.SetConfigFileName(System.String)">
-            <summary>
-            Esteblece el archivo de configuración con el cual trabajar.
-            </summary>
-            <param name="fileName">Nombre del archivo de configuración a utilizar.</param>
-        </member>
-        <member name="P:FACe.FeSettings.IDVersion">
-            <summary>
-            <para>Identificación de la versión actual del esquema o
-            estructura de información utilizada para la generación y
-            conservación / remisión de los registros de facturación.
-            Este campo forma parte del detalle de las circunstancias
-            de generación de los registros de facturación.</para>
-            <para>Alfanumérico(3) L15:</para>
-            <para>1.0: Versión actual (1.0) del esquema utilizado </para>
-            </summary>
-        </member>
-        <member name="P:FACe.FeSettings.InboxPath">
-            <summary>
-            Ruta al directorio que actuará como bandeja de entrada.
-            En este directorio se almacenarán todos los mensajes
-            recibidos de la AEAT mediante VERI*FACTU.
-            </summary>
-        </member>
-        <member name="P:FACe.FeSettings.OutboxPath">
-            <summary>
-            Ruta al directorio que actuará como bandeja de salida.
-            En este directorio se almacenará una copia de cualquier
-            envío realizado a la AEAT mediante el VERI*FACTU.
-            </summary>
-        </member>
-        <member name="P:FACe.FeSettings.BlockchainPath">
-            <summary>
-            Ruta al directorio que actuará como almacén
-            de las distintas cadenas de bloques por emisor.
-            </summary>
-        </member>
-        <member name="P:FACe.FeSettings.InvoicePath">
-            <summary>
-            Ruta al directorio que actuará almacenamiento
-            de las facturas emitidas por emisor.
-            </summary>
-        </member>
-        <member name="P:FACe.FeSettings.LogPath">
-            <summary>
-            Ruta al directorio que actuará almacenamiento
-            del registro de mensajes del sistema.
-            </summary>
-        </member>
-        <member name="P:FACe.FeSettings.CertificateSerial">
-            <summary>
-            Número de serie del certificado a utilizar. Mediante este número
-            de serie se selecciona del almacén de certificados de windows
-            el certificado con el que realizar las comunicaciones.
-            </summary>
-        </member>
-        <member name="P:FACe.FeSettings.CertificateThumbprint">
-            <summary>
-            Hash o Huella digital del certificado a utilizar. Mediante esta
-            huella digital se selecciona del almacén de certificados de
-            windows el certificado con el que realizar las comunicaciones.
-            </summary>
-        </member>
-        <member name="P:FACe.FeSettings.CertificatePath">
-            <summary>
-            Ruta al archivo del certificado a utilizar.
-            Sólo se utiliza en los certificados cargados desde el sistema de archivos. 
-            </summary>
-        </member>
-        <member name="P:FACe.FeSettings.CertificatePassword">
-            <summary>
-            Password del certificado. Este valor sólo es necesario si
-            tenemos establecido el valor para 'CertificatePath' y el certificado
-            tiene clave de acceso. Sólo se utiliza en los certificados
-            cargados desde el sistema de archivos.
-            </summary>
-        </member>
-        <member name="P:FACe.FeSettings.FACeEndPointPrefix">
-            <summary>
-            EndPoint del API REST de la AEAT para envío FACe.
-            </summary>
-        </member>
-        <member name="P:FACe.FeSettings.LoggingEnabled">
-            <summary>
-            Indica si está activado el log de mensajes
-            del sistema.
-            </summary>
-        </member>
-        <member name="P:FACe.FeSettings.TlRuntime">
-            <summary>
-            Desactiva TL.
-            del sistema.
-            </summary>
-        </member>
         <member name="T:FACe.IFeInvoiceLine">
             <summary>
             Interfaz COM para la clase TaxItem.
@@ -10413,6 +9870,518 @@
             <para>03: Impuesto General Indirecto Canario (IGIC)</para>
             <para>04: IRPF</para>
             <para>05: Otros</para>
+            </summary>
+        </member>
+        <member name="T:FACe.IFeInvoiceResult">
+            <summary>
+            Interfaz COM para la clase RectificationItem.
+            </summary>
+        </member>
+        <member name="P:FACe.IFeInvoiceResult.ResultCode">
+            <summary>
+            Código del resultado de la operación. '0' si todo
+            ha ido vien.
+            </summary>
+        </member>
+        <member name="P:FACe.IFeInvoiceResult.ResultMessage">
+            <summary>
+            Mensaje del resultado de la petición. 'OK' si todo ha ido
+            bien.
+            </summary>
+        </member>
+        <member name="P:FACe.IFeInvoiceResult.CSV">
+            <summary>
+            Código seguro de verificación devuelto por la AEAT
+            si todo ha ido bien.
+            </summary>
+        </member>
+        <member name="T:FACe.FeInvoiceResult">
+            <summary>
+            Resultado de un envio de alta o anulación a la AEAT.
+            </summary>
+        </member>
+        <member name="M:FACe.FeInvoiceResult.#ctor">
+            <summary>
+            Constructor. Para COM necesitamos un constructor
+            sin parametros.
+            </summary>
+        </member>
+        <member name="P:FACe.FeInvoiceResult.ResultCode">
+            <summary>
+            Código del resultado de la operación. '0' si todo
+            ha ido vien.
+            </summary>
+        </member>
+        <member name="P:FACe.FeInvoiceResult.ResultMessage">
+            <summary>
+            Mensaje del resultado de la petición. 'OK' si todo ha ido
+            bien.
+            </summary>
+        </member>
+        <member name="P:FACe.FeInvoiceResult.CSV">
+            <summary>
+            Código seguro de verificación devuelto por la AEAT
+            si todo ha ido bien.
+            </summary>
+        </member>
+        <member name="T:FACe.IFeParty">
+            <summary>
+            Interfaz COM para la clase Party.
+            </summary>
+        </member>
+        <member name="P:FACe.IFeParty.PartyType">
+            <summary>
+            <para>'P':Persona física.</para>
+            <para>'J':Persona jurídica.</para>
+            </summary>
+        </member>
+        <member name="P:FACe.IFeParty.PartyRole">
+            <summary>
+            <para>'SL': Seller.</para>
+            <para>'BY': Buyer.</para>
+            <para>'OC': Oficina contable.</para>
+            <para>'OG': Organo gestor.</para>
+            <para>'UT': Unidad tramitadora.</para>
+            <para>'OT': Otros.</para>
+            </summary>
+        </member>
+        <member name="P:FACe.IFeParty.PartyID">
+            <summary>
+            Identificador del interlocutor de negocio.
+            Texto (20).
+            </summary>
+        </member>
+        <member name="P:FACe.IFeParty.PartyName">
+            <summary>
+            Nombre asignado al interlocutor.
+            Texto (150).
+            </summary>        
+        </member>
+        <member name="P:FACe.IFeParty.TaxID">
+            <summary>
+            Código de identificación fiscal.
+            Texto (30).
+            </summary>        
+        </member>
+        <member name="P:FACe.IFeParty.Address">
+            <summary>
+            Dirección.
+            Texto (120).
+            </summary>        
+        </member>
+        <member name="P:FACe.IFeParty.City">
+            <summary>
+            Población.
+            Texto (70).
+            </summary>        
+        </member>
+        <member name="P:FACe.IFeParty.PostalCode">
+            <summary>
+            Código postal.
+            Texto (120).
+            </summary>        
+        </member>
+        <member name="P:FACe.IFeParty.Region">
+            <summary>
+            Código región: Ej. provincia.
+            Texto (120).
+            </summary>        
+        </member>
+        <member name="P:FACe.IFeParty.CountryID">
+            <summary>
+            Código país ISO-3166 (EJ. ES).
+            Texto (2).
+            </summary>        
+        </member>
+        <member name="P:FACe.IFeParty.Mail">
+            <summary>
+            Dirección de correo principal.
+            Texto (150).
+            </summary>
+        </member>
+        <member name="P:FACe.IFeParty.Mobile">
+            <summary>
+            Número de teléfono movil.
+            Texto (20).
+            </summary>
+        </member>
+        <member name="P:FACe.IFeParty.Phone">
+            <summary>
+            Número de teléfono fijo.
+            Texto (20).
+            </summary>
+        </member>
+        <member name="P:FACe.IFeParty.WebAddress">
+            <summary>
+            Página web.
+            Texto (200).
+            </summary>
+        </member>
+        <member name="T:FACe.FeParty">
+            <summary>
+            Representa un interlocutor de negocio.
+            </summary>
+        </member>
+        <member name="M:FACe.FeParty.#ctor">
+            <summary>
+            Constructor. Para COM necesitamos un constructor
+            sin parametros.
+            </summary>
+        </member>
+        <member name="P:FACe.FeParty.PartyType">
+            <summary>
+            <para>'P':Persona física.</para>
+            <para>'J':Persona jurídica.</para>
+            </summary>
+        </member>
+        <member name="P:FACe.FeParty.PartyRole">
+            <summary>
+            <para>'SL': Seller.</para>
+            <para>'BY': Buyer.</para>
+            <para>'OC': Oficina contable.</para>
+            <para>'OG': Organo gestor.</para>
+            <para>'UT': Unidad tramitadora.</para>
+            <para>'OT': Otros.</para>
+            </summary>
+        </member>
+        <member name="P:FACe.FeParty.PartyID">
+            <summary>
+            Identificador del interlocutor de negocio.
+            Texto (20).
+            </summary>
+        </member>
+        <member name="P:FACe.FeParty.PartyName">
+            <summary>
+            Nombre asignado al interlocutor.
+            Texto (150).
+            </summary>        
+        </member>
+        <member name="P:FACe.FeParty.TaxID">
+            <summary>
+            Código de identificación fiscal.
+            Texto (30).
+            </summary>        
+        </member>
+        <member name="P:FACe.FeParty.Address">
+            <summary>
+            Dirección.
+            Texto (120).
+            </summary>        
+        </member>
+        <member name="P:FACe.FeParty.City">
+            <summary>
+            Población.
+            Texto (70).
+            </summary>        
+        </member>
+        <member name="P:FACe.FeParty.PostalCode">
+            <summary>
+            Código postal.
+            Texto (120).
+            </summary>        
+        </member>
+        <member name="P:FACe.FeParty.Region">
+            <summary>
+            Código región: Ej. provincia.
+            Texto (120).
+            </summary>        
+        </member>
+        <member name="P:FACe.FeParty.CountryID">
+            <summary>
+            Código país ISO-3166 (EJ. ES).
+            Texto (2).
+            </summary>        
+        </member>
+        <member name="P:FACe.FeParty.Mail">
+            <summary>
+            Dirección de correo principal.
+            Texto (150).
+            </summary>
+        </member>
+        <member name="P:FACe.FeParty.Mobile">
+            <summary>
+            Número de teléfono movil.
+            Texto (20).
+            </summary>
+        </member>
+        <member name="P:FACe.FeParty.Phone">
+            <summary>
+            Número de teléfono fijo.
+            Texto (20).
+            </summary>
+        </member>
+        <member name="P:FACe.FeParty.WebAddress">
+            <summary>
+            Página web.
+            Texto (200).
+            </summary>
+        </member>
+        <member name="T:FACe.IFeRectificationItem">
+            <summary>
+            Interfaz COM para la clase RectificationItem.
+            </summary>
+        </member>
+        <member name="P:FACe.IFeRectificationItem.InvoiceID">
+            <summary>
+            Identificador de la factura.
+            </summary>
+        </member>
+        <member name="P:FACe.IFeRectificationItem.InvoiceDate">
+            <summary>
+            Fecha emisión de documento.
+            </summary>        
+        </member>
+        <member name="T:FACe.FeRectificationItem">
+            <summary>
+            Representa información sobre la factura
+            a la que se refiere una rectificación.
+            </summary>
+        </member>
+        <member name="M:FACe.FeRectificationItem.#ctor">
+            <summary>
+            Constructor. Para COM necesitamos un constructor
+            sin parametros.
+            </summary>
+        </member>
+        <member name="P:FACe.FeRectificationItem.InvoiceID">
+            <summary>
+            Identificador de la factura.
+            </summary>
+        </member>
+        <member name="P:FACe.FeRectificationItem.InvoiceDate">
+            <summary>
+            Fecha emisión de documento.
+            </summary>        
+        </member>
+        <member name="T:FACe.IFeSettings">
+            <summary>
+            Interfaz COM para la clase RectificationItem.
+            </summary>
+        </member>
+        <member name="P:FACe.IFeSettings.IDVersion">
+            <summary>
+            <para>Identificación de la versión actual del esquema o
+            estructura de información utilizada para la generación y
+            conservación / remisión de los registros de facturación.
+            Este campo forma parte del detalle de las circunstancias
+            de generación de los registros de facturación.</para>
+            <para>Alfanumérico(3) L15:</para>
+            <para>1.0: Versión actual (1.0) del esquema utilizado </para>
+            </summary>
+        </member>
+        <member name="P:FACe.IFeSettings.InboxPath">
+            <summary>
+            Ruta al directorio que actuará como bandeja de entrada.
+            En este directorio se almacenarán todos los mensajes
+            recibidos de la AEAT mediante VERI*FACTU.
+            </summary>
+        </member>
+        <member name="P:FACe.IFeSettings.OutboxPath">
+            <summary>
+            Ruta al directorio que actuará como bandeja de salida.
+            En este directorio se almacenará una copia de cualquier
+            envío realizado a la AEAT mediante el VERI*FACTU.
+            </summary>
+        </member>
+        <member name="P:FACe.IFeSettings.BlockchainPath">
+            <summary>
+            Ruta al directorio que actuará como almacén
+            de las distintas cadenas de bloques por emisor.
+            </summary>
+        </member>
+        <member name="P:FACe.IFeSettings.InvoicePath">
+            <summary>
+            Ruta al directorio que actuará almacenamiento
+            de las facturas emitidas por emisor.
+            </summary>
+        </member>
+        <member name="P:FACe.IFeSettings.LogPath">
+            <summary>
+            Ruta al directorio que actuará almacenamiento
+            del registro de mensajes del sistema.
+            </summary>
+        </member>
+        <member name="P:FACe.IFeSettings.CertificateSerial">
+            <summary>
+            Número de serie del certificado a utilizar. Mediante este número
+            de serie se selecciona del almacén de certificados de windows
+            el certificado con el que realizar las comunicaciones.
+            </summary>
+        </member>
+        <member name="P:FACe.IFeSettings.CertificateThumbprint">
+            <summary>
+            Hash o Huella digital del certificado a utilizar. Mediante esta
+            huella digital se selecciona del almacén de certificados de
+            windows el certificado con el que realizar las comunicaciones.
+            </summary>
+        </member>
+        <member name="P:FACe.IFeSettings.CertificatePath">
+            <summary>
+            Ruta al archivo del certificado a utilizar.
+            Sólo se utiliza en los certificados cargados desde el sistema de archivos. 
+            </summary>
+        </member>
+        <member name="P:FACe.IFeSettings.CertificatePassword">
+            <summary>
+            Password del certificado. Este valor sólo es necesario si
+            tenemos establecido el valor para 'CertificatePath' y el certificado
+            tiene clave de acceso. Sólo se utiliza en los certificados
+            cargados desde el sistema de archivos.
+            </summary>
+        </member>
+        <member name="P:FACe.IFeSettings.FACeEndPointPrefix">
+            <summary>
+            EndPoint del web service de la AEAT para envío registros alta y anulación.
+            </summary>
+        </member>
+        <member name="P:FACe.IFeSettings.LoggingEnabled">
+            <summary>
+            Indica si está activado el log de mensajes
+            del sistema.
+            </summary>
+        </member>
+        <member name="P:FACe.IFeSettings.TlRuntime">
+            <summary>
+            Desactiva TL.
+            del sistema.
+            </summary>
+        </member>
+        <member name="M:FACe.IFeSettings.Save">
+            <summary>
+            Guarda la configuración.
+            </summary>
+        </member>
+        <member name="M:FACe.IFeSettings.Load">
+            <summary>
+            Carga la configuración.
+            </summary>
+        </member>
+        <member name="M:FACe.IFeSettings.SetConfigFileName(System.String)">
+            <summary>
+            Esteblece el archivo de configuración con el cual trabajar.
+            </summary>
+            <param name="fileName">Nombre del archivo de configuración a utilizar.</param>
+        </member>
+        <member name="T:FACe.FeSettings">
+            <summary>
+            Representa una línea de impuestos.
+            </summary>
+        </member>
+        <member name="M:FACe.FeSettings.#ctor">
+            <summary>
+            Constructor. Para COM necesitamos un constructor
+            sin parametros.
+            </summary>
+        </member>
+        <member name="M:FACe.FeSettings.GetSettings">
+            <summary>
+            Devuelve una instancia de clase Settings creada a partir
+            de los datos de esta instancia.
+            </summary>
+            <returns>Instancia de clase Settings.</returns>
+        </member>
+        <member name="M:FACe.FeSettings.Save">
+            <summary>
+            Guarda la configuración.
+            </summary>
+        </member>
+        <member name="M:FACe.FeSettings.Load">
+            <summary>
+            Carga la configuración.
+            </summary>
+        </member>
+        <member name="M:FACe.FeSettings.SetConfigFileName(System.String)">
+            <summary>
+            Esteblece el archivo de configuración con el cual trabajar.
+            </summary>
+            <param name="fileName">Nombre del archivo de configuración a utilizar.</param>
+        </member>
+        <member name="P:FACe.FeSettings.IDVersion">
+            <summary>
+            <para>Identificación de la versión actual del esquema o
+            estructura de información utilizada para la generación y
+            conservación / remisión de los registros de facturación.
+            Este campo forma parte del detalle de las circunstancias
+            de generación de los registros de facturación.</para>
+            <para>Alfanumérico(3) L15:</para>
+            <para>1.0: Versión actual (1.0) del esquema utilizado </para>
+            </summary>
+        </member>
+        <member name="P:FACe.FeSettings.InboxPath">
+            <summary>
+            Ruta al directorio que actuará como bandeja de entrada.
+            En este directorio se almacenarán todos los mensajes
+            recibidos de la AEAT mediante VERI*FACTU.
+            </summary>
+        </member>
+        <member name="P:FACe.FeSettings.OutboxPath">
+            <summary>
+            Ruta al directorio que actuará como bandeja de salida.
+            En este directorio se almacenará una copia de cualquier
+            envío realizado a la AEAT mediante el VERI*FACTU.
+            </summary>
+        </member>
+        <member name="P:FACe.FeSettings.BlockchainPath">
+            <summary>
+            Ruta al directorio que actuará como almacén
+            de las distintas cadenas de bloques por emisor.
+            </summary>
+        </member>
+        <member name="P:FACe.FeSettings.InvoicePath">
+            <summary>
+            Ruta al directorio que actuará almacenamiento
+            de las facturas emitidas por emisor.
+            </summary>
+        </member>
+        <member name="P:FACe.FeSettings.LogPath">
+            <summary>
+            Ruta al directorio que actuará almacenamiento
+            del registro de mensajes del sistema.
+            </summary>
+        </member>
+        <member name="P:FACe.FeSettings.CertificateSerial">
+            <summary>
+            Número de serie del certificado a utilizar. Mediante este número
+            de serie se selecciona del almacén de certificados de windows
+            el certificado con el que realizar las comunicaciones.
+            </summary>
+        </member>
+        <member name="P:FACe.FeSettings.CertificateThumbprint">
+            <summary>
+            Hash o Huella digital del certificado a utilizar. Mediante esta
+            huella digital se selecciona del almacén de certificados de
+            windows el certificado con el que realizar las comunicaciones.
+            </summary>
+        </member>
+        <member name="P:FACe.FeSettings.CertificatePath">
+            <summary>
+            Ruta al archivo del certificado a utilizar.
+            Sólo se utiliza en los certificados cargados desde el sistema de archivos. 
+            </summary>
+        </member>
+        <member name="P:FACe.FeSettings.CertificatePassword">
+            <summary>
+            Password del certificado. Este valor sólo es necesario si
+            tenemos establecido el valor para 'CertificatePath' y el certificado
+            tiene clave de acceso. Sólo se utiliza en los certificados
+            cargados desde el sistema de archivos.
+            </summary>
+        </member>
+        <member name="P:FACe.FeSettings.FACeEndPointPrefix">
+            <summary>
+            EndPoint del API REST de la AEAT para envío FACe.
+            </summary>
+        </member>
+        <member name="P:FACe.FeSettings.LoggingEnabled">
+            <summary>
+            Indica si está activado el log de mensajes
+            del sistema.
+            </summary>
+        </member>
+        <member name="P:FACe.FeSettings.TlRuntime">
+            <summary>
+            Desactiva TL.
+            del sistema.
             </summary>
         </member>
         <member name="T:FACe.IFeTaxItem">

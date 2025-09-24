@@ -207,10 +207,6 @@ namespace FACe
 
             var result = new Config.Settings()
             {
-                IDVersion = IDVersion,
-                InboxPath = InboxPath,
-                OutboxPath = OutboxPath,
-                InvoicePath = InvoicePath,
                 LogPath = LogPath,
                 CertificateSerial = CertificateSerial,
                 CertificateThumbprint = CertificateThumbprint,
@@ -251,10 +247,6 @@ namespace FACe
 
             var settings = Settings.Current;
 
-            IDVersion = settings.IDVersion;
-            InboxPath = settings.InboxPath;
-            OutboxPath = settings.OutboxPath;
-            InvoicePath = settings.InvoicePath;
             LogPath = settings.LogPath;
             CertificateSerial = settings.CertificateSerial;
             CertificateThumbprint = settings.CertificateThumbprint;

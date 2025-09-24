@@ -184,7 +184,7 @@ namespace FACe.Config
         internal static Settings GetDefault() 
         {
 
-            var numeroInstalacion = "01";
+            var installationNumber = "01";
 
             try 
             {
@@ -192,7 +192,7 @@ namespace FACe.Config
                 var mac = GetLocalMacAddress();
 
                 if (!string.IsNullOrEmpty(mac))
-                    numeroInstalacion = mac;
+                    installationNumber = mac;
 
             }
             catch (Exception ex) 
@@ -204,11 +204,7 @@ namespace FACe.Config
 
             return new Settings()
             {
-                IDVersion = "1.0.0.0",
-                InstallationNumber = numeroInstalacion,
-                InboxPath = $"{Path}Inbox{_PathSep}",
-                OutboxPath = $"{Path}Outbox{_PathSep}",
-                InvoicePath = $"{Path}Invoices{_PathSep}",
+                InstallationNumber = installationNumber,
                 LogPath = $"{Path}Log{_PathSep}",
                 CertificateSerial = "",
                 CertificateThumbprint = "",
@@ -263,18 +259,6 @@ namespace FACe.Config
         #region Propiedades Públicas de Instancia
 
         /// <summary>
-        /// <para>Identificación de la versión actual del esquema o
-        /// estructura de información utilizada para la generación y
-        /// conservación / remisión de los registros de facturación.
-        /// Este campo forma parte del detalle de las circunstancias
-        /// de generación de los registros de facturación.</para>
-        /// <para>Alfanumérico(3) L15:</para>
-        /// <para>1.0: Versión actual (1.0) del esquema utilizado </para>
-        /// </summary>
-        [XmlElement("IDVersion")]
-        public string IDVersion { get; set; }
-
-        /// <summary>
         /// <para>Número de instalación del sistema informático de facturación (SIF) utilizado.
         /// Deberá distinguirlo de otros posibles SIF utilizados para realizar la facturación del
         /// obligado a expedir facturas, es decir, de otras posibles instalaciones de SIF pasadas,
@@ -283,29 +267,6 @@ namespace FACe.Config
         /// <para>Alfanumérico(100).</para>
         /// </summary>
         public string InstallationNumber { get; set; }
-
-        /// <summary>
-        /// Ruta al directorio que actuará como bandeja de entrada.
-        /// En este directorio se almacenarán todos los mensajes
-        /// recibidos de la AEAT mediante VERI*FACTU.
-        /// </summary>
-        [XmlElement("InboxPath")]
-        public string InboxPath { get; set; }
-
-        /// <summary>
-        /// Ruta al directorio que actuará como bandeja de salida.
-        /// En este directorio se almacenará una copia de cualquier
-        /// envío realizado a la AEAT mediante el VERI*FACTU.
-        /// </summary>
-        [XmlElement("OutboxPath")]
-        public string OutboxPath { get; set; }
-
-        /// <summary>
-        /// Ruta al directorio que actuará almacenamiento
-        /// de las facturas emitidas por emisor.
-        /// </summary>
-        [XmlElement("InvoicePath")]
-        public string InvoicePath { get; set; }
 
         /// <summary>
         /// Ruta al directorio que actuará almacenamiento
@@ -402,15 +363,6 @@ namespace FACe.Config
         {
             if (!Directory.Exists(Path))
                 Directory.CreateDirectory(Path);
-
-            if (!Directory.Exists(_Current.InboxPath))
-                Directory.CreateDirectory(_Current.InboxPath);
-
-            if (!Directory.Exists(_Current.OutboxPath))
-                Directory.CreateDirectory(_Current.OutboxPath);
-
-            if (!Directory.Exists(_Current.InvoicePath))
-                Directory.CreateDirectory(_Current.InvoicePath);
 
             if (!Directory.Exists(_Current.LogPath))
                 Directory.CreateDirectory(_Current.LogPath);
