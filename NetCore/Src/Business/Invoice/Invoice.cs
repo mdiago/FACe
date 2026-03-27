@@ -732,7 +732,7 @@ namespace FACe.Business.Invoice
                     $" no es un PersonTypeCode adecuado.");
 
             if (!Enum.TryParse<PersonTypeCode>(buyer.PartyType, out var personTypeCodeBuyer))
-                throw new ArgumentException($"PartyType '{seller.PartyType}'" +
+                throw new ArgumentException($"PartyType '{buyer.PartyType}'" +
                     $" no es un PersonTypeCode adecuado.");
 
             if (!Enum.TryParse<CurrencyCode>(CurrencyID, out var currencyCode))
