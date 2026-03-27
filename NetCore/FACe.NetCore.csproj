@@ -8,7 +8,7 @@
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <AssemblyName>FACe</AssemblyName>
     <Title>FACe</Title>
-    <Version>1.0.1</Version>
+    <Version>1.0.2</Version>
     <Authors>Manuel Diago</Authors>
     <Company>Irene Solutions SL</Company>
     <Description>Generación, firma y envío de facturas eletrónicas facturae a FACe
@@ -23,8 +23,8 @@
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
     <RootNamespace>FACe</RootNamespace>
-    <AssemblyVersion>1.0.0.1</AssemblyVersion>
-    <FileVersion>1.0.0.1</FileVersion>
+    <AssemblyVersion>1.0.0.2</AssemblyVersion>
+    <FileVersion>1.0.0.2</FileVersion>
     <PackageId>Irene.Solutions.FACe</PackageId>
   </PropertyGroup>
 

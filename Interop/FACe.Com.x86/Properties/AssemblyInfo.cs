@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 // conjunto de atributos. Cambie estos valores de atributo para modificar la información
 // asociada con un ensamblado.
 [assembly: AssemblyTitle("FACe")]
-[assembly: AssemblyDescription("FACe x86 32 bits 1.0.0.1")]
+[assembly: AssemblyDescription("FACe x86 32 bits 1.0.0.2")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Irene Solutions SL")]
 [assembly: AssemblyProduct("FACe")]
@@ -28,5 +28,5 @@ using System.Runtime.InteropServices;
 //      Número de compilación
 //      Revisión
 //
-[assembly: AssemblyVersion("1.0.0.1")]
-[assembly: AssemblyFileVersion("1.0.0.1")]
+[assembly: AssemblyVersion("1.0.0.2")]
+[assembly: AssemblyFileVersion("1.0.0.2")]
