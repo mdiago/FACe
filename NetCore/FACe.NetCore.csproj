@@ -8,14 +8,14 @@
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <AssemblyName>FACe</AssemblyName>
     <Title>FACe</Title>
-    <Version>1.0.2</Version>
+    <Version>1.0.3</Version>
     <Authors>Manuel Diago</Authors>
     <Company>Irene Solutions SL</Company>
     <Description>Generación, firma y envío de facturas eletrónicas facturae a FACe
 </Description>
     <PackageProjectUrl>https://github.com/mdiago/FACe</PackageProjectUrl>
     <PackageIcon>FACe.png</PackageIcon>
-    <Copyright>Irene Solutions SL 2025</Copyright>
+    <Copyright>Irene Solutions SL 2026</Copyright>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <RepositoryUrl>https://github.com/mdiago/FACe</RepositoryUrl>
     <PackageTags>FACe;Factura-Eletronica;Facturae</PackageTags>
@@ -23,9 +23,10 @@
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
     <RootNamespace>FACe</RootNamespace>
-    <AssemblyVersion>1.0.0.2</AssemblyVersion>
-    <FileVersion>1.0.0.2</FileVersion>
+    <AssemblyVersion>1.0.0.3</AssemblyVersion>
+    <FileVersion>1.0.0.3</FileVersion>
     <PackageId>Irene.Solutions.FACe</PackageId>
+	<TargetsForTfmSpecificContentInPackage>$(TargetsForTfmSpecificContentInPackage);CustomContentTarget</TargetsForTfmSpecificContentInPackage>
   </PropertyGroup>
 
   <ItemGroup>
