@@ -494,7 +494,6 @@ namespace FACe.Business.Invoice
                     Quantity = invoiceLine.Quantity,
                     UnitOfMeasure = unitOfMeasure,
                     UnitPriceWithoutTax = invoiceLine.NetPrice,
-                    DiscountsAndRebates = new Discount[1] { new Discount() { DiscountReason = "DTO GENERAL", DiscountRate = invoiceLine.DiscountRate, DiscountAmount = invoiceLine.DiscountAmount } },
                     TotalCost = invoiceLine.NetAmount,
                     GrossAmount = invoiceLine.GrossAmount,
                     TaxesOutputs = new Tax[1]
@@ -508,6 +507,18 @@ namespace FACe.Business.Invoice
                         }
                     }                    
                 };
+
+                // AÑADO DESCUENTOS EN SU CASO
+                if (invoiceLine.DiscountAmount != 0 && invoiceLine.DiscountRate != 0)
+                    lines[i].DiscountsAndRebates = new Discount[1] 
+                    { 
+                        new Discount() 
+                        { 
+                            DiscountReason = "DTO GENERAL", 
+                            DiscountRate = invoiceLine.DiscountRate, 
+                            DiscountAmount = invoiceLine.DiscountAmount 
+                        } 
+                    };
 
                 // DE MOMENTO EL VALIDADOR DE FACE NO ACEPTA IMPUESTOS RETENIDOS EN LA LÍNEA
                 if (invoiceLine.TaxesWithheldAmount != 0)
