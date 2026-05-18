@@ -60,7 +60,7 @@ namespace FACe.Common
         Dictionary<int, string> _Log;
 
         /// <summary>
-        /// Almacena los mensajes.
+        /// Almacena el momento de almacenamiento de los mensajes.
         /// </summary>
         Dictionary<int, DateTime> _LogTime;
 
