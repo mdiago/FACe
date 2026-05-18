@@ -793,7 +793,7 @@ namespace FACe.Business.Invoice
                     {
                         TaxIdentification = new TaxIdentification()
                         {
-                            PersonTypeCode = personTypeCodeSeller,
+                            PersonTypeCode = personTypeCodeBuyer,
                             ResidenceTypeCode = GetResidenceTypeCode(buyer.CountryID),
                             TaxIdentificationNumber = BuyerID
                         },
