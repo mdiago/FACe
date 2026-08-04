@@ -800,7 +800,7 @@
         </member>
         <member name="F:FACe.Common.Logger._LogTime">
             <summary>
-            Almacena los mensajes.
+            Almacena el momento de almacenamiento de los mensajes.
             </summary>
         </member>
         <member name="F:FACe.Common.Logger._Count">
@@ -1414,7 +1414,41 @@
             </summary>
             <param name="jsonText">Texto JSON.</param>
         </member>
+        <member name="M:FACe.Net.Rest.Json.Parser.JsonParser.GetFromExpando``1(System.Object)">
+            <summary>
+            Devuelve una nueva instancia del tipo
+            genérico facilitado a partir de un expando.
+            </summary>
+            <typeparam name="T">Tipo de la instancia
+            a crear.</typeparam>
+            <param name="dynObj">Objeto expando a partir
+            del cual devolver la instancia.</param>
+            <returns>Nueva instancia del tipo T creada
+            a partir del objeto expando facilitado como parámetrol</returns>
+        </member>
+        <member name="M:FACe.Net.Rest.Json.Parser.JsonParser.GetByJsonAttName(System.Type,System.String)">
+            <summary>
+            Devuelve PropertyInfo de la propiedad del
+            tipo facilitado como parámetro type
+            que tiene la propiedad Name de su JsonAttribute
+            equivalente al valor del parámetro name.
+            </summary>
+            <param name="type">Tipo en el que buscar.</param>
+            <param name="name">Nombre a buscar.</param>
+            <returns>PropertyInfo de la propiedad del
+            tipo facilitado como parámetro type
+            que tiene la propiedad Name de su JsonAttribute
+            equivalente al valor del parámetro name</returns>
+        </member>
         <member name="M:FACe.Net.Rest.Json.Parser.JsonParser.GetResult">
+            <summary>
+            Devuelve el resultado de la deserialización
+            de la cadena JSON.
+            </summary>
+            <returns>resultado de la deserialización
+            de la cadena JSON.</returns>
+        </member>
+        <member name="M:FACe.Net.Rest.Json.Parser.JsonParser.GetResult``1">
             <summary>
             Devuelve el resultado de la deserialización
             de la cadena JSON.
