@@ -49,7 +49,7 @@ namespace FACe.Common
         /// <summary>
         /// Longitud máxima del texto pra logging.
         /// </summary>
-        private int MaxLogLength = 8;
+        private int MaxLogLength = 250;
 
         /// <summary>
         /// Información para el log.
