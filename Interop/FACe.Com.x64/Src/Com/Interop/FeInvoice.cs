@@ -37,6 +37,7 @@
     address: info@irenesolutions.com
  */
 
+using FACe.Business.Invoice.Converters;
 using FACe.Common;
 using FACe.Net.Rest;
 using FACe.Net.Rest.Json.Parser;
@@ -755,7 +756,7 @@ namespace FACe
         {
 
             _Invoice = GetInvoice();
-            var facturae = _Invoice.GetFacturae();
+            var facturae = new FacturaeConverter(_Invoice).GetDocument();
             var facturaeManager = new FacturaeManager(facturae);
 
             return facturaeManager.GetUTF8XmlText();
@@ -780,7 +781,7 @@ namespace FACe
                     $" firmar el documento ya que el certificado digital es nulo.");
 
             _Invoice = GetInvoice();
-            var facturae = _Invoice.GetFacturae();
+            var facturae = new FacturaeConverter(_Invoice).GetDocument();
             var facturaeManager = new FacturaeManager(facturae);
 
             return facturaeManager.GetXmlTextSigned(certificate);

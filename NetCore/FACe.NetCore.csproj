@@ -34,7 +34,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="..\..\Facturae\NetCore\FACe.png">
+    <None Include="..\..\FACe\NetCore\FACe.png">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>

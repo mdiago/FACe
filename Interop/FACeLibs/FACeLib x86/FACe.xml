@@ -60,6 +60,142 @@
             <param name="attachments">Archivos adjuntos a enviar.</param>
             <returns>Texto JSON de la respuesta de FACe.</returns>
         </member>
+        <member name="T:FACe.Business.Invoice.Converters.FacturaeConverter">
+            <summary>
+            Encargado de convertir una instancia de Invoice en un objeto
+            Facturae determinado y de otener de un objeto Facturae
+            un objeto Invoice con su representación.
+            </summary>
+        </member>
+        <member name="M:FACe.Business.Invoice.Converters.FacturaeConverter.#ctor(FACe.Business.Invoice.Invoice)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="invoice">Objeto Invoice.</param>
+        </member>
+        <member name="M:FACe.Business.Invoice.Converters.FacturaeConverter.GetFromInvoice">
+            <summary>
+            Obtiene un objeto InvoiceDocument a partir del objeto
+            Invoice contenido.
+            </summary>
+            <returns> Objeto InvoiceDocument</returns>
+        </member>
+        <member name="M:FACe.Business.Invoice.Converters.FacturaeConverter.GetTaxes">
+            <summary>
+            Obtiene el desglose de la factura.
+            </summary>
+            <returns>Desglose de la factura.</returns>
+        </member>
+        <member name="M:FACe.Business.Invoice.Converters.FacturaeConverter.GetPartyByTaxId(System.String)">
+            <summary>
+            Recupera el interlocutor con el TaxId
+            pasado como parámetro.
+            </summary>
+            <param name="taxId">Identificador fiscal.</param>
+            <returns>El interlocutor con ese TaxId o null si no existe.</returns>
+        </member>
+        <member name="M:FACe.Business.Invoice.Converters.FacturaeConverter.GetPartyByPartyRole(System.String)">
+            <summary>
+            Recupera el interlocutor con el role
+            pasado como parámetro.
+            </summary>
+            <param name="role">Rol del interlocutor en la factura.</param>
+            <returns>El interlocutor con ese TaxId o null si no existe.</returns>
+        </member>
+        <member name="M:FACe.Business.Invoice.Converters.FacturaeConverter.GetResidenceTypeCode(System.String)">
+            <summary>
+            Devuelve el tipo de residencia según el
+            código de pais.
+            </summary>
+            <param name="countryID">Código pais.</param>
+            <returns>Tipo de residencia.</returns>
+        </member>
+        <member name="M:FACe.Business.Invoice.Converters.FacturaeConverter.GetParty(FACe.Business.Invoice.Party)">
+            <summary>
+            Devuelve un LegalEntity o Individual
+            según el caso.
+            </summary>
+            <param name="party"></param>
+            <returns>Devuelve un LegalEntity o Individual.</returns>
+        </member>
+        <member name="M:FACe.Business.Invoice.Converters.FacturaeConverter.GetPaymentDetails(System.Collections.Generic.List{FACe.Business.Invoice.Installment})">
+            <summary>
+            Devuelve los vencimientos para FActurae.
+            </summary>
+            <param name="installments"> 
+            Vencimeintos
+            de la factura de la que extraer
+            los vencimientos
+            </param>
+            <returns> Vencimientos para Facturae.</returns>
+        </member>
+        <member name="M:FACe.Business.Invoice.Converters.FacturaeConverter.GetLines(System.Collections.Generic.List{FACe.Business.Invoice.InvoiceLine})">
+            <summary>
+            Devuelve las líneas de factura para FActurae.
+            </summary>
+            <param name="invoiceLines"> 
+            Líneas de la factura.
+            </param>
+            <returns> Líneas para Facturae.</returns>
+        </member>
+        <member name="M:FACe.Business.Invoice.Converters.FacturaeConverter.GetInvoice">
+            <summary>
+            Obtiene un objeto Invoice a partir del objeto
+            InvoiceDocument contenido.
+            </summary>
+            <returns> Objeto Invoice.</returns>
+        </member>
+        <member name="T:FACe.Business.Invoice.Converters.InvoiceConverter`1">
+            <summary>
+            Encargado de convertir una instancia de Invoice en un objeto
+            InvoiceDocument determinado y de otener de un objeto InvoiceDocument
+            un objeto Invoice con su representación.
+            </summary>
+            <typeparam name="T"> Tipo del objeto InvoiceDocument.</typeparam>
+        </member>
+        <member name="P:FACe.Business.Invoice.Converters.InvoiceConverter`1.Invoice">
+            <summary>
+            Objeto Invoice.
+            </summary>
+        </member>
+        <member name="P:FACe.Business.Invoice.Converters.InvoiceConverter`1.InvoiceDocument">
+            <summary>
+            Objeto InvoiceDocument.
+            </summary>
+        </member>
+        <member name="M:FACe.Business.Invoice.Converters.InvoiceConverter`1.GetFromInvoice">
+            <summary>
+            Obtiene un objeto Invoice a partir del objeto
+            InvoiceDocument contenido.
+            </summary>
+            <returns> Objeto Invoice.</returns>
+        </member>
+        <member name="M:FACe.Business.Invoice.Converters.InvoiceConverter`1.#ctor(FACe.Business.Invoice.Invoice)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="invoice">Objeto Invoice.</param>
+        </member>
+        <member name="M:FACe.Business.Invoice.Converters.InvoiceConverter`1.#ctor(`0)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="invoiceDocument">Objeto InvoiceDocument.</param>
+        </member>
+        <member name="M:FACe.Business.Invoice.Converters.InvoiceConverter`1.GetDocument">
+            <summary>
+            Obtiene un objeto InvoiceDocument a partir del objeto
+            Invoice contenido.
+            </summary>
+            <returns> Objeto InvoiceDocument</returns>
+        </member>
+        <member name="M:FACe.Business.Invoice.Converters.InvoiceConverter`1.GetInvoice">
+            <summary>
+            Obtiene un objeto Invoice a partir del objeto
+            InvoiceDocument contenido.
+            </summary>
+            <returns> Objeto Invoice.</returns>
+        </member>
         <member name="T:FACe.Business.Invoice.Installment">
             <summary>
             Representa una factura rectificada.
@@ -127,12 +263,6 @@
             Suma de las bases imponibles.
             </summary>   
         </member>
-        <member name="F:FACe.Business.Invoice.Invoice._FacturaeSource">
-            <summary>
-            Documento Facturae que representa
-            la factura.
-            </summary>
-        </member>
         <member name="M:FACe.Business.Invoice.Invoice.#ctor(System.String,System.DateTime,System.String)">
             <summary>
             Constructor.
@@ -142,82 +272,10 @@
             <param name="sellerID">Identificador del vendedor.</param>        
             <exception cref="T:System.ArgumentNullException">Los argumentos invoiceID y sellerID no pueden ser nulos</exception>
         </member>
-        <member name="M:FACe.Business.Invoice.Invoice.#ctor(FACe.Xml.Facturae.Bies.Facturae)">
-            <summary>
-            Constructor.
-            </summary>
-            <param name="facturae">Documento Facturae de alta a partir del que se crea la factura.</param>
-        </member>
-        <member name="M:FACe.Business.Invoice.Invoice.GetTaxItems(FACe.Xml.Facturae.Bies.Invoice)">
-            <summary>
-            Devuelve una lista de TaxItem a partir
-            de un elemento Invoice de documento Facturae.
-            </summary>
-            <param name="invoice"> Elemento Invoice de documento Facturae.</param>
-            <returns> Lista de TaxItems</returns>
-        </member>
         <member name="M:FACe.Business.Invoice.Invoice.CalculateTotals">
             <summary>
             Calcula los totales de la factura.
             </summary>
-        </member>
-        <member name="M:FACe.Business.Invoice.Invoice.GetTaxes">
-            <summary>
-            Obtiene el desglose de la factura.
-            </summary>
-            <returns>Desglose de la factura.</returns>
-        </member>
-        <member name="M:FACe.Business.Invoice.Invoice.GetPartyByTaxId(System.String)">
-            <summary>
-            Recupera el interlocutor con el TaxId
-            pasado como parámetro.
-            </summary>
-            <param name="taxId">Identificador fiscal.</param>
-            <returns>El interlocutor con ese TaxId o null si no existe.</returns>
-        </member>
-        <member name="M:FACe.Business.Invoice.Invoice.GetPartyByPartyRole(System.String)">
-            <summary>
-            Recupera el interlocutor con el role
-            pasado como parámetro.
-            </summary>
-            <param name="role">Rol del interlocutor en la factura.</param>
-            <returns>El interlocutor con ese TaxId o null si no existe.</returns>
-        </member>
-        <member name="M:FACe.Business.Invoice.Invoice.GetResidenceTypeCode(System.String)">
-            <summary>
-            Devuelve el tipo de residencia según el
-            código de pais.
-            </summary>
-            <param name="countryID">Código pais.</param>
-            <returns>Tipo de residencia.</returns>
-        </member>
-        <member name="M:FACe.Business.Invoice.Invoice.GetParty(FACe.Business.Invoice.Party)">
-            <summary>
-            Devuelve un LegalEntity o Individual
-            según el caso.
-            </summary>
-            <param name="party"></param>
-            <returns>Devuelve un LegalEntity o Individual.</returns>
-        </member>
-        <member name="M:FACe.Business.Invoice.Invoice.GetPaymentDetails(System.Collections.Generic.List{FACe.Business.Invoice.Installment})">
-            <summary>
-            Devuelve los vencimientos para FActurae.
-            </summary>
-            <param name="installments"> 
-            Vencimeintos
-            de la factura de la que extraer
-            los vencimientos
-            </param>
-            <returns> Vencimientos para Facturae.</returns>
-        </member>
-        <member name="M:FACe.Business.Invoice.Invoice.GetLines(System.Collections.Generic.List{FACe.Business.Invoice.InvoiceLine})">
-            <summary>
-            Devuelve las líneas de factura para FActurae.
-            </summary>
-            <param name="invoiceLines"> 
-            Líneas de la factura.
-            </param>
-            <returns> Líneas para Facturae.</returns>
         </member>
         <member name="P:FACe.Business.Invoice.Invoice.InvoiceType">
             <summary>
@@ -360,19 +418,6 @@
             <summary>
             CuotaRecargoRectificado para rectificativas por sustitución 'S'.
             </summary>
-        </member>
-        <member name="P:FACe.Business.Invoice.Invoice.Facturae">
-            <summary>
-            RegistroAlta a partir del cual se ha creado la factura, en el
-            caso de que la instancia se haya creado a partir de un registro
-            de alta.
-            </summary>
-        </member>
-        <member name="M:FACe.Business.Invoice.Invoice.GetFacturae">
-            <summary>
-            Obtiene el registro de alta para verifactu.
-            </summary>
-            <returns>Registro de alta para verifactu</returns>
         </member>
         <member name="M:FACe.Business.Invoice.Invoice.ToString">
             <summary>
@@ -8978,6 +9023,24 @@
             Devuelve el xml firmado.
             </summary>
             <returns>Xml firmado.</returns>
+        </member>
+        <member name="T:FACe.Xml.InvoiceDocument">
+            <summary>
+            Representa un documento de factura para la serialización xml:
+            Faturae, UBL o CII.
+            </summary>
+        </member>
+        <member name="M:FACe.Xml.InvoiceDocument.GetNamespaces">
+            <summary>
+            Obteine los espacios de nombres del documento.
+            </summary>
+            <returns> Espacios de nombres del documento.</returns>
+        </member>
+        <member name="M:FACe.Xml.InvoiceDocument.GetXml">
+            <summary>
+            Obtiene el texto xml del documento.
+            </summary>
+            <returns> Texto xml del documento.</returns>
         </member>
         <member name="T:FACe.Xml.XmlParser">
             <summary>
