@@ -30,55 +30,72 @@
     develop commercial activities involving the FACe software without
     disclosing the source code of your own applications.
     These activities include: offering paid services to customers as an ASP,
-    serving FACe services on the fly in a web application, 
-    shipping FACe with a closed source product.
+    serving FACe XML data on the fly in a web application, shipping FACe
+    with a closed source product.
     
     For more information, please contact Irene Solutions SL. at this
     address: info@irenesolutions.com
  */
 
 using System;
-using System.Xml.Schema;
+using System.IO;
+using System.Text;
+using System.Xml;
 using System.Xml.Serialization;
 
-namespace FACe.Xml.Facturae.Bies
+namespace FACe.Xml
 {
 
     /// <summary>
-    /// Facturae versión 3.22.
+    /// Representa un documento de factura para la serialización xml:
+    /// Faturae, UBL o CII.
     /// </summary>
-    [Serializable()]
-    [XmlType(AnonymousType = true, Namespace = FacturaeNamespaces.NamespaceFE)]
-    [XmlRoot(Namespace = FacturaeNamespaces.NamespaceFE, IsNullable = false)]
-    public class Facturae : InvoiceDocument
+    public abstract class InvoiceDocument
     {
 
-        #region Propiedades Públicas Estáticas
+        #region Métodos Privados de Instancia
 
         /// <summary>
-        /// Encabezado.
+        /// Obteine los espacios de nombres del documento.
         /// </summary>
-        [XmlElement(Form = XmlSchemaForm.Unqualified)]
-        public FileHeader FileHeader { get; set; }
+        /// <returns> Espacios de nombres del documento.</returns>
+
+        protected virtual XmlSerializerNamespaces GetNamespaces()
+        {
+
+            return new XmlSerializerNamespaces();
+
+        }
+
+        #endregion
+
+        #region Métodos Públicos de Instancia
 
         /// <summary>
-        /// Partes intervimientes.
+        /// Obtiene el texto xml del documento.
         /// </summary>
-        [XmlElement(Form = XmlSchemaForm.Unqualified)]
-        public PartiesType Parties { get; set; }
+        /// <returns> Texto xml del documento.</returns>
+        public virtual string GetXml()
+        {
+            var serializer = new XmlSerializer(GetType());
 
-        /// <summary>
-        /// Facturas.
-        /// </summary>
-        [XmlArray(Form = XmlSchemaForm.Unqualified)]
-        [XmlArrayItem("Invoice", Form = XmlSchemaForm.Unqualified, IsNullable = false)]
-        public Invoice[] Invoices { get; set; }
+            var settings = new XmlWriterSettings
+            {
+                Encoding = Encoding.UTF8,
+                Indent = true,
+                OmitXmlDeclaration = false
+            };
 
-        /// <summary>
-        /// Extensiones.
-        /// </summary>
-        [XmlElement(Form = XmlSchemaForm.Unqualified)]
-        public Extensions Extensions { get; set; }
+            using (var stream = new MemoryStream())
+            {
+                using (var writer = XmlWriter.Create(stream, settings))
+                {
+                    serializer.Serialize(writer, this, GetNamespaces());
+                }
+
+                return Encoding.UTF8.GetString(stream.ToArray());
+            }
+        }
 
         #endregion
 
