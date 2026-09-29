@@ -48,7 +48,7 @@ namespace FACe.Xml.Xades.Signature.Xades.Props
     internal class SignedSignatureProperties : PropXmlElement
     {
 
-        #region Propiedades Privadas de Instacia
+        #region Propiedades Privadas de Instancia
 
         /// <summary>
         /// Hora firma.

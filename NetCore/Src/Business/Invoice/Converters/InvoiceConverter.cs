@@ -37,26 +37,21 @@
     address: info@irenesolutions.com
  */
 
-using FACe.Xml;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FACe.Business.Invoice.Converters
 {
 
     /// <summary>
     /// Encargado de convertir una instancia de Invoice en un objeto
-    /// InvoiceDocument determinado y de otener de un objeto InvoiceDocument
+    /// InvoiceDocument determinado y de obtener de un objeto InvoiceDocument
     /// un objeto Invoice con su representación.
     /// </summary>
     /// <typeparam name="T"> Tipo del objeto InvoiceDocument.</typeparam>
     public abstract class InvoiceConverter<T> where T : Xml.InvoiceDocument
     {
 
-        #region Propiedades Privadas de Instacia
+        #region Propiedades Privadas de Instancia
 
         /// <summary>
         /// Objeto Invoice.
@@ -70,11 +65,11 @@ namespace FACe.Business.Invoice.Converters
 
         #endregion
 
-        #region Propiedades Privadas de Instacia
+        #region Propiedades Privadas de Instancia
 
         /// <summary>
-        /// Obtiene un objeto Invoice a partir del objeto
-        /// InvoiceDocument contenido.
+        /// Obtiene un objeto InvoiceDocument  a partir del objeto
+        /// Invoice contenido.
         /// </summary>
         /// <returns> Objeto Invoice.</returns>
         protected abstract T GetFromInvoice();
@@ -108,6 +103,44 @@ namespace FACe.Business.Invoice.Converters
                 throw new ArgumentNullException(nameof(invoiceDocument));
 
             InvoiceDocument = invoiceDocument;
+
+        }
+
+        #endregion
+
+        #region Métodos Privados de Instancia
+
+        /// <summary>
+        /// Recupera el interlocutor con el TaxId
+        /// pasado como parámetro.
+        /// </summary>
+        /// <param name="taxId">Identificador fiscal.</param>
+        /// <returns>El interlocutor con ese TaxId o null si no existe.</returns>
+        protected Party GetPartyByTaxId(string taxId)
+        {
+
+            foreach (var current in Invoice.Parties)
+                if (current.TaxID == taxId)
+                    return current;
+
+            return null;
+
+        }
+
+        /// <summary>
+        /// Recupera el interlocutor con el role
+        /// pasado como parámetro.
+        /// </summary>
+        /// <param name="role">Rol del interlocutor en la factura.</param>
+        /// <returns>El interlocutor con ese TaxId o null si no existe.</returns>
+        protected Party GetPartyByPartyRole(string role)
+        {
+
+            foreach (var current in Invoice.Parties)
+                if (current.PartyRole == role)
+                    return current;
+
+            return null;
 
         }
 

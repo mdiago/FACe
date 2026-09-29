@@ -86,7 +86,7 @@ namespace FACe.Xml.Xades
 
         #endregion
 
-        #region Propiedades Privadas de Instacia
+        #region Propiedades Privadas de Instancia
 
         /// <summary>
         /// Documento xml original transformado en los

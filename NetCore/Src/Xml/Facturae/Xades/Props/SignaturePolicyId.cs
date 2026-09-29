@@ -48,7 +48,7 @@ namespace FACe.Xml.Xades.Signature.Xades.Props
     internal class SignaturePolicyId : PropXmlElement
     {
 
-        #region Propiedades Privadas de Instacia
+        #region Propiedades Privadas de Instancia
 
         /// <summary>
         /// Id de política de firma.

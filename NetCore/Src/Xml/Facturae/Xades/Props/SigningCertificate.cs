@@ -48,7 +48,7 @@ namespace FACe.Xml.Xades.Signature.Xades.Props
     internal class SigningCertificate : PropXmlElement
     {
 
-        #region Propiedades Privadas de Instacia
+        #region Propiedades Privadas de Instancia
 
         /// <summary>
         /// Certificado.

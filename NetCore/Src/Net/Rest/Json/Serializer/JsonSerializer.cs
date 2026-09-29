@@ -99,7 +99,7 @@ namespace FACe.Net.Rest.Json.Serializer
 
         #endregion
 
-        #region Propiedades Privadas de Instacia
+        #region Propiedades Privadas de Instancia
 
         /// <summary>
         /// Clave del valor para la serialización.

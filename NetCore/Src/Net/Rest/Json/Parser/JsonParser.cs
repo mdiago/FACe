@@ -51,7 +51,7 @@ namespace FACe.Net.Rest.Json.Parser
     public class JsonParser 
     {
 
-        #region Variables Privadas de Instacia
+        #region Variables Privadas de Instancia
 
         /// <summary>
         /// Analizador léxico.

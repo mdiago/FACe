@@ -61,7 +61,7 @@ namespace FACe.Xml.Xades.Signature.Xades.Props
 
         #endregion
 
-        #region Propiedades Privadas de Instacia
+        #region Propiedades Privadas de Instancia
 
         /// <summary>
         /// Huella del certificado.

@@ -71,7 +71,7 @@ namespace FACe.Providers.Jwt
 
         #endregion
 
-        #region Propiedades Privadas de Instacia
+        #region Propiedades Privadas de Instancia
 
         /// <summary>
         /// Fecha hora creación.

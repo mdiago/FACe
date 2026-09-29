@@ -80,7 +80,7 @@ namespace FACe.Net.Rest.Json.Parser
 
         #endregion
 
-        #region Propiedades Privadas de Instacia
+        #region Propiedades Privadas de Instancia
 
         /// <summary>
         /// Resultado de la deserialización del

@@ -47,7 +47,7 @@ namespace FACe.Net.Rest.Json.Parser.Lexer.Tokens
     internal class JsonNull : JsonToken
     {
 
-        #region Propiedades Privadas de Instacia
+        #region Propiedades Privadas de Instancia
 
         /// <summary>
         /// Longitud de la cadena de texto.

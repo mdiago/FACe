@@ -48,7 +48,7 @@ namespace FACe.Xml.Xades.Signature.Xades.Props
     internal class CertDigest : PropXmlElement
     {
 
-        #region Propiedades Privadas de Instacia
+        #region Propiedades Privadas de Instancia
 
         /// <summary>
         /// Método de cálculo de la huella SHA1, SHA256...

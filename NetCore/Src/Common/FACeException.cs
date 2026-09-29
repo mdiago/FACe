@@ -44,7 +44,7 @@ namespace FACe.Common
     internal class FACeException : Exception
     {
 
-        #region Propiedades Privadas de Instacia
+        #region Propiedades Privadas de Instancia
 
         /// <summary>
         /// Longitud máxima del texto pra logging.

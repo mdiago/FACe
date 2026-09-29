@@ -47,7 +47,7 @@ namespace FACe.Net.Rest.Json.Parser.Lexer.Tokens
     internal class JsonToken
     {
 
-        #region Propiedades Privadas de Instacia
+        #region Propiedades Privadas de Instancia
 
         /// <summary>
         /// Analizador léxico al cual pertenece

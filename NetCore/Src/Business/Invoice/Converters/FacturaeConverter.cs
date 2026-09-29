@@ -40,16 +40,13 @@
 using FACe.Xml.Facturae.Bies;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FACe.Business.Invoice.Converters
 {
 
     /// <summary>
     /// Encargado de convertir una instancia de Invoice en un objeto
-    /// Facturae determinado y de otener de un objeto Facturae
+    /// Facturae determinado y de obtener de un objeto Facturae
     /// un objeto Invoice con su representación.
     /// </summary>
     public class FacturaeConverter : InvoiceConverter<Facturae>
@@ -330,40 +327,6 @@ namespace FACe.Business.Invoice.Converters
         }
 
         /// <summary>
-        /// Recupera el interlocutor con el TaxId
-        /// pasado como parámetro.
-        /// </summary>
-        /// <param name="taxId">Identificador fiscal.</param>
-        /// <returns>El interlocutor con ese TaxId o null si no existe.</returns>
-        private Party GetPartyByTaxId(string taxId)
-        {
-
-            foreach (var current in Invoice.Parties)
-                if (current.TaxID == taxId)
-                    return current;
-
-            return null;
-
-        }
-
-        /// <summary>
-        /// Recupera el interlocutor con el role
-        /// pasado como parámetro.
-        /// </summary>
-        /// <param name="role">Rol del interlocutor en la factura.</param>
-        /// <returns>El interlocutor con ese TaxId o null si no existe.</returns>
-        private Party GetPartyByPartyRole(string role)
-        {
-
-            foreach (var current in Invoice.Parties)
-                if (current.PartyRole == role)
-                    return current;
-
-            return null;
-
-        }
-
-        /// <summary>
         /// Devuelve el tipo de residencia según el
         /// código de pais.
         /// </summary>
@@ -567,10 +530,7 @@ namespace FACe.Business.Invoice.Converters
 
         }
 
-
-
         #endregion
-
 
         #region Métodos Públicos de Instancia
 

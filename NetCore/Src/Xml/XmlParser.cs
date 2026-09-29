@@ -99,7 +99,23 @@ namespace FACe.Xml
 
         #endregion
 
-        #region Métodos Públicos de Instancia
+
+        #region Métodos Públicos Estáticos
+
+        /// <summary>
+        /// Devuelve una fecha formateada para un campo de fecha
+        /// de la especificación de VeriFactu.
+        /// </summary>
+        /// <param name="date">fecha a formatear</param>
+        /// <returns>Fecha formateada.</returns>
+        public static string GetXmlDate(DateTime? date)
+        {
+
+            // InvariantCulture keeps the Gregorian year. th-TH would write 2567.
+            return (date ?? new DateTime(1, 1, 1)).ToString("dd-MM-yyyy", CultureInfo.InvariantCulture);
+
+        }
+
 
         /// <summary>
         /// Devuelve un importe formateado para un campo decimal
@@ -132,6 +148,25 @@ namespace FACe.Xml
 
             return Convert.ToDecimal(amount, numberFormatInfo);
         }
+
+        /// <summary>
+        /// Devuelve una fecha a partir de un string
+        /// de un campo de xml que representa un valor decimal.
+        /// </summary>
+        /// <param name="date">Fecha a convertir</param>
+        /// <returns>Importe convertido.</returns>
+        public static DateTime ToDate(string date)
+        {
+
+            return Convert.ToDateTime(date, new CultureInfo("es-ES"));
+
+        }
+
+
+        #endregion
+
+
+        #region Métodos Públicos de Instancia
 
         /// <summary>
         /// Serializa el objeto como xml y lo devuelve

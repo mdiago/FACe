@@ -71,7 +71,7 @@ namespace FACe.Business
 
         #endregion
 
-        #region Propiedades Privadas de Instacia
+        #region Propiedades Privadas de Instancia
 
         /// <summary>
         /// FacturaeManager para trabajos con Facturae.

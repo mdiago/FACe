@@ -37,10 +37,8 @@
     address: info@irenesolutions.com
  */
 
-using FACe.Business.Invoice.Converters;
 using FACe.Net.Rest.Json;
 using FACe.Net.Rest.Json.Kivu;
-using FACe.Xml.Facturae.Bies;
 using System;
 using System.Collections.Generic;
 

@@ -49,7 +49,7 @@ namespace FACe.Xml.Xades.Signature.Xades.Props
     internal class PropXmlElement
     {
 
-        #region Propiedades Privadas de Instacia
+        #region Propiedades Privadas de Instancia
 
         /// <summary>
         /// Documento xml al que pertenece el elemento.
