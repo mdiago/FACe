@@ -76,6 +76,34 @@ namespace FACe.Business.Invoice.Converters
 
             Invoice.CalculateTotals();
 
+            // Tipo de factura por defecto FC.OO
+
+            var invoiceDocumentType = InvoiceDocumentType.FC;
+            var invoiceClass = InvoiceClass.OO;
+
+            if(!string.IsNullOrEmpty(Invoice.InvoiceType))
+            {
+
+                var parts = Invoice.InvoiceType.Split('.');
+
+                if (parts.Length == 2)
+                {
+
+                    if (Enum.TryParse<InvoiceDocumentType>(parts[0],
+                        out var parsedInvoiceDocumentType) &&
+                        Enum.TryParse<InvoiceClass>(parts[1],
+                        out var parsedInvoiceClass))
+                    {
+
+                        invoiceDocumentType = parsedInvoiceDocumentType;
+                        invoiceClass = parsedInvoiceClass;
+
+                    }
+
+                }
+
+            }
+
             // Modeda por defecto EUR
             if (string.IsNullOrEmpty(Invoice.CurrencyID))
                 Invoice.CurrencyID = "EUR";
@@ -105,10 +133,6 @@ namespace FACe.Business.Invoice.Converters
             buyer.PartyName = Invoice.BuyerName;
             var partySeller = GetParty(seller);
             var partyBuyer = GetParty(buyer);
-
-            var oc = GetPartyByPartyRole("OC");     // Oficina contable
-            var og = GetPartyByPartyRole("OG");     // Organo gestor
-            var ut = GetPartyByPartyRole("UT");     // Unidad tramitadora          
 
             var facturae = new Facturae()
             {
@@ -148,54 +172,7 @@ namespace FACe.Business.Invoice.Converters
                             ResidenceTypeCode = GetResidenceTypeCode(buyer.CountryID),
                             TaxIdentificationNumber = Invoice.BuyerID
                         },
-                        AdministrativeCentres = new AdministrativeCentre[3]
-                        {
-                            new AdministrativeCentre()
-                            {
-                                CentreCode = oc.PartyID,
-                                RoleTypeCode = RoleTypeCode.Fiscal,
-                                RoleTypeCodeSpecified = true,
-                                Address = new Address()
-                                {
-                                    AddressText = oc.Address,
-                                    PostCode = oc.PostalCode,
-                                    Town = oc.City,
-                                    Province = oc.Region,
-                                    CountryCode = Country.ESP
-                                },
-                                CentreDescription = "Oficina Contable"
-                            },
-                            new AdministrativeCentre()
-                            {
-                                CentreCode = og.PartyID,
-                                RoleTypeCode = RoleTypeCode.Receiver,
-                                RoleTypeCodeSpecified = true,
-                                Address = new Address()
-                                {
-                                    AddressText = og.Address,
-                                    PostCode = og.PostalCode,
-                                    Town = og.City,
-                                    Province = og.Region,
-                                    CountryCode = Country.ESP
-                                },
-                                CentreDescription = "Organo Gestor"
-                            },
-                            new AdministrativeCentre()
-                            {
-                                CentreCode = ut.PartyID,
-                                RoleTypeCode = RoleTypeCode.Payer,
-                                RoleTypeCodeSpecified = true,
-                                Address = new Address()
-                                {
-                                    AddressText = ut.Address,
-                                    PostCode = ut.PostalCode,
-                                    Town = ut.City,
-                                    Province = ut.Region,
-                                    CountryCode = Country.ESP
-                                },
-                                CentreDescription = "Unidad Tramitadora"
-                            }
-                        },
+                        AdministrativeCentres = GetAdministrativeCentres(),
                         Party = partyBuyer
                     }
                 },
@@ -209,14 +186,14 @@ namespace FACe.Business.Invoice.Converters
                         {
                              InvoiceNumber = Invoice.InvoiceID,
                              InvoiceSeriesCode = null,
-                             InvoiceDocumentType = InvoiceDocumentType.FC,
-                             InvoiceClass = InvoiceClass.OO
+                             InvoiceDocumentType = invoiceDocumentType,
+                             InvoiceClass = invoiceClass
                         },
                         InvoiceIssueData = new InvoiceIssueData()
                         {
                             IssueDate = Invoice.InvoiceDate,
-                            InvoiceCurrencyCode = CurrencyCode.EUR,
-                            TaxCurrencyCode = CurrencyCode.EUR,
+                            InvoiceCurrencyCode = currencyCode,
+                            TaxCurrencyCode = currencyCode,
                             LanguageName = LanguageCode.es
                         },
                         TaxesOutputs =  taxFacturae.TaxesOutputs,
@@ -418,13 +395,11 @@ namespace FACe.Business.Invoice.Converters
                 var installemt = installments[i];
 
                 AccountChoice accountChoice = AccountChoice.IBAN;
-                PaymentMeans paymentMeans = PaymentMeans.CreditTransfer;
-
-                if (!string.IsNullOrEmpty(installemt.PaymentMeans) && !Enum.TryParse<PaymentMeans>(installemt.PaymentMeans, out paymentMeans))
-                    throw new ArgumentException($"Valor {installemt.PaymentMeans} no válido para PaymentMeans.");
 
                 if (!string.IsNullOrEmpty(installemt.BankAccountType) && !Enum.TryParse<AccountChoice>(installemt.BankAccountType, out accountChoice))
                     throw new ArgumentException($"Valor {installemt.BankAccountType} no válido para AccountChoice.");
+
+                var paymentMeans = GetPaymentMeans(installemt.PaymentMeans);
 
                 details[i] = new Xml.Facturae.Bies.Installment()
                 {
@@ -444,6 +419,37 @@ namespace FACe.Business.Invoice.Converters
 
         }
 
+        /// <summary>
+        /// Devuelve el medio de pago Facturae correspondiente al
+        /// medio de pago de la capa de negocio.
+        /// </summary>
+        /// <param name="paymentMeans">Medio de pago.</param>
+        /// <returns>Medio de pago Facturae.</returns>
+        private Xml.Facturae.Bies.PaymentMeans GetPaymentMeans(string paymentMeans)
+        {
+
+            switch (paymentMeans)
+            {
+
+                case Business.Invoice.PaymentMeans.DirectDebit:
+                    return Xml.Facturae.Bies.PaymentMeans.DirectDebit;
+
+                case Business.Invoice.PaymentMeans.Cheque:
+                    return Xml.Facturae.Bies.PaymentMeans.Cheque;
+
+                case Business.Invoice.PaymentMeans.Cash:
+                    return Xml.Facturae.Bies.PaymentMeans.InCash;
+
+                case Business.Invoice.PaymentMeans.Card:
+                    return Xml.Facturae.Bies.PaymentMeans.PaymentByCard;
+
+                case Business.Invoice.PaymentMeans.CreditTransfer:
+                default:
+                    return Xml.Facturae.Bies.PaymentMeans.CreditTransfer;
+
+            }
+
+        }
         /// <summary>
         /// Devuelve las líneas de factura para FActurae.
         /// </summary>
@@ -527,6 +533,64 @@ namespace FACe.Business.Invoice.Converters
             }
 
             return lines;
+
+        }
+
+        /// <summary>
+        /// Devuelve los centros administrativos para Facturae.
+        /// </summary>
+        /// <returns>Centros administrativos.</returns>
+        private AdministrativeCentre[] GetAdministrativeCentres()
+        {
+
+            var centres = new List<AdministrativeCentre>();
+
+            var oc = GetPartyByPartyRole("OC");     // Oficina contable
+            var og = GetPartyByPartyRole("OG");     // Organo gestor
+            var ut = GetPartyByPartyRole("UT");     // Unidad tramitadora
+
+            if (oc != null)
+                centres.Add(GetAdministrativeCentre(oc,
+                    RoleTypeCode.Fiscal, "Oficina Contable"));
+
+            if (og != null)
+                centres.Add(GetAdministrativeCentre(og,
+                    RoleTypeCode.Receiver, "Organo Gestor"));
+
+            if (ut != null)
+                centres.Add(GetAdministrativeCentre(ut,
+                    RoleTypeCode.Payer, "Unidad Tramitadora"));
+
+            return centres.Count > 0 ? centres.ToArray() : null;
+
+        }
+
+        /// <summary>
+        /// Devuelve un centro administrativo para Facturae.
+        /// </summary>
+        /// <param name="party">Party del centro administrativo.</param>
+        /// <param name="roleTypeCode">Rol del centro administrativo.</param>
+        /// <param name="description">Descripción del centro administrativo.</param>
+        /// <returns>Centro administrativo.</returns>
+        private AdministrativeCentre GetAdministrativeCentre(Party party,
+            RoleTypeCode roleTypeCode, string description)
+        {
+
+            return new AdministrativeCentre()
+            {
+                CentreCode = party.PartyID,
+                RoleTypeCode = roleTypeCode,
+                RoleTypeCodeSpecified = true,
+                Address = new Address()
+                {
+                    AddressText = party.Address,
+                    PostCode = party.PostalCode,
+                    Town = party.City,
+                    Province = party.Region,
+                    CountryCode = Country.ESP
+                },
+                CentreDescription = description
+            };
 
         }
 

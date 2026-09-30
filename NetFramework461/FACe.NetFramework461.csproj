@@ -59,6 +59,9 @@
     <Compile Include="..\NetCore\Src\Business\Invoice\Converters\InvoiceConverter.cs">
       <Link>Src\Business\Invoice\Converters\InvoiceConverter.cs</Link>
     </Compile>
+    <Compile Include="..\NetCore\Src\Business\Invoice\Converters\UblConverter.cs">
+      <Link>Src\Business\Invoice\Converters\UblConverter.cs</Link>
+    </Compile>
     <Compile Include="..\NetCore\Src\Business\Invoice\Installment.cs">
       <Link>Src\Business\Invoice\Installment.cs</Link>
     </Compile>
@@ -70,6 +73,9 @@
     </Compile>
     <Compile Include="..\NetCore\Src\Business\Invoice\Party.cs">
       <Link>Src\Business\Invoice\Party.cs</Link>
+    </Compile>
+    <Compile Include="..\NetCore\Src\Business\Invoice\PaymentMeans.cs">
+      <Link>Src\Business\Invoice\PaymentMeans.cs</Link>
     </Compile>
     <Compile Include="..\NetCore\Src\Business\Invoice\RectificationItem.cs">
       <Link>Src\Business\Invoice\RectificationItem.cs</Link>
@@ -551,10 +557,119 @@
     <Compile Include="..\NetCore\Src\Xml\InvoiceDocument.cs">
       <Link>Src\Xml\InvoiceDocument.cs</Link>
     </Compile>
+    <Compile Include="..\NetCore\Src\Xml\UblNamespaces.cs">
+      <Link>Src\Xml\UblNamespaces.cs</Link>
+    </Compile>
+    <Compile Include="..\NetCore\Src\Xml\Ubl\Cac\AccountingCustomerParty.cs">
+      <Link>Src\Xml\Ubl\Cac\AccountingCustomerParty.cs</Link>
+    </Compile>
+    <Compile Include="..\NetCore\Src\Xml\Ubl\Cac\AccountingSupplierParty.cs">
+      <Link>Src\Xml\Ubl\Cac\AccountingSupplierParty.cs</Link>
+    </Compile>
+    <Compile Include="..\NetCore\Src\Xml\Ubl\Cac\Address.cs">
+      <Link>Src\Xml\Ubl\Cac\Address.cs</Link>
+    </Compile>
+    <Compile Include="..\NetCore\Src\Xml\Ubl\Cac\AllowanceCharge.cs">
+      <Link>Src\Xml\Ubl\Cac\AllowanceCharge.cs</Link>
+    </Compile>
+    <Compile Include="..\NetCore\Src\Xml\Ubl\Cac\BillingReference.cs">
+      <Link>Src\Xml\Ubl\Cac\BillingReference.cs</Link>
+    </Compile>
+    <Compile Include="..\NetCore\Src\Xml\Ubl\Cac\Contact.cs">
+      <Link>Src\Xml\Ubl\Cac\Contact.cs</Link>
+    </Compile>
+    <Compile Include="..\NetCore\Src\Xml\Ubl\Cac\Country.cs">
+      <Link>Src\Xml\Ubl\Cac\Country.cs</Link>
+    </Compile>
+    <Compile Include="..\NetCore\Src\Xml\Ubl\Cac\Delivery.cs">
+      <Link>Src\Xml\Ubl\Cac\Delivery.cs</Link>
+    </Compile>
+    <Compile Include="..\NetCore\Src\Xml\Ubl\Cac\DocumentReference.cs">
+      <Link>Src\Xml\Ubl\Cac\DocumentReference.cs</Link>
+    </Compile>
+    <Compile Include="..\NetCore\Src\Xml\Ubl\Cac\FinancialAccount.cs">
+      <Link>Src\Xml\Ubl\Cac\FinancialAccount.cs</Link>
+    </Compile>
+    <Compile Include="..\NetCore\Src\Xml\Ubl\Cac\InvoiceLine.cs">
+      <Link>Src\Xml\Ubl\Cac\InvoiceLine.cs</Link>
+    </Compile>
+    <Compile Include="..\NetCore\Src\Xml\Ubl\Cac\InvoicePeriod.cs">
+      <Link>Src\Xml\Ubl\Cac\InvoicePeriod.cs</Link>
+    </Compile>
+    <Compile Include="..\NetCore\Src\Xml\Ubl\Cac\Item.cs">
+      <Link>Src\Xml\Ubl\Cac\Item.cs</Link>
+    </Compile>
+    <Compile Include="..\NetCore\Src\Xml\Ubl\Cac\ItemIdentification.cs">
+      <Link>Src\Xml\Ubl\Cac\ItemIdentification.cs</Link>
+    </Compile>
+    <Compile Include="..\NetCore\Src\Xml\Ubl\Cac\LegalMonetaryTotal.cs">
+      <Link>Src\Xml\Ubl\Cac\LegalMonetaryTotal.cs</Link>
+    </Compile>
+    <Compile Include="..\NetCore\Src\Xml\Ubl\Cac\OrderReference.cs">
+      <Link>Src\Xml\Ubl\Cac\OrderReference.cs</Link>
+    </Compile>
+    <Compile Include="..\NetCore\Src\Xml\Ubl\Cac\Party.cs">
+      <Link>Src\Xml\Ubl\Cac\Party.cs</Link>
+    </Compile>
+    <Compile Include="..\NetCore\Src\Xml\Ubl\Cac\PartyIdentification.cs">
+      <Link>Src\Xml\Ubl\Cac\PartyIdentification.cs</Link>
+    </Compile>
+    <Compile Include="..\NetCore\Src\Xml\Ubl\Cac\PartyLegalEntity.cs">
+      <Link>Src\Xml\Ubl\Cac\PartyLegalEntity.cs</Link>
+    </Compile>
+    <Compile Include="..\NetCore\Src\Xml\Ubl\Cac\PartyName.cs">
+      <Link>Src\Xml\Ubl\Cac\PartyName.cs</Link>
+    </Compile>
+    <Compile Include="..\NetCore\Src\Xml\Ubl\Cac\PartyTaxScheme.cs">
+      <Link>Src\Xml\Ubl\Cac\PartyTaxScheme.cs</Link>
+    </Compile>
+    <Compile Include="..\NetCore\Src\Xml\Ubl\Cac\PaymentMeans.cs">
+      <Link>Src\Xml\Ubl\Cac\PaymentMeans.cs</Link>
+    </Compile>
+    <Compile Include="..\NetCore\Src\Xml\Ubl\Cac\PaymentTerms.cs">
+      <Link>Src\Xml\Ubl\Cac\PaymentTerms.cs</Link>
+    </Compile>
+    <Compile Include="..\NetCore\Src\Xml\Ubl\Cac\Price.cs">
+      <Link>Src\Xml\Ubl\Cac\Price.cs</Link>
+    </Compile>
+    <Compile Include="..\NetCore\Src\Xml\Ubl\Cac\SupplierParty.cs">
+      <Link>Src\Xml\Ubl\Cac\SupplierParty.cs</Link>
+    </Compile>
+    <Compile Include="..\NetCore\Src\Xml\Ubl\Cac\TaxCategory.cs">
+      <Link>Src\Xml\Ubl\Cac\TaxCategory.cs</Link>
+    </Compile>
+    <Compile Include="..\NetCore\Src\Xml\Ubl\Cac\TaxScheme.cs">
+      <Link>Src\Xml\Ubl\Cac\TaxScheme.cs</Link>
+    </Compile>
+    <Compile Include="..\NetCore\Src\Xml\Ubl\Cac\TaxSubtotal.cs">
+      <Link>Src\Xml\Ubl\Cac\TaxSubtotal.cs</Link>
+    </Compile>
+    <Compile Include="..\NetCore\Src\Xml\Ubl\Cac\TaxTotal.cs">
+      <Link>Src\Xml\Ubl\Cac\TaxTotal.cs</Link>
+    </Compile>
+    <Compile Include="..\NetCore\Src\Xml\Ubl\Cbc\Amount.cs">
+      <Link>Src\Xml\Ubl\Cbc\Amount.cs</Link>
+    </Compile>
+    <Compile Include="..\NetCore\Src\Xml\Ubl\Cbc\Code.cs">
+      <Link>Src\Xml\Ubl\Cbc\Code.cs</Link>
+    </Compile>
+    <Compile Include="..\NetCore\Src\Xml\Ubl\Cbc\Identifier.cs">
+      <Link>Src\Xml\Ubl\Cbc\Identifier.cs</Link>
+    </Compile>
+    <Compile Include="..\NetCore\Src\Xml\Ubl\Cbc\Quantity.cs">
+      <Link>Src\Xml\Ubl\Cbc\Quantity.cs</Link>
+    </Compile>
+    <Compile Include="..\NetCore\Src\Xml\Ubl\Cbc\Text.cs">
+      <Link>Src\Xml\Ubl\Cbc\Text.cs</Link>
+    </Compile>
+    <Compile Include="..\NetCore\Src\Xml\Ubl\Invoice\Invoice.cs">
+      <Link>Src\Xml\Ubl\Invoice\Invoice.cs</Link>
+    </Compile>
     <Compile Include="..\NetCore\Src\Xml\XmlParser.cs">
       <Link>Src\Xml\XmlParser.cs</Link>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Src\Business\Invoice\InvoiceType.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

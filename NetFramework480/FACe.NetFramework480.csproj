@@ -68,8 +68,14 @@
     <Compile Include="..\NetCore\Src\Business\Invoice\InvoiceLine.cs">
       <Link>Src\Business\Invoice\InvoiceLine.cs</Link>
     </Compile>
+    <Compile Include="..\NetCore\Src\Business\Invoice\InvoiceType.cs">
+      <Link>Src\Business\Invoice\InvoiceType.cs</Link>
+    </Compile>
     <Compile Include="..\NetCore\Src\Business\Invoice\Party.cs">
       <Link>Src\Business\Invoice\Party.cs</Link>
+    </Compile>
+    <Compile Include="..\NetCore\Src\Business\Invoice\PaymentMeans.cs">
+      <Link>Src\Business\Invoice\PaymentMeans.cs</Link>
     </Compile>
     <Compile Include="..\NetCore\Src\Business\Invoice\RectificationItem.cs">
       <Link>Src\Business\Invoice\RectificationItem.cs</Link>

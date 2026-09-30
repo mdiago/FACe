@@ -18,7 +18,7 @@
     You should have received a copy of the GNU Affero General Public License
     along with this program; if not, see http://www.gnu.org/licenses or write to
     the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-    Boston, MA 02110-1301 USA, or download the license from the following URL:
+    Boston, MA, 02110-1301 USA, or download the license from the following URL:
         http://www.irenesolutions.com/terms-of-use.pdf
     
     The interactive user interfaces in modified source and object code versions
@@ -27,7 +27,7 @@
     
     You can be released from the requirements of the license by purchasing
     a commercial license. Buying such a license is mandatory as soon as you
-    develop commercial activities involving the Facturae software without
+    develop commercial activities involving the FACe software without
     disclosing the source code of your own applications.
     These activities include: offering paid services to customers as an ASP,
     serving FACe XML data on the fly in a web application, shipping FACe
@@ -37,39 +37,53 @@
     address: info@irenesolutions.com
  */
 
-using FACe.Xml.Ubl.Cbc;
-using System.Xml.Serialization;
-
-namespace FACe.Xml.Ubl.Cac
+namespace FACe.Business.Invoice
 {
-
     /// <summary>
-    /// Condiciones de pago UBL.
+    /// Clase estática que contiene los tipos de medios de pago soportados.
     /// </summary>
-    public class PaymentTerms
+    public static class PaymentMeans
     {
 
-        #region Propiedades Públicas
+        /// <summary>
+        /// Transferencia bancaria.
+        /// <para>Facturae: Transferencia.</para>
+        /// <para>UBL: Transferencia de crédito.</para>
+        /// <para>CII: Transferencia de crédito.</para>
+        /// </summary>
+        public const string CreditTransfer = "CreditTransfer";
 
         /// <summary>
-        /// Nota relativa a las condiciones de pago.
+        /// Domiciliación bancaria.
+        /// <para>Facturae: Domiciliación bancaria.</para>
+        /// <para>UBL: Adeudo directo.</para>
+        /// <para>CII: Adeudo directo.</para>
         /// </summary>
-        [XmlElement("Note", Namespace = UblNamespaces.NamespaceCBC)]
-        public Text[] Note { get; set; }
+        public const string DirectDebit = "DirectDebit";
 
         /// <summary>
-        /// Fecha de vencimiento del pago.
+        /// Pago mediante cheque.
+        /// <para>Facturae: Cheque.</para>
+        /// <para>UBL: Cheque.</para>
+        /// <para>CII: Cheque.</para>
         /// </summary>
-        [XmlElement("PaymentDueDate", Namespace = UblNamespaces.NamespaceCBC)]
-        public string PaymentDueDate { get; set; }
+        public const string Cheque = "Cheque";
 
-        [XmlElement("Amount", Namespace = UblNamespaces.NamespaceCBC)]
-        public Amount Amount { get; set; }
+        /// <summary>
+        /// Pago en efectivo.
+        /// <para>Facturae: Efectivo.</para>
+        /// <para>UBL: Efectivo.</para>
+        /// <para>CII: Efectivo.</para>
+        /// </summary>
+        public const string Cash = "Cash";
 
-        [XmlElement("InstallmentDueDate", Namespace = UblNamespaces.NamespaceCBC)]
-        public string InstallmentDueDate { get; set; }
-
-        #endregion
+        /// <summary>
+        /// Pago mediante tarjeta.
+        /// <para>Facturae: Tarjeta.</para>
+        /// <para>UBL: Tarjeta.</para>
+        /// <para>CII: Tarjeta.</para>
+        /// </summary>
+        public const string Card = "Card";
 
     }
 
