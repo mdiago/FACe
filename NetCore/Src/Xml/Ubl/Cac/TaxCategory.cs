@@ -64,10 +64,10 @@ namespace FACe.Xml.Ubl.Cac
         public decimal? Percent { get; set; }
 
         /// <summary>
-        /// Motivo de exención fiscal.
+        /// Motivos de exención fiscal.
         /// </summary>
         [XmlElement("TaxExemptionReason", Namespace = UblNamespaces.NamespaceCBC)]
-        public Text TaxExemptionReason { get; set; }
+        public Text[] TaxExemptionReason { get; set; }
 
         /// <summary>
         /// Código del motivo de exención fiscal.

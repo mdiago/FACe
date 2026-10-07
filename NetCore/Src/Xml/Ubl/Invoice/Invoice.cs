@@ -138,6 +138,13 @@ namespace FACe.Xml.Ubl.Invoice
         public BillingReference[] BillingReference { get; set; }
 
         /// <summary>
+        /// Referencias a documentos adicionales relacionados
+        /// con la factura.
+        /// </summary>
+        [XmlElement("AdditionalDocumentReference", Namespace = UblNamespaces.NamespaceCAC)]
+        public DocumentReference[] AdditionalDocumentReference { get; set; }
+
+        /// <summary>
         /// Referencias contractuales.
         /// </summary>
         [XmlElement("ContractDocumentReference", Namespace = UblNamespaces.NamespaceCAC)]
@@ -183,6 +190,12 @@ namespace FACe.Xml.Ubl.Invoice
         /// </summary>
         [XmlElement("TaxTotal", Namespace = UblNamespaces.NamespaceCAC)]
         public TaxTotal[] TaxTotal { get; set; }
+
+        /// <summary>
+        /// Totales de retenciones.
+        /// </summary>
+        [XmlElement("WithholdingTaxTotal", Namespace = UblNamespaces.NamespaceCAC)]
+        public TaxTotal[] WithholdingTaxTotal { get; set; }
 
         /// <summary>
         /// Totales monetarios.

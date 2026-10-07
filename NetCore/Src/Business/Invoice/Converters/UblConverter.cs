@@ -125,21 +125,6 @@ namespace FACe.Business.Invoice.Converters
             var partySeller = GetParty(seller, true);
             var partyBuyer = GetParty(buyer, false);
 
-            // Tipo de factura por defecto 380
-            Code invoiceTypeCode = "380";
-
-            Text[] buyerReference = null;
-
-            var oc = GetPartyByPartyRole("OC");     // Oficina contable
-            var og = GetPartyByPartyRole("OG");     // Organo gestor
-            var ut = GetPartyByPartyRole("UT");     // Unidad tramitadora
-
-            if (oc != null && og != null && ut != null)
-                buyerReference = new Text[]
-                {
-                    $"03|{ut.PartyID}|02|{og.PartyID}|01|{oc.PartyID}"
-                };
-
             // Moneda por defecto EUR
             var currencyID = string.IsNullOrEmpty(Invoice.CurrencyID) ?
                 "EUR" : Invoice.CurrencyID;
@@ -166,7 +151,9 @@ namespace FACe.Business.Invoice.Converters
                     new Text[] { Invoice.Text },
                 DocumentCurrencyCode = currencyID,
                 TaxCurrencyCode = GetTaxCurrencyCode(currencyID),
-                BuyerReference = buyerReference,
+                BuyerReference = GetBuyerReference(),
+                BillingReference = GetBillingReferences(),
+                AdditionalDocumentReference = GetAdditionalDocumentReferences(),
                 AccountingSupplierParty = new Xml.Ubl.Cac.AccountingSupplierParty()
                 {
                     Party = partySeller
@@ -176,7 +163,11 @@ namespace FACe.Business.Invoice.Converters
                     Party = partyBuyer
                 },
                 PaymentMeans = GetPaymentMeans(Invoice.Installments),
-                PaymentTerms = GetPaymentTerms(Invoice.Installments),
+                PaymentTerms = GetPaymentTerms(Invoice.Installments, currencyID),
+                TaxTotal = GetTaxTotals(currencyID),
+                WithholdingTaxTotal = GetWithholdingTaxTotals(currencyID),
+                LegalMonetaryTotal = GetLegalMonetaryTotal(currencyID),
+                InvoiceLine = GetInvoiceLines(currencyID)
             };
 
             return ubl;
@@ -248,8 +239,7 @@ namespace FACe.Business.Invoice.Converters
         /// Vencimientos de la factura.
         /// </param>
         /// <returns>Medios de pago para UBL.</returns>
-        private Xml.Ubl.Cac.PaymentMeans[] GetPaymentMeans(
-            List<Installment> installments)
+        private Xml.Ubl.Cac.PaymentMeans[] GetPaymentMeans(List<Installment> installments)
         {
 
             if (installments == null || installments.Count == 0)
@@ -314,11 +304,10 @@ namespace FACe.Business.Invoice.Converters
         /// <summary>
         /// Devuelve las condiciones de pago para UBL.
         /// </summary>
-        /// <param name="installments">
-        /// Vencimientos de la factura.
-        /// </param>
+        /// <param name="installments"> Vencimientos de la factura.</param>
+        /// <param name="currencyID"> Moneda de la factura.</param> 
         /// <returns>Condiciones de pago para UBL.</returns>
-        private Xml.Ubl.Cac.PaymentTerms[] GetPaymentTerms(List<Installment> installments)
+        private Xml.Ubl.Cac.PaymentTerms[] GetPaymentTerms(List<Installment> installments, string currencyID)
         {
 
             if (installments == null || installments.Count == 0)
@@ -335,7 +324,7 @@ namespace FACe.Business.Invoice.Converters
                 {
                     Amount = new Amount()
                     {
-                        CurrencyID = Invoice.CurrencyID,
+                        CurrencyID = currencyID,
                         Value = installment.Amount
                     },
                     InstallmentDueDate =
@@ -568,6 +557,31 @@ namespace FACe.Business.Invoice.Converters
         }
 
         /// <summary>
+        /// Devuelve las referencias del comprador correspondientes
+        /// al perfil UBL utilizado.
+        /// </summary>
+        /// <returns>Referencias del comprador.</returns>
+        private Text[] GetBuyerReference()
+        {
+
+            if (Profile != UblProfile.FACe)
+                return null;
+
+            var oc = GetPartyByPartyRole("OC");
+            var og = GetPartyByPartyRole("OG");
+            var ut = GetPartyByPartyRole("UT");
+
+            if (oc == null || og == null || ut == null)
+                return null;
+
+            return new Text[]
+            {
+                $"03|{ut.PartyID}|02|{og.PartyID}|01|{oc.PartyID}"
+            };
+
+        }
+
+        /// <summary>
         /// Devuelve la información fiscal UBL del comprador.
         /// </summary>
         /// <param name="party">Comprador.</param>
@@ -600,6 +614,812 @@ namespace FACe.Business.Invoice.Converters
                     {
                         ID = taxSchemeID
                     }
+                }
+            };
+
+        }
+
+        /// <summary>
+        /// Devuelve las referencias a las facturas rectificadas.
+        /// </summary>
+        /// <returns>Referencias a las facturas rectificadas.</returns>
+        private Xml.Ubl.Cac.BillingReference[] GetBillingReferences()
+        {
+
+            if (Invoice.RectificationItems == null ||
+                Invoice.RectificationItems.Count == 0)
+                return null;
+
+            var references =
+                new Xml.Ubl.Cac.BillingReference[Invoice.RectificationItems.Count];
+
+            for (int i = 0; i < Invoice.RectificationItems.Count; i++)
+            {
+
+                var item = Invoice.RectificationItems[i];
+
+                references[i] = new Xml.Ubl.Cac.BillingReference()
+                {
+                    InvoiceDocumentReference =
+                        new Xml.Ubl.Cac.DocumentReference()
+                        {
+                            ID = item.InvoiceID,
+                            IssueDate = XmlParser.GetXmlDate(item.InvoiceDate)
+                        }
+                };
+
+            }
+
+            return references;
+
+        }
+
+        /// <summary>
+        /// Añade el tipo de factura rectificativa.
+        /// </summary>
+        /// <param name="references">Referencias adicionales.</param>
+        private void AddRectificationType(List<Xml.Ubl.Cac.DocumentReference> references)
+        {
+
+            if (string.IsNullOrEmpty(Invoice.RectificationType))
+                return;
+
+            references.Add(new Xml.Ubl.Cac.DocumentReference()
+            {
+                ID = "RECT:TIPO",
+                DocumentTypeCode = Invoice.RectificationType
+            });
+
+        }
+
+        /// <summary>
+        /// Devuelve las referencias adicionales correspondientes
+        /// al perfil UBL utilizado.
+        /// </summary>
+        /// <returns>Referencias adicionales.</returns>
+        private Xml.Ubl.Cac.DocumentReference[] GetAdditionalDocumentReferences()
+        {
+
+            if (Profile != UblProfile.AEAT)
+                return null;
+
+            var references = new List<Xml.Ubl.Cac.DocumentReference>();
+
+            AddRectificationType(references);
+            AddRectificationMode(references);
+
+            return references.Count > 0 ?
+                references.ToArray() : null;
+
+        }
+
+        /// <summary>
+        /// Añade la modalidad de factura rectificativa.
+        /// </summary>
+        /// <param name="references">Referencias adicionales.</param>
+        private void AddRectificationMode(List<Xml.Ubl.Cac.DocumentReference> references)
+        {
+
+            if (string.IsNullOrEmpty(Invoice.RectificationType))
+                return;
+
+            references.Add(new Xml.Ubl.Cac.DocumentReference()
+            {
+                ID = "RECT:MODALIDAD",
+                DocumentTypeCode = "I"
+            });
+
+        }
+
+        /// <summary>
+        /// Devuelve el código de categoría UBL correspondiente
+        /// a la línea de impuesto.
+        /// </summary>
+        /// <param name="taxItem">Línea de impuesto.</param>
+        /// <returns>Código de categoría UBL.</returns>
+        private string GetTaxCategoryID(TaxItem taxItem)
+        {
+
+            if (!string.IsNullOrEmpty(taxItem.TaxException) &&
+                taxItem.TaxException != "NA")
+            {
+
+                if (taxItem.TaxException == "E2")
+                    return "G";
+
+                return "E";
+
+            }
+
+            switch (taxItem.TaxType)
+            {
+
+                case "S2":
+                    return "AE";
+
+                case "N1":
+                case "N2":
+                    return "O";
+
+            }
+
+            var taxSchemeCategoryID = GetTaxSchemeCategoryID(taxItem);
+
+            if (!string.IsNullOrEmpty(taxSchemeCategoryID))
+                return taxSchemeCategoryID;
+
+            if (Profile == UblProfile.AEAT)
+            {
+
+                switch (taxItem.Tax)
+                {
+
+                    case "02":
+                        return "M";
+
+                    case "03":
+                        return "L";
+
+                }
+
+            }
+
+            return taxItem.TaxRate == 0 ? "Z" : "S";
+
+        }
+
+        /// <summary>
+        /// Devuelve la categoría UBL correspondiente a una
+        /// línea de impuesto.
+        /// </summary>
+        /// <param name="taxItem">Línea de impuesto.</param>
+        /// <returns>Categoría UBL.</returns>
+        private Xml.Ubl.Cac.TaxCategory GetTaxCategory(TaxItem taxItem)
+        {
+
+            return new Xml.Ubl.Cac.TaxCategory()
+            {
+                ID = GetTaxCategoryID(taxItem),
+                Percent = taxItem.TaxRate,
+                TaxExemptionReason = GetTaxExemptionReason(taxItem),
+                TaxScheme = GetTaxScheme(taxItem)
+            };
+
+        }
+
+        /// <summary>
+        /// Devuelve el esquema fiscal correspondiente a una
+        /// línea de impuesto.
+        /// </summary>
+        /// <param name="taxItem">Línea de impuesto.</param>
+        /// <returns>Esquema fiscal.</returns>
+        private Xml.Ubl.Cac.TaxScheme GetTaxScheme(TaxItem taxItem)
+        {
+
+            if (Profile == UblProfile.AEAT)
+            {
+
+                return new Xml.Ubl.Cac.TaxScheme()
+                {
+                    ID = "VAT"
+                };
+
+            }
+
+            var id = "VAT";
+
+            switch (taxItem.Tax)
+            {
+
+                case "02":
+                    id = "IPSI";
+                    break;
+
+                case "03":
+                    id = "IGIC";
+                    break;
+
+                case "05":
+                    id = "OTH";
+                    break;
+
+            }
+
+            return new Xml.Ubl.Cac.TaxScheme()
+            {
+                ID = id
+            };
+
+        }
+
+        /// <summary>
+        /// Devuelve el código de categoría UBL correspondiente
+        /// al régimen fiscal.
+        /// </summary>
+        /// <param name="taxItem">Línea de impuesto.</param>
+        /// <returns>Código de categoría UBL.</returns>
+        private string GetTaxSchemeCategoryID(TaxItem taxItem)
+        {
+
+            if (Profile != UblProfile.AEAT)
+                return null;
+
+            switch (taxItem.TaxScheme)
+            {
+
+                case "02":
+                    return "G";
+
+                case "03":
+                    return "F";
+
+                case "05":
+                    return "D";
+
+                case "06":
+                    return "N";
+
+                default:
+                    return null;
+
+            }
+
+        }
+
+        /// <summary>
+        /// Devuelve el subtotal correspondiente a una
+        /// línea de impuesto.
+        /// </summary>
+        /// <param name="taxItem">Línea de impuesto.</param>
+        /// <param name="currencyID">Código de moneda.</param>
+        /// <returns>Subtotal de impuesto.</returns>
+        private Xml.Ubl.Cac.TaxSubtotal GetTaxSubtotal(TaxItem taxItem, string currencyID)
+        {
+
+            return new Xml.Ubl.Cac.TaxSubtotal()
+            {
+                TaxableAmount = new Amount()
+                {
+                    CurrencyID = currencyID,
+                    Value = taxItem.TaxBase
+                },
+                TaxAmount = new Amount()
+                {
+                    CurrencyID = currencyID,
+                    Value = taxItem.TaxAmount
+                },
+                TaxCategory = GetTaxCategory(taxItem)
+            };
+
+        }
+
+        /// <summary>
+        /// Devuelve los subtotales de impuestos repercutidos.
+        /// </summary>
+        /// <param name="currencyID">Código de moneda.</param>
+        /// <returns>Subtotales de impuestos.</returns>
+        private Xml.Ubl.Cac.TaxSubtotal[] GetTaxSubtotals(string currencyID)
+        {
+
+            if (Invoice.TaxItems == null ||
+                Invoice.TaxItems.Count == 0)
+                return null;
+
+            var taxSubtotals = new List<Xml.Ubl.Cac.TaxSubtotal>();
+
+            foreach (var taxItem in Invoice.TaxItems)
+            {
+
+                if (taxItem.TaxClass != "TO")
+                    continue;
+
+                taxSubtotals.Add(GetTaxSubtotal(taxItem, currencyID));
+
+                if (Profile == UblProfile.AEAT &&
+                   (taxItem.TaxRateSurcharge != 0 ||
+                   taxItem.TaxAmountSurcharge != 0))
+                    taxSubtotals.Add(
+                        GetTaxSurchargeSubtotal(taxItem, currencyID));
+
+            }
+
+            return taxSubtotals.Count > 0 ?
+                taxSubtotals.ToArray() : null;
+
+        }
+
+        /// <summary>
+        /// Devuelve los totales de impuestos repercutidos.
+        /// </summary>
+        /// <param name="currencyID">Código de moneda.</param>
+        /// <returns>Totales de impuestos.</returns>
+        private Xml.Ubl.Cac.TaxTotal[] GetTaxTotals(string currencyID)
+        {
+
+            var taxSubtotals = GetTaxSubtotals(currencyID);
+
+            if (taxSubtotals == null)
+                return null;
+
+            decimal taxAmount = 0;
+
+            foreach (var taxItem in Invoice.TaxItems)
+            {
+
+                if (taxItem.TaxClass != "TO")
+                    continue;
+
+                taxAmount += taxItem.TaxAmount;
+                taxAmount += taxItem.TaxAmountSurcharge;
+
+            }
+
+            return new Xml.Ubl.Cac.TaxTotal[]
+            {
+                new Xml.Ubl.Cac.TaxTotal()
+                {
+                    TaxAmount = new Amount()
+                    {
+                        CurrencyID = currencyID,
+                        Value = taxAmount
+                    },
+                    TaxSubtotal = taxSubtotals
+                }
+            };
+
+        }
+
+        /// <summary>
+        /// Devuelve el subtotal correspondiente al recargo
+        /// de equivalencia.
+        /// </summary>
+        /// <param name="taxItem">Línea de impuesto.</param>
+        /// <param name="currencyID">Código de moneda.</param>
+        /// <returns>Subtotal del recargo de equivalencia.</returns>
+        private Xml.Ubl.Cac.TaxSubtotal GetTaxSurchargeSubtotal(TaxItem taxItem, string currencyID)
+        {
+
+            return new Xml.Ubl.Cac.TaxSubtotal()
+            {
+                TaxableAmount = new Amount()
+                {
+                    CurrencyID = currencyID,
+                    Value = taxItem.TaxBase
+                },
+                TaxAmount = new Amount()
+                {
+                    CurrencyID = currencyID,
+                    Value = taxItem.TaxAmountSurcharge
+                },
+                TaxCategory = new Xml.Ubl.Cac.TaxCategory()
+                {
+                    ID = "N",
+                    Percent = taxItem.TaxRateSurcharge,
+                    TaxScheme = new Xml.Ubl.Cac.TaxScheme()
+                    {
+                        ID = "VAT"
+                    }
+                }
+            };
+
+        }
+
+        /// <summary>
+        /// Devuelve el motivo de exención correspondiente
+        /// a la línea de impuesto.
+        /// </summary>
+        /// <param name="taxItem">Línea de impuesto.</param>
+        /// <returns>Motivo de exención.</returns>
+        private Text[] GetTaxExemptionReason(TaxItem taxItem)
+        {
+
+            if (string.IsNullOrEmpty(taxItem.TaxException) ||
+                taxItem.TaxException == "NA")
+                return null;
+
+            string reason;
+
+            switch (taxItem.TaxException)
+            {
+
+                case "E1":
+                    reason = "Exenta por el artículo 20";
+                    break;
+
+                case "E2":
+                    reason = "Exenta por el artículo 21";
+                    break;
+
+                case "E3":
+                    reason = "Exenta por el artículo 22";
+                    break;
+
+                case "E4":
+                    reason = "Exenta por los artículos 23 y 24";
+                    break;
+
+                case "E5":
+                    reason = "Exenta por el artículo 25";
+                    break;
+
+                case "E6":
+                    reason = "Exenta por otros motivos";
+                    break;
+
+                case "E7":
+                    reason = "Exenta por aplicación del artículo 12 de la Ley 20/1991";
+                    break;
+
+                case "E8":
+                    reason = "Exenta por aplicación del artículo 50 de la Ley 4/2012";
+                    break;
+
+                default:
+                    return null;
+
+            }
+
+            return new Text[]
+            {
+                reason
+            };
+
+        }
+
+        /// <summary>
+        /// Devuelve el subtotal correspondiente a una
+        /// retención.
+        /// </summary>
+        /// <param name="taxItem">Línea de impuesto.</param>
+        /// <param name="currencyID">Código de moneda.</param>
+        /// <returns>Subtotal de retención.</returns>
+        private Xml.Ubl.Cac.TaxSubtotal GetWithholdingTaxSubtotal(TaxItem taxItem, string currencyID)
+        {
+
+            return new Xml.Ubl.Cac.TaxSubtotal()
+            {
+                TaxableAmount = new Amount()
+                {
+                    CurrencyID = currencyID,
+                    Value = taxItem.TaxBase
+                },
+                TaxAmount = new Amount()
+                {
+                    CurrencyID = currencyID,
+                    Value = taxItem.TaxAmount
+                },
+                TaxCategory = new Xml.Ubl.Cac.TaxCategory()
+                {
+                    ID = "S",
+                    Percent = taxItem.TaxRate,
+                    TaxScheme = new Xml.Ubl.Cac.TaxScheme()
+                    {
+                        ID = "WTH",
+                        TaxTypeCode = taxItem.TaxType
+                    }
+                }
+            };
+
+        }
+
+        /// <summary>
+        /// Devuelve los totales de retenciones.
+        /// </summary>
+        /// <param name="currencyID">Código de moneda.</param>
+        /// <returns>Totales de retenciones.</returns>
+        private Xml.Ubl.Cac.TaxTotal[] GetWithholdingTaxTotals(string currencyID)
+        {
+
+            if (Profile != UblProfile.AEAT)
+                return null;
+
+            if (Invoice.TaxItems == null ||
+                Invoice.TaxItems.Count == 0)
+                return null;
+
+            var taxSubtotals = new List<Xml.Ubl.Cac.TaxSubtotal>();
+            decimal taxAmount = 0;
+
+            foreach (var taxItem in Invoice.TaxItems)
+            {
+
+                if (taxItem.TaxClass != "TW")
+                    continue;
+
+                taxSubtotals.Add(
+                    GetWithholdingTaxSubtotal(taxItem, currencyID));
+
+                taxAmount += taxItem.TaxAmount;
+
+            }
+
+            if (taxSubtotals.Count == 0)
+                return null;
+
+            return new Xml.Ubl.Cac.TaxTotal[]
+            {
+                new Xml.Ubl.Cac.TaxTotal()
+                {
+                    TaxAmount = new Amount()
+                    {
+                        CurrencyID = currencyID,
+                        Value = taxAmount
+                    },
+                    TaxSubtotal = taxSubtotals.ToArray()
+                }
+            };
+
+        }
+
+        /// <summary>
+        /// Devuelve los totales monetarios de la factura.
+        /// </summary>
+        /// <param name="currencyID">Código de moneda.</param>
+        /// <returns>Totales monetarios.</returns>
+        private Xml.Ubl.Cac.LegalMonetaryTotal GetLegalMonetaryTotal(string currencyID)
+        {
+
+            return new Xml.Ubl.Cac.LegalMonetaryTotal()
+            {
+                LineExtensionAmount = new Amount()
+                {
+                    CurrencyID = currencyID,
+                    Value = Invoice.NetAmount
+                },
+                TaxExclusiveAmount = new Amount()
+                {
+                    CurrencyID = currencyID,
+                    Value = Invoice.NetAmount
+                },
+                TaxInclusiveAmount = new Amount()
+                {
+                    CurrencyID = currencyID,
+                    Value = Invoice.NetAmount +
+                        Invoice.TotalTaxOutput +
+                        Invoice.TotalTaxOutputSurcharge
+                },
+                PayableAmount = new Amount()
+                {
+                    CurrencyID = currencyID,
+                    Value = Invoice.TotalAmount
+                }
+            };
+
+        }
+
+        /// <summary>
+        /// Devuelve las líneas UBL de la factura.
+        /// </summary>
+        /// <param name="currencyID">Código de moneda.</param>
+        /// <returns>Líneas UBL de factura.</returns>
+        private Xml.Ubl.Cac.InvoiceLine[] GetInvoiceLines(string currencyID)
+        {
+
+            if (Invoice.InvoiceLines == null ||
+                Invoice.InvoiceLines.Count == 0)
+                return null;
+
+            var invoiceLines =
+                new Xml.Ubl.Cac.InvoiceLine[Invoice.InvoiceLines.Count];
+
+            for (int i = 0; i < Invoice.InvoiceLines.Count; i++)
+            {
+
+                invoiceLines[i] = GetInvoiceLine(
+                    Invoice.InvoiceLines[i], currencyID);
+
+            }
+
+            return invoiceLines;
+
+        }
+
+        /// <summary>
+        /// Devuelve una línea UBL de factura.
+        /// </summary>
+        /// <param name="invoiceLine">Línea de factura.</param>
+        /// <param name="currencyID">Código de moneda.</param>
+        /// <returns>Línea UBL de factura.</returns>
+        private Xml.Ubl.Cac.InvoiceLine GetInvoiceLine(InvoiceLine invoiceLine, string currencyID)
+        {
+
+            return new Xml.Ubl.Cac.InvoiceLine()
+            {
+                ID = invoiceLine.ItemPosition.ToString(),
+                InvoicedQuantity = new Quantity()
+                {
+                    UnitCode = invoiceLine.UnitOfMeasure,
+                    Value = invoiceLine.Quantity
+                },
+                LineExtensionAmount = new Amount()
+                {
+                    CurrencyID = currencyID,
+                    Value = invoiceLine.NetAmount
+                },
+                OrderLineReference = GetOrderLineReferences(invoiceLine),
+                AllowanceCharge = GetLineAllowanceCharges(invoiceLine, currencyID),
+                Item = GetItem(invoiceLine),
+                Price = GetPrice(invoiceLine, currencyID)
+            };
+
+        }
+        /// <summary>
+        /// Devuelve el artículo UBL correspondiente a una
+        /// línea de factura.
+        /// </summary>
+        /// <param name="invoiceLine">Línea de factura.</param>
+        /// <returns>Artículo UBL.</returns>
+        private Xml.Ubl.Cac.Item GetItem(InvoiceLine invoiceLine)
+        {
+
+            return new Xml.Ubl.Cac.Item()
+            {
+                Name = invoiceLine.ItemName,
+                SellersItemIdentification =
+                    string.IsNullOrEmpty(invoiceLine.ItemID) ? null :
+                    new Xml.Ubl.Cac.ItemIdentification()
+                    {
+                        ID = invoiceLine.ItemID
+                    },
+                ClassifiedTaxCategory =
+                    GetLineTaxCategories(invoiceLine)
+            };
+
+        }
+
+        /// <summary>
+        /// Devuelve la línea de impuesto repercutido correspondiente
+        /// a una línea de factura.
+        /// </summary>
+        /// <param name="invoiceLine">Línea de factura.</param>
+        /// <returns>Línea de impuesto.</returns>
+        private TaxItem GetLineTaxItem(InvoiceLine invoiceLine)
+        {
+
+            if (Invoice.TaxItems == null)
+                return null;
+
+            foreach (var taxItem in Invoice.TaxItems)
+            {
+
+                if (taxItem.TaxClass != "TO")
+                    continue;
+
+                if (taxItem.TaxRate != invoiceLine.TaxesOutputRate)
+                    continue;
+
+                var tax = string.IsNullOrEmpty(invoiceLine.TaxesOutputTax) ?
+                    "01" : invoiceLine.TaxesOutputTax;
+
+                var taxItemTax = string.IsNullOrEmpty(taxItem.Tax) ?
+                    "01" : taxItem.Tax;
+
+                if (taxItemTax == tax)
+                    return taxItem;
+
+            }
+
+            return null;
+
+        }
+
+        /// <summary>
+        /// Devuelve las categorías fiscales UBL correspondientes
+        /// a una línea de factura.
+        /// </summary>
+        /// <param name="invoiceLine">Línea de factura.</param>
+        /// <returns>Categorías fiscales UBL.</returns>
+        private Xml.Ubl.Cac.TaxCategory[] GetLineTaxCategories(InvoiceLine invoiceLine)
+        {
+
+            var taxItem = GetLineTaxItem(invoiceLine);
+
+            if (taxItem == null)
+                return null;
+
+            return new Xml.Ubl.Cac.TaxCategory[]
+            {
+                GetLineTaxCategory(taxItem)
+            };
+
+        }
+
+        /// <summary>
+        /// Devuelve la categoría fiscal UBL correspondiente
+        /// a una línea de impuesto.
+        /// </summary>
+        /// <param name="taxItem">Línea de impuesto.</param>
+        /// <returns>Categoría fiscal UBL.</returns>
+        private Xml.Ubl.Cac.TaxCategory GetLineTaxCategory(TaxItem taxItem)
+        {
+
+            var taxCategory = GetTaxCategory(taxItem);
+
+            if (Profile == UblProfile.AEAT)
+            {
+                taxCategory.TaxScheme =
+                    new Xml.Ubl.Cac.TaxScheme()
+                    {
+                        ID = "VAT"
+                    };
+            }
+
+            return taxCategory;
+
+        }
+
+        /// <summary>
+        /// Devuelve los descuentos y cargos correspondientes
+        /// a una línea de factura.
+        /// </summary>
+        /// <param name="invoiceLine">Línea de factura.</param>
+        /// <param name="currencyID">Código de moneda.</param>
+        /// <returns>Descuentos y cargos de la línea.</returns>
+        private Xml.Ubl.Cac.AllowanceCharge[] GetLineAllowanceCharges(InvoiceLine invoiceLine, string currencyID)
+        {
+
+            if (invoiceLine.DiscountAmount == 0)
+                return null;
+
+            return new Xml.Ubl.Cac.AllowanceCharge[]
+            {
+                new Xml.Ubl.Cac.AllowanceCharge()
+                {
+                    ChargeIndicator = false,
+                    MultiplierFactorNumeric = invoiceLine.DiscountRate,
+                    Amount = new Amount()
+                    {
+                        CurrencyID = currencyID,
+                        Value = invoiceLine.DiscountAmount
+                    },
+                    BaseAmount = new Amount()
+                    {
+                        CurrencyID = currencyID,
+                        Value = invoiceLine.GrossAmount
+                    }
+                }
+            };
+
+        }
+
+        /// <summary>
+        /// Devuelve el precio UBL correspondiente a una
+        /// línea de factura.
+        /// </summary>
+        /// <param name="invoiceLine">Línea de factura.</param>
+        /// <param name="currencyID">Código de moneda.</param>
+        /// <returns>Precio UBL.</returns>
+        private Xml.Ubl.Cac.Price GetPrice(InvoiceLine invoiceLine, string currencyID)
+        {
+
+            return new Xml.Ubl.Cac.Price()
+            {
+                PriceAmount = new Amount()
+                {
+                    CurrencyID = currencyID,
+                    Value = invoiceLine.NetPrice
+                }
+            };
+
+        }
+
+        /// <summary>
+        /// Devuelve las referencias del comprador correspondientes
+        /// a una línea de factura.
+        /// </summary>
+        /// <param name="invoiceLine">Línea de factura.</param>
+        /// <returns>Referencias a líneas de pedido.</returns>
+        private Xml.Ubl.Cac.OrderLineReference[] GetOrderLineReferences(InvoiceLine invoiceLine)
+        {
+
+            if (string.IsNullOrEmpty(invoiceLine.BuyerReference))
+                return null;
+
+            return new Xml.Ubl.Cac.OrderLineReference[]
+            {
+                new Xml.Ubl.Cac.OrderLineReference()
+                {
+                    LineID = invoiceLine.BuyerReference
                 }
             };
 

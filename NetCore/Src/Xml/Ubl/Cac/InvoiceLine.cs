@@ -71,6 +71,12 @@ namespace FACe.Xml.Ubl.Cac
         public Amount LineExtensionAmount { get; set; }
 
         /// <summary>
+        /// Referencias a líneas de pedido relacionadas.
+        /// </summary>
+        [XmlElement("OrderLineReference", Namespace = UblNamespaces.NamespaceCAC)]
+        public OrderLineReference[] OrderLineReference { get; set; }
+
+        /// <summary>
         /// Descuentos y cargos de la línea.
         /// </summary>
         [XmlElement("AllowanceCharge", Namespace = UblNamespaces.NamespaceCAC)]

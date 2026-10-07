@@ -613,6 +613,9 @@
     <Compile Include="..\..\NetCore\Src\Xml\Ubl\Cac\LegalMonetaryTotal.cs">
       <Link>Src\Xml\Ubl\Cac\LegalMonetaryTotal.cs</Link>
     </Compile>
+    <Compile Include="..\..\NetCore\Src\Xml\Ubl\Cac\OrderLineReference.cs">
+      <Link>Src\Xml\Ubl\Cac\OrderLineReference.cs</Link>
+    </Compile>
     <Compile Include="..\..\NetCore\Src\Xml\Ubl\Cac\OrderReference.cs">
       <Link>Src\Xml\Ubl\Cac\OrderReference.cs</Link>
     </Compile>

@@ -51,15 +51,6 @@ namespace FACe.Business.Invoice
     public class Invoice : JsonSerializableKivu
     {
 
-        #region Variables Privadas de Instancia
-
-        /// <summary>
-        /// Suma de las bases imponibles.
-        /// </summary>   
-        decimal _NetAmount;
-
-        #endregion
-
         #region Construtores de Instancia
 
         /// <summary>
@@ -90,31 +81,35 @@ namespace FACe.Business.Invoice
         /// <summary>
         /// Calcula los totales de la factura.
         /// </summary>
-        internal void CalculateTotals() 
+        internal void CalculateTotals()
         {
 
-            TotalAmount = TotalTaxOutput = TotalTaxWithheld = TotalTaxOutputSurcharge = _NetAmount = 0;
+            TotalAmount = TotalTaxOutput = TotalTaxWithheld =
+                TotalTaxOutputSurcharge = NetAmount = 0;
 
             if (TaxItems == null || TaxItems.Count == 0)
                 return;
 
-            foreach (var taxitem in TaxItems) 
+            foreach (var taxitem in TaxItems)
             {
 
                 if (taxitem.TaxClass == "TO")
                 {
-                    _NetAmount += taxitem.TaxBase;
+                    NetAmount += taxitem.TaxBase;
                     TotalTaxOutput += taxitem.TaxAmount;
                     TotalTaxOutputSurcharge += taxitem.TaxAmountSurcharge;
                 }
-                else 
+                else
                 {
                     TotalTaxWithheld += taxitem.TaxAmount;
                 }
 
             }
 
-            TotalAmount = _NetAmount + TotalTaxOutput + TotalTaxOutputSurcharge - TotalTaxWithheld;
+            TotalAmount = NetAmount +
+                TotalTaxOutput +
+                TotalTaxOutputSurcharge -
+                TotalTaxWithheld;
 
         }
 
@@ -208,6 +203,11 @@ namespace FACe.Business.Invoice
         /// de sistema externo.
         /// </summary>        
         public string ExternKey { get; set; }
+
+        /// <summary>
+        /// Importe neto de la factura.
+        /// </summary>
+        public decimal NetAmount { get; private set; }
 
         /// <summary>
         /// Importe total: Total neto + impuestos soportado
