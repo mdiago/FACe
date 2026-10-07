@@ -57,21 +57,51 @@ namespace FACe.Business.Invoice.Converters
         #region Variables Privadas de Instancia
 
         /// <summary>
-        /// Identificador de personalización CIUS-ES-FACE.
+        /// Identificador de especificación correspondiente al
+        /// perfil CIUS-ES-FACE.
         /// </summary>
-        private const string CustomizationID =
+        private const string CustomizationIDFACe =
             "urn:cen.eu:en16931:2017#compliant#urn:face.gob.es:CIUS-ES-FACE:1.0.0";
+
+        /// <summary>
+        /// Identificador de especificación correspondiente a la
+        /// solución pública de facturación electrónica de la AEAT.
+        /// </summary>
+        private const string CustomizationIDAEAT =
+            "urn:cen.eu:en16931:2026#conformant#urn:aeat.es:spfe:1.0.0:extended";
+
+        /// <summary>
+        /// Identificador del proceso de negocio correspondiente a la
+        /// solución pública de facturación electrónica de la AEAT.
+        /// </summary>
+        private const string ProfileIDAEAT =
+            "urn:aeat:names:specification:ubl:schema:profile:B2B";
+
+        #endregion
+
+        #region Propiedades Privadas de Instancia
+
+        /// <summary>
+        /// Perfil UBL utilizado para generar el documento.
+        /// </summary>
+        private UblProfile Profile { get; }
 
         #endregion
 
         #region Constructores de Instancia
 
         /// <summary>
-        /// Constructor.
+        /// Construye una nueva instancia de la clase UblConverter.
         /// </summary>
-        /// <param name="invoice">Objeto Invoice.</param>
-        public UblConverter(Invoice invoice) : base(invoice)
+        /// <param name="invoice">Factura de la capa de negocio.</param>
+        /// <param name="profile">Perfil UBL de destino.</param>
+        public UblConverter(
+            Invoice invoice,
+            UblProfile profile = UblProfile.FACe) : base(invoice)
         {
+
+            Profile = profile;
+
         }
 
         #endregion
@@ -79,12 +109,88 @@ namespace FACe.Business.Invoice.Converters
         #region Métodos Privados de Instancia
 
         /// <summary>
-        /// Devuelve un Party UBL a partir de un Party
+        /// Obtiene un objeto UBL Invoice a partir del objeto
+        /// Invoice contenido.
+        /// </summary>
+        /// <returns>Objeto UBL Invoice.</returns>
+        protected override UblInvoice GetFromInvoice()
+        {
+
+            var seller = GetPartyByTaxId(Invoice.SellerID);
+            var buyer = GetPartyByTaxId(Invoice.BuyerID);
+
+            seller.PartyName = Invoice.SellerName;
+            buyer.PartyName = Invoice.BuyerName;
+
+            var partySeller = GetParty(seller, true);
+            var partyBuyer = GetParty(buyer, false);
+
+            // Tipo de factura por defecto 380
+            Code invoiceTypeCode = "380";
+
+            Text[] buyerReference = null;
+
+            var oc = GetPartyByPartyRole("OC");     // Oficina contable
+            var og = GetPartyByPartyRole("OG");     // Organo gestor
+            var ut = GetPartyByPartyRole("UT");     // Unidad tramitadora
+
+            if (oc != null && og != null && ut != null)
+                buyerReference = new Text[]
+                {
+                    $"03|{ut.PartyID}|02|{og.PartyID}|01|{oc.PartyID}"
+                };
+
+            // Moneda por defecto EUR
+            var currencyID = string.IsNullOrEmpty(Invoice.CurrencyID) ?
+                "EUR" : Invoice.CurrencyID;
+
+            var ubl = new UblInvoice()
+            {
+                CustomizationID = GetCustomizationID(),
+                ProfileID = GetProfileID(),
+                ID = Invoice.InvoiceID,
+                CopyIndicator = GetCopyIndicator(),
+                IssueDate = XmlParser.GetXmlDate(Invoice.InvoiceDate),
+                DueDate = Invoice.DueDate.HasValue ?
+                    XmlParser.GetXmlDate(Invoice.DueDate.Value) : null,
+                InvoicePeriod = Invoice.OperationDate.HasValue ?
+                    new Xml.Ubl.Cac.InvoicePeriod[]
+                    {
+                        new Xml.Ubl.Cac.InvoicePeriod()
+                        {
+                            StartDate = XmlParser.GetXmlDate(Invoice.OperationDate.Value)
+                        }
+                    } : null,
+                InvoiceTypeCode = GetInvoiceTypeCode(),
+                Note = string.IsNullOrEmpty(Invoice.Text) ? null :
+                    new Text[] { Invoice.Text },
+                DocumentCurrencyCode = currencyID,
+                TaxCurrencyCode = GetTaxCurrencyCode(currencyID),
+                BuyerReference = buyerReference,
+                AccountingSupplierParty = new Xml.Ubl.Cac.AccountingSupplierParty()
+                {
+                    Party = partySeller
+                },
+                AccountingCustomerParty = new Xml.Ubl.Cac.AccountingCustomerParty()
+                {
+                    Party = partyBuyer
+                },
+                PaymentMeans = GetPaymentMeans(Invoice.Installments),
+                PaymentTerms = GetPaymentTerms(Invoice.Installments),
+            };
+
+            return ubl;
+
+        }
+
+        /// <summary>
+        /// Devuelve un interlocutor UBL a partir de un interlocutor
         /// de la capa de negocio.
         /// </summary>
-        /// <param name="party">Party de la capa de negocio.</param>
-        /// <returns>Party UBL.</returns>
-        private Xml.Ubl.Cac.Party GetParty(Party party)
+        /// <param name="party">Interlocutor.</param>
+        /// <param name="seller">Indica si el interlocutor es el vendedor.</param>
+        /// <returns>Interlocutor UBL.</returns>
+        private Xml.Ubl.Cac.Party GetParty(Party party, bool seller)
         {
 
             var ublParty = new Xml.Ubl.Cac.Party()
@@ -114,17 +220,9 @@ namespace FACe.Business.Invoice.Converters
                         IdentificationCode = party.CountryID
                     }
                 },
-                PartyTaxScheme = new Xml.Ubl.Cac.PartyTaxScheme[1]
-                {
-                    new Xml.Ubl.Cac.PartyTaxScheme()
-                    {
-                        CompanyID = party.TaxID,
-                        TaxScheme = new Xml.Ubl.Cac.TaxScheme()
-                        {
-                            ID = "VA"
-                        }
-                    }
-                },
+                PartyTaxScheme = seller ?
+                    GetSellerTaxScheme(party) :
+                    GetBuyerTaxScheme(party),
                 PartyLegalEntity = new Xml.Ubl.Cac.PartyLegalEntity[1]
                 {
                     new Xml.Ubl.Cac.PartyLegalEntity()
@@ -143,7 +241,6 @@ namespace FACe.Business.Invoice.Converters
             return ublParty;
 
         }
-
         /// <summary>
         /// Devuelve los medios de pago para UBL.
         /// </summary>
@@ -252,84 +349,259 @@ namespace FACe.Business.Invoice.Converters
         }
 
         /// <summary>
-        /// Obtiene un objeto UBL Invoice a partir del objeto
-        /// Invoice contenido.
+        /// Devuelve el código de tipo de factura UBL correspondiente
+        /// al tipo de factura de la capa de negocio.
         /// </summary>
-        /// <returns>Objeto UBL Invoice.</returns>
-        protected override UblInvoice GetFromInvoice()
+        /// <returns>Código de tipo de factura UBL.</returns>
+        private Code GetInvoiceTypeCode()
         {
 
-            var seller = GetPartyByTaxId(Invoice.SellerID);
-            var buyer = GetPartyByTaxId(Invoice.BuyerID);
+            // Tipo de factura por defecto
+            if (string.IsNullOrEmpty(Invoice.InvoiceType))
+                return "380";
 
-            seller.PartyName = Invoice.SellerName;
-            buyer.PartyName = Invoice.BuyerName;
+            var parts = Invoice.InvoiceType.Split('.');
 
-            var partySeller = GetParty(seller);
-            var partyBuyer = GetParty(buyer);
+            if (parts.Length != 2)
+                return "380";
 
-            // Tipo de factura por defecto 380
-            Code invoiceTypeCode = "380";
+            var invoiceDocumentType = parts[0];
+            var invoiceClass = parts[1];
 
-            Text buyerReference = null;
-
-            var oc = GetPartyByPartyRole("OC");     // Oficina contable
-            var og = GetPartyByPartyRole("OG");     // Organo gestor
-            var ut = GetPartyByPartyRole("UT");     // Unidad tramitadora
-
-            if (oc != null && og != null && ut != null)
-                buyerReference = $"03|{ut.PartyID}|02|{og.PartyID}|01|{oc.PartyID}";
-
-            if (!string.IsNullOrEmpty(Invoice.InvoiceType))
+            // Factura rectificativa
+            if (invoiceClass == "OR" || invoiceClass == "CR")
             {
 
-                var parts = Invoice.InvoiceType.Split('.');
+                // Autofactura rectificativa
+                if (invoiceDocumentType == "AF")
+                    return "471";
 
-                if (parts.Length == 2)
-                {
-
-                    switch (parts[1])
-                    {
-
-                        case "OR":
-                        case "CR":
-                            invoiceTypeCode = "384";
-                            break;
-
-                    }
-
-                }
+                return "384";
 
             }
 
-            // Moneda por defecto EUR
-            if (string.IsNullOrEmpty(Invoice.CurrencyID))
-                Invoice.CurrencyID = "EUR";
+            // Autofactura
+            if (invoiceDocumentType == "AF")
+                return "389";
 
-            var ubl = new UblInvoice()
+            // Factura
+            return "380";
+
+        }
+
+        /// <summary>
+        /// Devuelve el identificador de especificación correspondiente
+        /// al perfil UBL utilizado.
+        /// </summary>
+        /// <returns>Identificador de especificación.</returns>
+        private Identifier GetCustomizationID()
+        {
+
+            switch (Profile)
             {
-                CustomizationID = CustomizationID,
-                ID = Invoice.InvoiceID,
-                IssueDate = XmlParser.GetXmlDate(Invoice.InvoiceDate),
-                DueDate = null,
-                InvoiceTypeCode = invoiceTypeCode,
-                Note = string.IsNullOrEmpty(Invoice.Text) ? null :
-                    new Text[] { Invoice.Text },
-                DocumentCurrencyCode = Invoice.CurrencyID,
-                BuyerReference = buyerReference,
-                AccountingSupplierParty = new Xml.Ubl.Cac.AccountingSupplierParty()
-                {
-                    Party = partySeller
-                },
-                AccountingCustomerParty = new Xml.Ubl.Cac.AccountingCustomerParty()
-                {
-                    Party = partyBuyer
-                },
-                PaymentMeans = GetPaymentMeans(Invoice.Installments),
-                PaymentTerms = GetPaymentTerms(Invoice.Installments),
+
+                case UblProfile.AEAT:
+                    return CustomizationIDAEAT;
+
+                case UblProfile.FACe:
+                default:
+                    return CustomizationIDFACe;
+
+            }
+
+        }
+
+        /// <summary>
+        /// Devuelve el identificador del proceso de negocio correspondiente
+        /// al perfil UBL utilizado.
+        /// </summary>
+        /// <returns>Identificador del proceso de negocio.</returns>
+        private Identifier GetProfileID()
+        {
+
+            switch (Profile)
+            {
+
+                case UblProfile.AEAT:
+                    return ProfileIDAEAT;
+
+                default:
+                    return null;
+
+            }
+
+        }
+
+        /// <summary>
+        /// Devuelve el indicador de copia correspondiente al tipo
+        /// de factura de la capa de negocio.
+        /// </summary>
+        /// <returns>
+        /// "true" si la factura es una copia; en otro caso, null.
+        /// </returns>
+        private string GetCopyIndicator()
+        {
+
+            if (Profile != UblProfile.AEAT)
+                return null;
+
+            if (string.IsNullOrEmpty(Invoice.InvoiceType))
+                return null;
+
+            var parts = Invoice.InvoiceType.Split('.');
+
+            if (parts.Length != 2)
+                return null;
+
+            switch (parts[1])
+            {
+
+                case "CO":
+                case "CR":
+                case "CC":
+                    return "true";
+
+                default:
+                    return null;
+
+            }
+
+        }
+
+        /// <summary>
+        /// Devuelve el código de moneda utilizado para la
+        /// contabilización del IVA.
+        /// </summary>
+        /// <param name="currencyID">Código de moneda de la factura.</param>
+        /// <returns>Código de moneda para la contabilización del IVA.</returns>
+        private Code GetTaxCurrencyCode(string currencyID)
+        {
+
+            if (Profile != UblProfile.AEAT)
+                return null;
+
+            if (string.Equals(currencyID, "EUR",
+                StringComparison.OrdinalIgnoreCase))
+                return null;
+
+            return "EUR";
+
+        }
+
+        /// <summary>
+        /// Devuelve la información fiscal UBL correspondiente
+        /// al interlocutor indicado.
+        /// </summary>
+        /// <param name="party">Interlocutor.</param>
+        /// <returns>Información fiscal UBL.</returns>
+        private Xml.Ubl.Cac.PartyTaxScheme[] GetPartyTaxScheme(Party party)
+        {
+
+            if (string.IsNullOrEmpty(party.TaxID))
+                return null;
+
+            var companyID = new Identifier()
+            {
+                Value = party.TaxID
             };
 
-            return ubl;
+            var taxSchemeID = "LOC";
+
+            if (Invoice.BuyerIDType == "02")
+            {
+                taxSchemeID = "VAT";
+            }
+            else
+            {
+                companyID.SchemeID = "FC";
+            }
+
+            return new Xml.Ubl.Cac.PartyTaxScheme[]
+            {
+                new Xml.Ubl.Cac.PartyTaxScheme()
+                {
+                    CompanyID = companyID,
+                    TaxScheme = new Xml.Ubl.Cac.TaxScheme()
+                    {
+                        ID = taxSchemeID
+                    }
+                }
+            };
+
+        }
+
+        /// <summary>
+        /// Devuelve la información fiscal UBL del vendedor.
+        /// </summary>
+        /// <param name="party">Vendedor.</param>
+        /// <returns>Información fiscal UBL.</returns>
+        private Xml.Ubl.Cac.PartyTaxScheme[] GetSellerTaxScheme(Party party)
+        {
+
+            var companyID = new Identifier()
+            {
+                Value = party.TaxID
+            };
+
+            var taxSchemeID = "VAT";
+
+            if (Profile == UblProfile.AEAT)
+            {
+
+                companyID.SchemeID = "FC";
+                taxSchemeID = "LOC";
+
+            }
+
+            return new Xml.Ubl.Cac.PartyTaxScheme[]
+            {
+                new Xml.Ubl.Cac.PartyTaxScheme()
+                {
+                    CompanyID = companyID,
+                    TaxScheme = new Xml.Ubl.Cac.TaxScheme()
+                    {
+                        ID = taxSchemeID
+                    }
+                }
+            };
+
+        }
+
+        /// <summary>
+        /// Devuelve la información fiscal UBL del comprador.
+        /// </summary>
+        /// <param name="party">Comprador.</param>
+        /// <returns>Información fiscal UBL.</returns>
+        private Xml.Ubl.Cac.PartyTaxScheme[] GetBuyerTaxScheme(Party party)
+        {
+
+            var companyID = new Identifier()
+            {
+                Value = party.TaxID
+            };
+
+            var taxSchemeID = "VAT";
+
+            if (Profile == UblProfile.AEAT &&
+                Invoice.BuyerIDType != "02")
+            {
+
+                companyID.SchemeID = "FC";
+                taxSchemeID = "LOC";
+
+            }
+
+            return new Xml.Ubl.Cac.PartyTaxScheme[]
+            {
+                new Xml.Ubl.Cac.PartyTaxScheme()
+                {
+                    CompanyID = companyID,
+                    TaxScheme = new Xml.Ubl.Cac.TaxScheme()
+                    {
+                        ID = taxSchemeID
+                    }
+                }
+            };
 
         }
 

@@ -62,6 +62,9 @@
     <Compile Include="..\NetCore\Src\Business\Invoice\Converters\UblConverter.cs">
       <Link>Src\Business\Invoice\Converters\UblConverter.cs</Link>
     </Compile>
+    <Compile Include="..\NetCore\Src\Business\Invoice\Converters\UblProfile.cs">
+      <Link>Src\Business\Invoice\Converters\UblProfile.cs</Link>
+    </Compile>
     <Compile Include="..\NetCore\Src\Business\Invoice\Installment.cs">
       <Link>Src\Business\Invoice\Installment.cs</Link>
     </Compile>

@@ -60,10 +60,22 @@ namespace FACe.Xml.Ubl.Invoice
         public Identifier CustomizationID { get; set; }
 
         /// <summary>
+        /// Identificador del proceso de negocio.
+        /// </summary>
+        [XmlElement("ProfileID", Namespace = UblNamespaces.NamespaceCBC)]
+        public Identifier ProfileID { get; set; }
+
+        /// <summary>
         /// Identificador de la factura.
         /// </summary>
         [XmlElement("ID", Namespace = UblNamespaces.NamespaceCBC)]
         public Identifier ID { get; set; }
+
+        /// <summary>
+        /// Indica si el documento es una copia de la factura.
+        /// </summary>
+        [XmlElement("CopyIndicator", Namespace = UblNamespaces.NamespaceCBC)]
+        public string CopyIndicator { get; set; }
 
         /// <summary>
         /// Fecha de emisión.
@@ -96,10 +108,16 @@ namespace FACe.Xml.Ubl.Invoice
         public Code DocumentCurrencyCode { get; set; }
 
         /// <summary>
-        /// Referencia del comprador.
+        /// Código de moneda utilizado para la contabilización del IVA.
+        /// </summary>
+        [XmlElement("TaxCurrencyCode", Namespace = UblNamespaces.NamespaceCBC)]
+        public Code TaxCurrencyCode { get; set; }
+
+        /// <summary>
+        /// Referencias del comprador.
         /// </summary>
         [XmlElement("BuyerReference", Namespace = UblNamespaces.NamespaceCBC)]
-        public Text BuyerReference { get; set; }
+        public Text[] BuyerReference { get; set; }
 
         /// <summary>
         /// Periodos de facturación.

@@ -149,6 +149,11 @@ namespace FACe.Business.Invoice
         public DateTime? OperationDate { get; set; }
 
         /// <summary>
+        /// Fecha de vencimiento del pago de la factura.
+        /// </summary>
+        public DateTime? DueDate { get; set; }
+
+        /// <summary>
         /// Identificador del vendedor.
         /// Debe utilizarse el identificador fiscal si existe (NIF, VAT Number...).
         /// En caso de no existir, se puede utilizar el número DUNS 
