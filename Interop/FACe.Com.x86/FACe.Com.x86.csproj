@@ -607,6 +607,9 @@
     <Compile Include="..\..\NetCore\Src\Xml\Ubl\Cac\ItemIdentification.cs">
       <Link>Src\Xml\Ubl\Cac\ItemIdentification.cs</Link>
     </Compile>
+    <Compile Include="..\..\NetCore\Src\Xml\Ubl\Cac\ItemProperty.cs">
+      <Link>Src\Xml\Ubl\Cac\ItemProperty.cs</Link>
+    </Compile>
     <Compile Include="..\..\NetCore\Src\Xml\Ubl\Cac\LegalMonetaryTotal.cs">
       <Link>Src\Xml\Ubl\Cac\LegalMonetaryTotal.cs</Link>
     </Compile>

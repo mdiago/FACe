@@ -116,6 +116,9 @@ namespace FACe.Business.Invoice.Converters
         protected override UblInvoice GetFromInvoice()
         {
 
+            ValidateAmounts();
+            ValidateTaxAmounts();
+
             var seller = GetPartyByTaxId(Invoice.SellerID);
             var buyer = GetPartyByTaxId(Invoice.BuyerID);
 
@@ -135,15 +138,15 @@ namespace FACe.Business.Invoice.Converters
                 ProfileID = GetProfileID(),
                 ID = Invoice.InvoiceID,
                 CopyIndicator = GetCopyIndicator(),
-                IssueDate = XmlParser.GetXmlDate(Invoice.InvoiceDate),
+                IssueDate = XmlParser.GetUblDate(Invoice.InvoiceDate),
                 DueDate = Invoice.DueDate.HasValue ?
-                    XmlParser.GetXmlDate(Invoice.DueDate.Value) : null,
+                    XmlParser.GetUblDate(Invoice.DueDate.Value) : null,
                 InvoicePeriod = Invoice.OperationDate.HasValue ?
                     new Xml.Ubl.Cac.InvoicePeriod[]
                     {
                         new Xml.Ubl.Cac.InvoicePeriod()
                         {
-                            StartDate = XmlParser.GetXmlDate(Invoice.OperationDate.Value)
+                            StartDate = XmlParser.GetUblDate(Invoice.OperationDate.Value)
                         }
                     } : null,
                 InvoiceTypeCode = GetInvoiceTypeCode(),
@@ -328,7 +331,7 @@ namespace FACe.Business.Invoice.Converters
                         Value = installment.Amount
                     },
                     InstallmentDueDate =
-                        XmlParser.GetXmlDate(installment.DueDate)
+                        XmlParser.GetUblDate(installment.DueDate)
                 };
 
             }
@@ -644,7 +647,7 @@ namespace FACe.Business.Invoice.Converters
                         new Xml.Ubl.Cac.DocumentReference()
                         {
                             ID = item.InvoiceID,
-                            IssueDate = XmlParser.GetXmlDate(item.InvoiceDate)
+                            IssueDate = XmlParser.GetUblDate(item.InvoiceDate)
                         }
                 };
 
@@ -1243,6 +1246,7 @@ namespace FACe.Business.Invoice.Converters
             };
 
         }
+
         /// <summary>
         /// Devuelve el artículo UBL correspondiente a una
         /// línea de factura.
@@ -1262,22 +1266,30 @@ namespace FACe.Business.Invoice.Converters
                         ID = invoiceLine.ItemID
                     },
                 ClassifiedTaxCategory =
-                    GetLineTaxCategories(invoiceLine)
+                    GetLineTaxCategories(invoiceLine),
+                AdditionalItemProperty =
+                    GetAdditionalItemProperties(invoiceLine)
             };
 
         }
 
         /// <summary>
         /// Devuelve la línea de impuesto repercutido correspondiente
-        /// a una línea de factura.
+        /// a una línea de factura, comprobando que su identificación
+        /// fiscal sea inequívoca.
         /// </summary>
         /// <param name="invoiceLine">Línea de factura.</param>
-        /// <returns>Línea de impuesto.</returns>
+        /// <returns>Línea de impuesto o null si no existe.</returns>
         private TaxItem GetLineTaxItem(InvoiceLine invoiceLine)
         {
 
             if (Invoice.TaxItems == null)
                 return null;
+
+            var tax = string.IsNullOrEmpty(invoiceLine.TaxesOutputTax) ?
+                "01" : invoiceLine.TaxesOutputTax;
+
+            TaxItem result = null;
 
             foreach (var taxItem in Invoice.TaxItems)
             {
@@ -1288,18 +1300,31 @@ namespace FACe.Business.Invoice.Converters
                 if (taxItem.TaxRate != invoiceLine.TaxesOutputRate)
                     continue;
 
-                var tax = string.IsNullOrEmpty(invoiceLine.TaxesOutputTax) ?
-                    "01" : invoiceLine.TaxesOutputTax;
-
                 var taxItemTax = string.IsNullOrEmpty(taxItem.Tax) ?
                     "01" : taxItem.Tax;
 
-                if (taxItemTax == tax)
-                    return taxItem;
+                if (taxItemTax != tax)
+                    continue;
+
+                if (result == null)
+                {
+                    result = taxItem;
+                    continue;
+                }
+
+                if (result.TaxScheme != taxItem.TaxScheme ||
+                    result.TaxType != taxItem.TaxType ||
+                    result.TaxException != taxItem.TaxException)
+                {
+                    throw new InvalidOperationException(
+                        $"No se puede determinar inequívocamente " +
+                        $"el régimen fiscal de la línea " +
+                        $"{invoiceLine.ItemPosition}.");
+                }
 
             }
 
-            return null;
+            return result;
 
         }
 
@@ -1422,6 +1447,204 @@ namespace FACe.Business.Invoice.Converters
                     LineID = invoiceLine.BuyerReference
                 }
             };
+
+        }
+
+        /// <summary>
+        /// Devuelve las propiedades adicionales del artículo
+        /// correspondientes al régimen fiscal de la operación.
+        /// </summary>
+        /// <param name="invoiceLine">Línea de factura.</param>
+        /// <returns>Propiedades adicionales del artículo.</returns>
+        private Xml.Ubl.Cac.ItemProperty[] GetAdditionalItemProperties(InvoiceLine invoiceLine)
+        {
+
+            if (Profile != UblProfile.AEAT)
+                return null;
+
+            var taxItem = GetLineTaxItem(invoiceLine);
+
+            if (taxItem == null ||
+                string.IsNullOrEmpty(taxItem.TaxScheme))
+                return null;
+
+            var tax = string.IsNullOrEmpty(taxItem.Tax) ?
+                "01" : taxItem.Tax;
+
+            string taxQualifier;
+
+            switch (tax)
+            {
+
+                case "02":
+                    taxQualifier = "IPSI";
+                    break;
+
+                case "03":
+                    taxQualifier = "IGIC";
+                    break;
+
+                case "01":
+                    taxQualifier = "IVA";
+                    break;
+
+                default:
+                    return null;
+
+            }
+
+            return new Xml.Ubl.Cac.ItemProperty[]
+            {
+        new Xml.Ubl.Cac.ItemProperty()
+        {
+            Name = "REGI",
+            Value = taxItem.TaxScheme,
+            ValueQualifier = taxQualifier
+        }
+            };
+
+        }
+
+        /// <summary>
+        /// Comprueba la coherencia de los importes de la factura
+        /// antes de generar el documento UBL.
+        /// </summary>
+        private void ValidateAmounts()
+        {
+
+            const decimal tolerance = 0.01m;
+
+            if (Invoice.InvoiceLines == null ||
+                Invoice.InvoiceLines.Count == 0)
+                return;
+
+            decimal netAmount = 0;
+
+            foreach (var invoiceLine in Invoice.InvoiceLines)
+            {
+
+                netAmount += invoiceLine.NetAmount;
+
+                var expectedNetAmount =
+                    invoiceLine.GrossAmount -
+                    invoiceLine.DiscountAmount;
+
+                if (Math.Abs(expectedNetAmount -
+                    invoiceLine.NetAmount) > tolerance)
+                {
+                    throw new InvalidOperationException(
+                        $"Los importes de la línea " +
+                        $"{invoiceLine.ItemPosition} no son coherentes.");
+                }
+
+            }
+
+            if (Math.Abs(netAmount -
+                Invoice.NetAmount) > tolerance)
+            {
+                throw new InvalidOperationException(
+                    "El importe neto de las líneas no coincide " +
+                    "con las bases imponibles de la factura.");
+            }
+
+            var totalAmount =
+                Invoice.NetAmount +
+                Invoice.TotalTaxOutput +
+                Invoice.TotalTaxOutputSurcharge -
+                Invoice.TotalTaxWithheld;
+
+            if (Math.Abs(totalAmount -
+                Invoice.TotalAmount) > tolerance)
+            {
+                throw new InvalidOperationException(
+                    "El importe total de la factura " +
+                    "no coincide con su desglose fiscal.");
+            }
+
+        }
+
+        /// <summary>
+        /// Comprueba la coherencia entre los impuestos de las
+        /// líneas y los desgloses fiscales de la factura.
+        /// </summary>
+        private void ValidateTaxAmounts()
+        {
+
+            const decimal tolerance = 0.01m;
+
+            if (Invoice.InvoiceLines == null ||
+                Invoice.InvoiceLines.Count == 0 ||
+                Invoice.TaxItems == null ||
+                Invoice.TaxItems.Count == 0)
+                return;
+
+            foreach (var taxItem in Invoice.TaxItems)
+            {
+
+                if (taxItem.TaxClass != "TO")
+                    continue;
+
+                var tax = string.IsNullOrEmpty(taxItem.Tax) ?
+                    "01" : taxItem.Tax;
+
+                decimal headerBase = 0;
+                decimal headerAmount = 0;
+                decimal headerSurcharge = 0;
+                decimal lineBase = 0;
+                decimal lineAmount = 0;
+                decimal lineSurcharge = 0;
+
+                foreach (var current in Invoice.TaxItems)
+                {
+
+                    if (current.TaxClass != "TO")
+                        continue;
+
+                    var currentTax = string.IsNullOrEmpty(current.Tax) ?
+                        "01" : current.Tax;
+
+                    if (currentTax != tax ||
+                        current.TaxRate != taxItem.TaxRate ||
+                        current.TaxRateSurcharge != taxItem.TaxRateSurcharge)
+                        continue;
+
+                    headerBase += current.TaxBase;
+                    headerAmount += current.TaxAmount;
+                    headerSurcharge += current.TaxAmountSurcharge;
+
+                }
+
+                foreach (var invoiceLine in Invoice.InvoiceLines)
+                {
+
+                    var lineTax =
+                        string.IsNullOrEmpty(invoiceLine.TaxesOutputTax) ?
+                        "01" : invoiceLine.TaxesOutputTax;
+
+                    if (lineTax != tax ||
+                        invoiceLine.TaxesOutputRate != taxItem.TaxRate ||
+                        invoiceLine.TaxesOutputRateSurcharge !=
+                            taxItem.TaxRateSurcharge)
+                        continue;
+
+                    lineBase += invoiceLine.TaxesOutputBase;
+                    lineAmount += invoiceLine.TaxesOutputAmount;
+                    lineSurcharge +=
+                        invoiceLine.TaxesOutputAmounSurcharge;
+
+                }
+
+                if (Math.Abs(headerBase - lineBase) > tolerance ||
+                    Math.Abs(headerAmount - lineAmount) > tolerance ||
+                    Math.Abs(headerSurcharge - lineSurcharge) > tolerance)
+                {
+                    throw new InvalidOperationException(
+                        $"El desglose fiscal del impuesto {tax}, " +
+                        $"tipo {taxItem.TaxRate}%, no coincide " +
+                        $"con los impuestos de las líneas.");
+                }
+
+            }
 
         }
 

@@ -211,6 +211,27 @@ namespace FACe.Xml.Ubl.Invoice
 
         #endregion
 
+        #region Métodos Protegidos de Instancia
+
+        /// <summary>
+        /// Obtiene los espacios de nombres utilizados
+        /// por el documento UBL.
+        /// </summary>
+        /// <returns>Espacios de nombres XML.</returns>
+        protected override XmlSerializerNamespaces GetNamespaces()
+        {
+
+            var namespaces = new XmlSerializerNamespaces();
+
+            foreach (var item in UblNamespaces.Items)
+                namespaces.Add(item.Key, item.Value);
+
+            return namespaces;
+
+        }
+
+        #endregion
+
     }
 
 }

@@ -116,6 +116,18 @@ namespace FACe.Xml
 
         }
 
+        /// <summary>
+        /// Devuelve una fecha con el formato XML utilizado
+        /// por UBL (ISO 8601).
+        /// </summary>
+        /// <param name="date">Fecha a formatear.</param>
+        /// <returns>Fecha en formato yyyy-MM-dd.</returns>
+        public static string GetUblDate(DateTime date)
+        {
+
+            return date.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
+
+        }
 
         /// <summary>
         /// Devuelve un importe formateado para un campo decimal

@@ -76,24 +76,39 @@ namespace FACe.Xml
         /// <returns> Texto xml del documento.</returns>
         public virtual string GetXml()
         {
+
+            return Encoding.UTF8.GetString(GetBytes());
+
+        }
+
+        /// <summary>
+        /// Obtiene los bytes XML del documento.
+        /// </summary>
+        /// <returns>Documento XML codificado en UTF-8.</returns>
+        public virtual byte[] GetBytes()
+        {
+
             var serializer = new XmlSerializer(GetType());
 
             var settings = new XmlWriterSettings
             {
-                Encoding = Encoding.UTF8,
+                Encoding = new UTF8Encoding(false),
                 Indent = true,
                 OmitXmlDeclaration = false
             };
 
             using (var stream = new MemoryStream())
             {
+
                 using (var writer = XmlWriter.Create(stream, settings))
                 {
                     serializer.Serialize(writer, this, GetNamespaces());
                 }
 
-                return Encoding.UTF8.GetString(stream.ToArray());
+                return stream.ToArray();
+
             }
+
         }
 
         #endregion

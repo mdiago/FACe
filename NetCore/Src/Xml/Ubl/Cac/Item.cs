@@ -81,6 +81,12 @@ namespace FACe.Xml.Ubl.Cac
         [XmlElement("ClassifiedTaxCategory", Namespace = UblNamespaces.NamespaceCAC)]
         public TaxCategory[] ClassifiedTaxCategory { get; set; }
 
+        /// <summary>
+        /// Propiedades adicionales del artículo.
+        /// </summary>
+        [XmlElement("AdditionalItemProperty", Namespace = UblNamespaces.NamespaceCAC)]
+        public ItemProperty[] AdditionalItemProperty { get; set; }
+
         #endregion
 
     }
