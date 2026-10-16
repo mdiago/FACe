@@ -85,6 +85,13 @@ namespace FACe.Business
         /// <summary>
         /// Constructor.
         /// </summary>
+        public FACeManager() 
+        { 
+        }
+
+        /// <summary>
+        /// Constructor.
+        /// </summary>
         /// <param name="facturae">Instancia de clase Facturae.</param>
         public FACeManager(Facturae facturae)
         {

@@ -63,7 +63,7 @@
         <member name="T:FACe.Business.Invoice.Converters.FacturaeConverter">
             <summary>
             Encargado de convertir una instancia de Invoice en un objeto
-            Facturae determinado y de otener de un objeto Facturae
+            Facturae determinado y de obtener de un objeto Facturae
             un objeto Invoice con su representación.
             </summary>
         </member>
@@ -85,22 +85,6 @@
             Obtiene el desglose de la factura.
             </summary>
             <returns>Desglose de la factura.</returns>
-        </member>
-        <member name="M:FACe.Business.Invoice.Converters.FacturaeConverter.GetPartyByTaxId(System.String)">
-            <summary>
-            Recupera el interlocutor con el TaxId
-            pasado como parámetro.
-            </summary>
-            <param name="taxId">Identificador fiscal.</param>
-            <returns>El interlocutor con ese TaxId o null si no existe.</returns>
-        </member>
-        <member name="M:FACe.Business.Invoice.Converters.FacturaeConverter.GetPartyByPartyRole(System.String)">
-            <summary>
-            Recupera el interlocutor con el role
-            pasado como parámetro.
-            </summary>
-            <param name="role">Rol del interlocutor en la factura.</param>
-            <returns>El interlocutor con ese TaxId o null si no existe.</returns>
         </member>
         <member name="M:FACe.Business.Invoice.Converters.FacturaeConverter.GetResidenceTypeCode(System.String)">
             <summary>
@@ -129,6 +113,14 @@
             </param>
             <returns> Vencimientos para Facturae.</returns>
         </member>
+        <member name="M:FACe.Business.Invoice.Converters.FacturaeConverter.GetPaymentMeans(System.String)">
+            <summary>
+            Devuelve el medio de pago Facturae correspondiente al
+            medio de pago de la capa de negocio.
+            </summary>
+            <param name="paymentMeans">Medio de pago.</param>
+            <returns>Medio de pago Facturae.</returns>
+        </member>
         <member name="M:FACe.Business.Invoice.Converters.FacturaeConverter.GetLines(System.Collections.Generic.List{FACe.Business.Invoice.InvoiceLine})">
             <summary>
             Devuelve las líneas de factura para FActurae.
@@ -137,6 +129,21 @@
             Líneas de la factura.
             </param>
             <returns> Líneas para Facturae.</returns>
+        </member>
+        <member name="M:FACe.Business.Invoice.Converters.FacturaeConverter.GetAdministrativeCentres">
+            <summary>
+            Devuelve los centros administrativos para Facturae.
+            </summary>
+            <returns>Centros administrativos.</returns>
+        </member>
+        <member name="M:FACe.Business.Invoice.Converters.FacturaeConverter.GetAdministrativeCentre(FACe.Business.Invoice.Party,FACe.Xml.Facturae.Bies.RoleTypeCode,System.String)">
+            <summary>
+            Devuelve un centro administrativo para Facturae.
+            </summary>
+            <param name="party">Party del centro administrativo.</param>
+            <param name="roleTypeCode">Rol del centro administrativo.</param>
+            <param name="description">Descripción del centro administrativo.</param>
+            <returns>Centro administrativo.</returns>
         </member>
         <member name="M:FACe.Business.Invoice.Converters.FacturaeConverter.GetInvoice">
             <summary>
@@ -148,7 +155,7 @@
         <member name="T:FACe.Business.Invoice.Converters.InvoiceConverter`1">
             <summary>
             Encargado de convertir una instancia de Invoice en un objeto
-            InvoiceDocument determinado y de otener de un objeto InvoiceDocument
+            InvoiceDocument determinado y de obtener de un objeto InvoiceDocument
             un objeto Invoice con su representación.
             </summary>
             <typeparam name="T"> Tipo del objeto InvoiceDocument.</typeparam>
@@ -165,8 +172,8 @@
         </member>
         <member name="M:FACe.Business.Invoice.Converters.InvoiceConverter`1.GetFromInvoice">
             <summary>
-            Obtiene un objeto Invoice a partir del objeto
-            InvoiceDocument contenido.
+            Obtiene un objeto InvoiceDocument  a partir del objeto
+            Invoice contenido.
             </summary>
             <returns> Objeto Invoice.</returns>
         </member>
@@ -182,6 +189,22 @@
             </summary>
             <param name="invoiceDocument">Objeto InvoiceDocument.</param>
         </member>
+        <member name="M:FACe.Business.Invoice.Converters.InvoiceConverter`1.GetPartyByTaxId(System.String)">
+            <summary>
+            Recupera el interlocutor con el TaxId
+            pasado como parámetro.
+            </summary>
+            <param name="taxId">Identificador fiscal.</param>
+            <returns>El interlocutor con ese TaxId o null si no existe.</returns>
+        </member>
+        <member name="M:FACe.Business.Invoice.Converters.InvoiceConverter`1.GetPartyByPartyRole(System.String)">
+            <summary>
+            Recupera el interlocutor con el role
+            pasado como parámetro.
+            </summary>
+            <param name="role">Rol del interlocutor en la factura.</param>
+            <returns>El interlocutor con ese TaxId o null si no existe.</returns>
+        </member>
         <member name="M:FACe.Business.Invoice.Converters.InvoiceConverter`1.GetDocument">
             <summary>
             Obtiene un objeto InvoiceDocument a partir del objeto
@@ -195,6 +218,388 @@
             InvoiceDocument contenido.
             </summary>
             <returns> Objeto Invoice.</returns>
+        </member>
+        <member name="T:FACe.Business.Invoice.Converters.UblConverter">
+            <summary>
+            Encargado de convertir una instancia de Invoice en un objeto
+            UBL Invoice determinado y de obtener de un objeto UBL Invoice
+            un objeto Invoice con su representación.
+            </summary>
+        </member>
+        <member name="F:FACe.Business.Invoice.Converters.UblConverter.CustomizationIDFACe">
+            <summary>
+            Identificador de especificación correspondiente al
+            perfil CIUS-ES-FACE.
+            </summary>
+        </member>
+        <member name="F:FACe.Business.Invoice.Converters.UblConverter.CustomizationIDAEAT">
+            <summary>
+            Identificador de especificación correspondiente a la
+            solución pública de facturación electrónica de la AEAT.
+            </summary>
+        </member>
+        <member name="F:FACe.Business.Invoice.Converters.UblConverter.ProfileIDAEAT">
+            <summary>
+            Identificador del proceso de negocio correspondiente a la
+            solución pública de facturación electrónica de la AEAT.
+            </summary>
+        </member>
+        <member name="P:FACe.Business.Invoice.Converters.UblConverter.Profile">
+            <summary>
+            Perfil UBL utilizado para generar el documento.
+            </summary>
+        </member>
+        <member name="M:FACe.Business.Invoice.Converters.UblConverter.#ctor(FACe.Business.Invoice.Invoice,FACe.Business.Invoice.Converters.UblProfile)">
+            <summary>
+            Construye una nueva instancia de la clase UblConverter.
+            </summary>
+            <param name="invoice">Factura de la capa de negocio.</param>
+            <param name="profile">Perfil UBL de destino.</param>
+        </member>
+        <member name="M:FACe.Business.Invoice.Converters.UblConverter.GetFromInvoice">
+            <summary>
+            Obtiene un objeto UBL Invoice a partir del objeto
+            Invoice contenido.
+            </summary>
+            <returns>Objeto UBL Invoice.</returns>
+        </member>
+        <member name="M:FACe.Business.Invoice.Converters.UblConverter.GetParty(FACe.Business.Invoice.Party,System.Boolean)">
+            <summary>
+            Devuelve un interlocutor UBL a partir de un interlocutor
+            de la capa de negocio.
+            </summary>
+            <param name="party">Interlocutor.</param>
+            <param name="seller">Indica si el interlocutor es el vendedor.</param>
+            <returns>Interlocutor UBL.</returns>
+        </member>
+        <member name="M:FACe.Business.Invoice.Converters.UblConverter.GetPaymentMeans(System.Collections.Generic.List{FACe.Business.Invoice.Installment})">
+            <summary>
+            Devuelve los medios de pago para UBL.
+            </summary>
+            <param name="installments">
+            Vencimientos de la factura.
+            </param>
+            <returns>Medios de pago para UBL.</returns>
+        </member>
+        <member name="M:FACe.Business.Invoice.Converters.UblConverter.GetPaymentMeansCode(System.String)">
+            <summary>
+            Devuelve el código del medio de pago UBL correspondiente
+            al medio de pago de la capa de negocio.
+            </summary>
+            <param name="paymentMeans">Medio de pago.</param>
+            <returns>Código del medio de pago UBL.</returns>
+        </member>
+        <member name="M:FACe.Business.Invoice.Converters.UblConverter.GetPaymentTerms(System.Collections.Generic.List{FACe.Business.Invoice.Installment},System.String)">
+            <summary>
+            Devuelve las condiciones de pago para UBL.
+            </summary>
+            <param name="installments"> Vencimientos de la factura.</param>
+            <param name="currencyID"> Moneda de la factura.</param> 
+            <returns>Condiciones de pago para UBL.</returns>
+        </member>
+        <member name="M:FACe.Business.Invoice.Converters.UblConverter.GetInvoiceTypeCode">
+            <summary>
+            Devuelve el código de tipo de factura UBL correspondiente
+            al tipo de factura de la capa de negocio.
+            </summary>
+            <returns>Código de tipo de factura UBL.</returns>
+        </member>
+        <member name="M:FACe.Business.Invoice.Converters.UblConverter.GetCustomizationID">
+            <summary>
+            Devuelve el identificador de especificación correspondiente
+            al perfil UBL utilizado.
+            </summary>
+            <returns>Identificador de especificación.</returns>
+        </member>
+        <member name="M:FACe.Business.Invoice.Converters.UblConverter.GetProfileID">
+            <summary>
+            Devuelve el identificador del proceso de negocio correspondiente
+            al perfil UBL utilizado.
+            </summary>
+            <returns>Identificador del proceso de negocio.</returns>
+        </member>
+        <member name="M:FACe.Business.Invoice.Converters.UblConverter.GetCopyIndicator">
+            <summary>
+            Devuelve el indicador de copia correspondiente al tipo
+            de factura de la capa de negocio.
+            </summary>
+            <returns>
+            "true" si la factura es una copia; en otro caso, null.
+            </returns>
+        </member>
+        <member name="M:FACe.Business.Invoice.Converters.UblConverter.GetTaxCurrencyCode(System.String)">
+            <summary>
+            Devuelve el código de moneda utilizado para la
+            contabilización del IVA.
+            </summary>
+            <param name="currencyID">Código de moneda de la factura.</param>
+            <returns>Código de moneda para la contabilización del IVA.</returns>
+        </member>
+        <member name="M:FACe.Business.Invoice.Converters.UblConverter.GetPartyTaxScheme(FACe.Business.Invoice.Party)">
+            <summary>
+            Devuelve la información fiscal UBL correspondiente
+            al interlocutor indicado.
+            </summary>
+            <param name="party">Interlocutor.</param>
+            <returns>Información fiscal UBL.</returns>
+        </member>
+        <member name="M:FACe.Business.Invoice.Converters.UblConverter.GetSellerTaxScheme(FACe.Business.Invoice.Party)">
+            <summary>
+            Devuelve la información fiscal UBL del vendedor.
+            </summary>
+            <param name="party">Vendedor.</param>
+            <returns>Información fiscal UBL.</returns>
+        </member>
+        <member name="M:FACe.Business.Invoice.Converters.UblConverter.GetBuyerReference">
+            <summary>
+            Devuelve las referencias del comprador correspondientes
+            al perfil UBL utilizado.
+            </summary>
+            <returns>Referencias del comprador.</returns>
+        </member>
+        <member name="M:FACe.Business.Invoice.Converters.UblConverter.GetBuyerTaxScheme(FACe.Business.Invoice.Party)">
+            <summary>
+            Devuelve la información fiscal UBL del comprador.
+            </summary>
+            <param name="party">Comprador.</param>
+            <returns>Información fiscal UBL.</returns>
+        </member>
+        <member name="M:FACe.Business.Invoice.Converters.UblConverter.GetBillingReferences">
+            <summary>
+            Devuelve las referencias a las facturas rectificadas.
+            </summary>
+            <returns>Referencias a las facturas rectificadas.</returns>
+        </member>
+        <member name="M:FACe.Business.Invoice.Converters.UblConverter.AddRectificationType(System.Collections.Generic.List{FACe.Xml.Ubl.Cac.DocumentReference})">
+            <summary>
+            Añade el tipo de factura rectificativa.
+            </summary>
+            <param name="references">Referencias adicionales.</param>
+        </member>
+        <member name="M:FACe.Business.Invoice.Converters.UblConverter.GetAdditionalDocumentReferences">
+            <summary>
+            Devuelve las referencias adicionales correspondientes
+            al perfil UBL utilizado.
+            </summary>
+            <returns>Referencias adicionales.</returns>
+        </member>
+        <member name="M:FACe.Business.Invoice.Converters.UblConverter.AddRectificationMode(System.Collections.Generic.List{FACe.Xml.Ubl.Cac.DocumentReference})">
+            <summary>
+            Añade la modalidad de factura rectificativa.
+            </summary>
+            <param name="references">Referencias adicionales.</param>
+        </member>
+        <member name="M:FACe.Business.Invoice.Converters.UblConverter.GetTaxCategoryID(FACe.Business.Invoice.TaxItem)">
+            <summary>
+            Devuelve el código de categoría UBL correspondiente
+            a la línea de impuesto.
+            </summary>
+            <param name="taxItem">Línea de impuesto.</param>
+            <returns>Código de categoría UBL.</returns>
+        </member>
+        <member name="M:FACe.Business.Invoice.Converters.UblConverter.GetTaxCategory(FACe.Business.Invoice.TaxItem)">
+            <summary>
+            Devuelve la categoría UBL correspondiente a una
+            línea de impuesto.
+            </summary>
+            <param name="taxItem">Línea de impuesto.</param>
+            <returns>Categoría UBL.</returns>
+        </member>
+        <member name="M:FACe.Business.Invoice.Converters.UblConverter.GetTaxScheme(FACe.Business.Invoice.TaxItem)">
+            <summary>
+            Devuelve el esquema fiscal correspondiente a una
+            línea de impuesto.
+            </summary>
+            <param name="taxItem">Línea de impuesto.</param>
+            <returns>Esquema fiscal.</returns>
+        </member>
+        <member name="M:FACe.Business.Invoice.Converters.UblConverter.GetTaxSchemeCategoryID(FACe.Business.Invoice.TaxItem)">
+            <summary>
+            Devuelve el código de categoría UBL correspondiente
+            al régimen fiscal.
+            </summary>
+            <param name="taxItem">Línea de impuesto.</param>
+            <returns>Código de categoría UBL.</returns>
+        </member>
+        <member name="M:FACe.Business.Invoice.Converters.UblConverter.GetTaxSubtotal(FACe.Business.Invoice.TaxItem,System.String)">
+            <summary>
+            Devuelve el subtotal correspondiente a una
+            línea de impuesto.
+            </summary>
+            <param name="taxItem">Línea de impuesto.</param>
+            <param name="currencyID">Código de moneda.</param>
+            <returns>Subtotal de impuesto.</returns>
+        </member>
+        <member name="M:FACe.Business.Invoice.Converters.UblConverter.GetTaxSubtotals(System.String)">
+            <summary>
+            Devuelve los subtotales de impuestos repercutidos.
+            </summary>
+            <param name="currencyID">Código de moneda.</param>
+            <returns>Subtotales de impuestos.</returns>
+        </member>
+        <member name="M:FACe.Business.Invoice.Converters.UblConverter.GetTaxTotals(System.String)">
+            <summary>
+            Devuelve los totales de impuestos repercutidos.
+            </summary>
+            <param name="currencyID">Código de moneda.</param>
+            <returns>Totales de impuestos.</returns>
+        </member>
+        <member name="M:FACe.Business.Invoice.Converters.UblConverter.GetTaxSurchargeSubtotal(FACe.Business.Invoice.TaxItem,System.String)">
+            <summary>
+            Devuelve el subtotal correspondiente al recargo
+            de equivalencia.
+            </summary>
+            <param name="taxItem">Línea de impuesto.</param>
+            <param name="currencyID">Código de moneda.</param>
+            <returns>Subtotal del recargo de equivalencia.</returns>
+        </member>
+        <member name="M:FACe.Business.Invoice.Converters.UblConverter.GetTaxExemptionReason(FACe.Business.Invoice.TaxItem)">
+            <summary>
+            Devuelve el motivo de exención correspondiente
+            a la línea de impuesto.
+            </summary>
+            <param name="taxItem">Línea de impuesto.</param>
+            <returns>Motivo de exención.</returns>
+        </member>
+        <member name="M:FACe.Business.Invoice.Converters.UblConverter.GetWithholdingTaxSubtotal(FACe.Business.Invoice.TaxItem,System.String)">
+            <summary>
+            Devuelve el subtotal correspondiente a una
+            retención.
+            </summary>
+            <param name="taxItem">Línea de impuesto.</param>
+            <param name="currencyID">Código de moneda.</param>
+            <returns>Subtotal de retención.</returns>
+        </member>
+        <member name="M:FACe.Business.Invoice.Converters.UblConverter.GetWithholdingTaxTotals(System.String)">
+            <summary>
+            Devuelve los totales de retenciones.
+            </summary>
+            <param name="currencyID">Código de moneda.</param>
+            <returns>Totales de retenciones.</returns>
+        </member>
+        <member name="M:FACe.Business.Invoice.Converters.UblConverter.GetLegalMonetaryTotal(System.String)">
+            <summary>
+            Devuelve los totales monetarios de la factura.
+            </summary>
+            <param name="currencyID">Código de moneda.</param>
+            <returns>Totales monetarios.</returns>
+        </member>
+        <member name="M:FACe.Business.Invoice.Converters.UblConverter.GetInvoiceLines(System.String)">
+            <summary>
+            Devuelve las líneas UBL de la factura.
+            </summary>
+            <param name="currencyID">Código de moneda.</param>
+            <returns>Líneas UBL de factura.</returns>
+        </member>
+        <member name="M:FACe.Business.Invoice.Converters.UblConverter.GetInvoiceLine(FACe.Business.Invoice.InvoiceLine,System.String)">
+            <summary>
+            Devuelve una línea UBL de factura.
+            </summary>
+            <param name="invoiceLine">Línea de factura.</param>
+            <param name="currencyID">Código de moneda.</param>
+            <returns>Línea UBL de factura.</returns>
+        </member>
+        <member name="M:FACe.Business.Invoice.Converters.UblConverter.GetItem(FACe.Business.Invoice.InvoiceLine)">
+            <summary>
+            Devuelve el artículo UBL correspondiente a una
+            línea de factura.
+            </summary>
+            <param name="invoiceLine">Línea de factura.</param>
+            <returns>Artículo UBL.</returns>
+        </member>
+        <member name="M:FACe.Business.Invoice.Converters.UblConverter.GetLineTaxItem(FACe.Business.Invoice.InvoiceLine)">
+            <summary>
+            Devuelve la línea de impuesto repercutido correspondiente
+            a una línea de factura, comprobando que su identificación
+            fiscal sea inequívoca.
+            </summary>
+            <param name="invoiceLine">Línea de factura.</param>
+            <returns>Línea de impuesto o null si no existe.</returns>
+        </member>
+        <member name="M:FACe.Business.Invoice.Converters.UblConverter.GetLineTaxCategories(FACe.Business.Invoice.InvoiceLine)">
+            <summary>
+            Devuelve las categorías fiscales UBL correspondientes
+            a una línea de factura.
+            </summary>
+            <param name="invoiceLine">Línea de factura.</param>
+            <returns>Categorías fiscales UBL.</returns>
+        </member>
+        <member name="M:FACe.Business.Invoice.Converters.UblConverter.GetLineTaxCategory(FACe.Business.Invoice.TaxItem)">
+            <summary>
+            Devuelve la categoría fiscal UBL correspondiente
+            a una línea de impuesto.
+            </summary>
+            <param name="taxItem">Línea de impuesto.</param>
+            <returns>Categoría fiscal UBL.</returns>
+        </member>
+        <member name="M:FACe.Business.Invoice.Converters.UblConverter.GetLineAllowanceCharges(FACe.Business.Invoice.InvoiceLine,System.String)">
+            <summary>
+            Devuelve los descuentos y cargos correspondientes
+            a una línea de factura.
+            </summary>
+            <param name="invoiceLine">Línea de factura.</param>
+            <param name="currencyID">Código de moneda.</param>
+            <returns>Descuentos y cargos de la línea.</returns>
+        </member>
+        <member name="M:FACe.Business.Invoice.Converters.UblConverter.GetPrice(FACe.Business.Invoice.InvoiceLine,System.String)">
+            <summary>
+            Devuelve el precio UBL correspondiente a una
+            línea de factura.
+            </summary>
+            <param name="invoiceLine">Línea de factura.</param>
+            <param name="currencyID">Código de moneda.</param>
+            <returns>Precio UBL.</returns>
+        </member>
+        <member name="M:FACe.Business.Invoice.Converters.UblConverter.GetOrderLineReferences(FACe.Business.Invoice.InvoiceLine)">
+            <summary>
+            Devuelve las referencias del comprador correspondientes
+            a una línea de factura.
+            </summary>
+            <param name="invoiceLine">Línea de factura.</param>
+            <returns>Referencias a líneas de pedido.</returns>
+        </member>
+        <member name="M:FACe.Business.Invoice.Converters.UblConverter.GetAdditionalItemProperties(FACe.Business.Invoice.InvoiceLine)">
+            <summary>
+            Devuelve las propiedades adicionales del artículo
+            correspondientes al régimen fiscal de la operación.
+            </summary>
+            <param name="invoiceLine">Línea de factura.</param>
+            <returns>Propiedades adicionales del artículo.</returns>
+        </member>
+        <member name="M:FACe.Business.Invoice.Converters.UblConverter.ValidateAmounts">
+            <summary>
+            Comprueba la coherencia de los importes de la factura
+            antes de generar el documento UBL.
+            </summary>
+        </member>
+        <member name="M:FACe.Business.Invoice.Converters.UblConverter.ValidateTaxAmounts">
+            <summary>
+            Comprueba la coherencia entre los impuestos de las
+            líneas y los desgloses fiscales de la factura.
+            </summary>
+        </member>
+        <member name="M:FACe.Business.Invoice.Converters.UblConverter.GetInvoice">
+            <summary>
+            Obtiene un objeto Invoice a partir del objeto
+            UBL Invoice contenido.
+            </summary>
+            <returns>Objeto Invoice.</returns>
+        </member>
+        <member name="T:FACe.Business.Invoice.Converters.UblProfile">
+            <summary>
+            Perfiles soportados para documentos UBL.
+            </summary>
+        </member>
+        <member name="F:FACe.Business.Invoice.Converters.UblProfile.FACe">
+            <summary>
+            Perfil CIUS-ES-FACE.
+            </summary>
+        </member>
+        <member name="F:FACe.Business.Invoice.Converters.UblProfile.AEAT">
+            <summary>
+            Perfil de la solución pública de facturación
+            electrónica de la AEAT.
+            </summary>
         </member>
         <member name="T:FACe.Business.Invoice.Installment">
             <summary>
@@ -258,11 +663,6 @@
             Representa un factura en el sistema FACe.
             </summary>
         </member>
-        <member name="F:FACe.Business.Invoice.Invoice._NetAmount">
-            <summary>
-            Suma de las bases imponibles.
-            </summary>   
-        </member>
         <member name="M:FACe.Business.Invoice.Invoice.#ctor(System.String,System.DateTime,System.String)">
             <summary>
             Constructor.
@@ -302,6 +702,11 @@
             <summary>
             Fecha operación.
             </summary>        
+        </member>
+        <member name="P:FACe.Business.Invoice.Invoice.DueDate">
+            <summary>
+            Fecha de vencimiento del pago de la factura.
+            </summary>
         </member>
         <member name="P:FACe.Business.Invoice.Invoice.SellerID">
             <summary>
@@ -352,6 +757,11 @@
             Esta propiedad se utiliza para almacenar un identificador
             de sistema externo.
             </summary>        
+        </member>
+        <member name="P:FACe.Business.Invoice.Invoice.NetAmount">
+            <summary>
+            Importe neto de la factura.
+            </summary>
         </member>
         <member name="P:FACe.Business.Invoice.Invoice.TotalAmount">
             <summary>
@@ -570,6 +980,107 @@
             </summary>
             <returns>Representación textual de la instancia.</returns>
         </member>
+        <member name="T:FACe.Business.Invoice.InvoiceType">
+            <summary>
+            Clase estática que contiene los tipos de factura soportados por FACe.
+            </summary>
+        </member>
+        <member name="F:FACe.Business.Invoice.InvoiceType.FC_OO">
+            <summary>
+            Factura completa u ordinaria, Original Ordinaria.
+            <para>Facturae: InvoiceDocumentType FC, InvoiceClass OO.</para>
+            <para>UBL: InvoiceTypeCode 380.</para>
+            <para>CII: Pendiente de determinar.</para>
+            </summary>
+        </member>
+        <member name="F:FACe.Business.Invoice.InvoiceType.FC_OR">
+            <summary>
+            Factura completa u ordinaria, Original Rectificativa.
+            <para>Facturae: InvoiceDocumentType FC, InvoiceClass OR.</para>
+            <para>UBL: InvoiceTypeCode 384.</para>
+            <para>CII: Pendiente de determinar.</para>
+            </summary>
+        </member>
+        <member name="F:FACe.Business.Invoice.InvoiceType.FC_OC">
+            <summary>
+            Factura completa u ordinaria, Original Recapitulativa.
+            <para>Facturae: InvoiceDocumentType FC, InvoiceClass OC.</para>
+            <para>UBL: Pendiente de determinar.</para>
+            <para>CII: Pendiente de determinar.</para>
+            </summary>
+        </member>
+        <member name="F:FACe.Business.Invoice.InvoiceType.FC_CO">
+            <summary>
+            Factura completa u ordinaria, Copia Ordinaria.
+            <para>Facturae: InvoiceDocumentType FC, InvoiceClass CO.</para>
+            <para>UBL: Pendiente de determinar.</para>
+            <para>CII: Pendiente de determinar.</para>
+            </summary>
+        </member>
+        <member name="F:FACe.Business.Invoice.InvoiceType.FC_CR">
+            <summary>
+            Factura completa u ordinaria, Copia Rectificativa.
+            <para>Facturae: InvoiceDocumentType FC, InvoiceClass CR.</para>
+            <para>UBL: Pendiente de determinar.</para>
+            <para>CII: Pendiente de determinar.</para>
+            </summary>
+        </member>
+        <member name="F:FACe.Business.Invoice.InvoiceType.FC_CC">
+            <summary>
+            Factura completa u ordinaria, Copia Recapitulativa.
+            <para>Facturae: InvoiceDocumentType FC, InvoiceClass CC.</para>
+            <para>UBL: Pendiente de determinar.</para>
+            <para>CII: Pendiente de determinar.</para>
+            </summary>
+        </member>
+        <member name="F:FACe.Business.Invoice.InvoiceType.FA_OO">
+            <summary>
+            Factura simplificada, Original Ordinaria.
+            <para>Facturae: InvoiceDocumentType FA, InvoiceClass OO.</para>
+            <para>UBL: Pendiente de determinar.</para>
+            <para>CII: Pendiente de determinar.</para>
+            </summary>
+        </member>
+        <member name="F:FACe.Business.Invoice.InvoiceType.FA_OR">
+            <summary>
+            Factura simplificada, Original Rectificativa.
+            <para>Facturae: InvoiceDocumentType FA, InvoiceClass OR.</para>
+            <para>UBL: Pendiente de determinar.</para>
+            <para>CII: Pendiente de determinar.</para>
+            </summary>
+        </member>
+        <member name="F:FACe.Business.Invoice.InvoiceType.FA_OC">
+            <summary>
+            Factura simplificada, Original Recapitulativa.
+            <para>Facturae: InvoiceDocumentType FA, InvoiceClass OC.</para>
+            <para>UBL: Pendiente de determinar.</para>
+            <para>CII: Pendiente de determinar.</para>
+            </summary>
+        </member>
+        <member name="F:FACe.Business.Invoice.InvoiceType.FA_CO">
+            <summary>
+            Factura simplificada, Copia Ordinaria.
+            <para>Facturae: InvoiceDocumentType FA, InvoiceClass CO.</para>
+            <para>UBL: Pendiente de determinar.</para>
+            <para>CII: Pendiente de determinar.</para>
+            </summary>
+        </member>
+        <member name="F:FACe.Business.Invoice.InvoiceType.FA_CR">
+            <summary>
+            Factura simplificada, Copia Rectificativa.
+            <para>Facturae: InvoiceDocumentType FA, InvoiceClass CR.</para>
+            <para>UBL: Pendiente de determinar.</para>
+            <para>CII: Pendiente de determinar.</para>
+            </summary>
+        </member>
+        <member name="F:FACe.Business.Invoice.InvoiceType.FA_CC">
+            <summary>
+            Factura simplificada, Copia Recapitulativa.
+            <para>Facturae: InvoiceDocumentType FA, InvoiceClass CC.</para>
+            <para>UBL: Pendiente de determinar.</para>
+            <para>CII: Pendiente de determinar.</para>
+            </summary>
+        </member>
         <member name="T:FACe.Business.Invoice.Party">
             <summary>
             Representa un interlocutor de negocio.
@@ -668,6 +1179,51 @@
             Representación textual de la instancia.
             </summary>
             <returns>Representación textual de la instancia.</returns>
+        </member>
+        <member name="T:FACe.Business.Invoice.PaymentMeans">
+            <summary>
+            Clase estática que contiene los tipos de medios de pago soportados.
+            </summary>
+        </member>
+        <member name="F:FACe.Business.Invoice.PaymentMeans.CreditTransfer">
+            <summary>
+            Transferencia bancaria.
+            <para>Facturae: Transferencia.</para>
+            <para>UBL: Transferencia de crédito.</para>
+            <para>CII: Transferencia de crédito.</para>
+            </summary>
+        </member>
+        <member name="F:FACe.Business.Invoice.PaymentMeans.DirectDebit">
+            <summary>
+            Domiciliación bancaria.
+            <para>Facturae: Domiciliación bancaria.</para>
+            <para>UBL: Adeudo directo.</para>
+            <para>CII: Adeudo directo.</para>
+            </summary>
+        </member>
+        <member name="F:FACe.Business.Invoice.PaymentMeans.Cheque">
+            <summary>
+            Pago mediante cheque.
+            <para>Facturae: Cheque.</para>
+            <para>UBL: Cheque.</para>
+            <para>CII: Cheque.</para>
+            </summary>
+        </member>
+        <member name="F:FACe.Business.Invoice.PaymentMeans.Cash">
+            <summary>
+            Pago en efectivo.
+            <para>Facturae: Efectivo.</para>
+            <para>UBL: Efectivo.</para>
+            <para>CII: Efectivo.</para>
+            </summary>
+        </member>
+        <member name="F:FACe.Business.Invoice.PaymentMeans.Card">
+            <summary>
+            Pago mediante tarjeta.
+            <para>Facturae: Tarjeta.</para>
+            <para>UBL: Tarjeta.</para>
+            <para>CII: Tarjeta.</para>
+            </summary>
         </member>
         <member name="T:FACe.Business.Invoice.RectificationItem">
             <summary>
@@ -5486,6 +6042,13 @@
             Extensiones.
             </summary>
         </member>
+        <member name="M:FACe.Xml.Facturae.Bies.Facturae.GetNamespaces">
+            <summary>
+            Obtiene los espacios de nombres utilizados
+            por el documento Facturae.
+            </summary>
+            <returns>Espacios de nombres XML.</returns>
+        </member>
         <member name="T:FACe.Xml.Facturae.Bies.FileHeader">
             <summary>
             Encabezado versión 3.2
@@ -9042,6 +9605,1179 @@
             </summary>
             <returns> Texto xml del documento.</returns>
         </member>
+        <member name="M:FACe.Xml.InvoiceDocument.GetBytes">
+            <summary>
+            Obtiene los bytes XML del documento.
+            </summary>
+            <returns>Documento XML codificado en UTF-8.</returns>
+        </member>
+        <member name="T:FACe.Xml.UblNamespaces">
+            <summary>
+            Espacios de nombre de UBL.
+            </summary>
+        </member>
+        <member name="F:FACe.Xml.UblNamespaces.NamespacePrefix">
+            <summary>
+            Prefijo de espacios de nombres UBL.
+            </summary>
+        </member>
+        <member name="F:FACe.Xml.UblNamespaces.NamespaceInvoice">
+            <summary>
+            Espacio de nombres Invoice.
+            </summary>
+        </member>
+        <member name="F:FACe.Xml.UblNamespaces.NamespaceCAC">
+            <summary>
+            Espacio de nombres Common Aggregate Components (cac).
+            </summary>
+        </member>
+        <member name="F:FACe.Xml.UblNamespaces.NamespaceCBC">
+            <summary>
+            Espacio de nombres Common Basic Components (cbc).
+            </summary>
+        </member>
+        <member name="F:FACe.Xml.UblNamespaces.NamespaceEXT">
+            <summary>
+            Espacio de nombres de las extensiones UBL.
+            </summary>
+        </member>
+        <member name="F:FACe.Xml.UblNamespaces.NamespaceSAC">
+            <summary>
+            Espacio de nombres de componentes de firma UBL.
+            </summary>
+        </member>
+        <member name="F:FACe.Xml.UblNamespaces.NamespaceSBC">
+            <summary>
+            Espacio de nombres de componentes básicos de firma UBL.
+            </summary>
+        </member>
+        <member name="F:FACe.Xml.UblNamespaces.NamespaceSIG">
+            <summary>
+            Espacio de nombres de firmas XML UBL.
+            </summary>
+        </member>
+        <member name="F:FACe.Xml.UblNamespaces.Items">
+            <summary>
+            Diccionario de espacios de nombres.
+            </summary>
+        </member>
+        <member name="T:FACe.Xml.Ubl.Cac.AccountingCustomerParty">
+            <summary>
+            Cliente contable UBL.
+            </summary>
+        </member>
+        <member name="P:FACe.Xml.Ubl.Cac.AccountingCustomerParty.Party">
+            <summary>
+            Cliente.
+            </summary>
+        </member>
+        <member name="T:FACe.Xml.Ubl.Cac.AccountingSupplierParty">
+            <summary>
+            Proveedor contable UBL.
+            </summary>
+        </member>
+        <member name="P:FACe.Xml.Ubl.Cac.AccountingSupplierParty.Party">
+            <summary>
+            Proveedor.
+            </summary>
+        </member>
+        <member name="T:FACe.Xml.Ubl.Cac.Address">
+            <summary>
+            Dirección UBL.
+            </summary>
+        </member>
+        <member name="P:FACe.Xml.Ubl.Cac.Address.StreetName">
+            <summary>
+            Nombre de la vía.
+            </summary>
+        </member>
+        <member name="P:FACe.Xml.Ubl.Cac.Address.AdditionalStreetName">
+            <summary>
+            Información adicional de la dirección.
+            </summary>
+        </member>
+        <member name="P:FACe.Xml.Ubl.Cac.Address.CityName">
+            <summary>
+            Nombre de la ciudad.
+            </summary>
+        </member>
+        <member name="P:FACe.Xml.Ubl.Cac.Address.PostalZone">
+            <summary>
+            Código postal.
+            </summary>
+        </member>
+        <member name="P:FACe.Xml.Ubl.Cac.Address.CountrySubentity">
+            <summary>
+            Subdivisión territorial.
+            </summary>
+        </member>
+        <member name="P:FACe.Xml.Ubl.Cac.Address.Country">
+            <summary>
+            País.
+            </summary>
+        </member>
+        <member name="T:FACe.Xml.Ubl.Cac.AllowanceCharge">
+            <summary>
+            Descuento o cargo UBL.
+            </summary>
+        </member>
+        <member name="P:FACe.Xml.Ubl.Cac.AllowanceCharge.ChargeIndicator">
+            <summary>
+            Indica si se trata de un cargo.
+            </summary>
+        </member>
+        <member name="P:FACe.Xml.Ubl.Cac.AllowanceCharge.AllowanceChargeReason">
+            <summary>
+            Motivo del descuento o cargo.
+            </summary>
+        </member>
+        <member name="P:FACe.Xml.Ubl.Cac.AllowanceCharge.MultiplierFactorNumeric">
+            <summary>
+            Porcentaje aplicado.
+            </summary>
+        </member>
+        <member name="P:FACe.Xml.Ubl.Cac.AllowanceCharge.Amount">
+            <summary>
+            Importe del descuento o cargo.
+            </summary>
+        </member>
+        <member name="P:FACe.Xml.Ubl.Cac.AllowanceCharge.BaseAmount">
+            <summary>
+            Importe base sobre el que se aplica el descuento o cargo.
+            </summary>
+        </member>
+        <member name="T:FACe.Xml.Ubl.Cac.BillingReference">
+            <summary>
+            Referencia a una factura UBL.
+            </summary>
+        </member>
+        <member name="P:FACe.Xml.Ubl.Cac.BillingReference.InvoiceDocumentReference">
+            <summary>
+            Referencia al documento de factura.
+            </summary>
+        </member>
+        <member name="T:FACe.Xml.Ubl.Cac.Contact">
+            <summary>
+            Datos de contacto UBL.
+            </summary>
+        </member>
+        <member name="P:FACe.Xml.Ubl.Cac.Contact.Name">
+            <summary>
+            Nombre del contacto.
+            </summary>
+        </member>
+        <member name="P:FACe.Xml.Ubl.Cac.Contact.Telephone">
+            <summary>
+            Teléfono del contacto.
+            </summary>
+        </member>
+        <member name="P:FACe.Xml.Ubl.Cac.Contact.ElectronicMail">
+            <summary>
+            Correo electrónico del contacto.
+            </summary>
+        </member>
+        <member name="T:FACe.Xml.Ubl.Cac.Country">
+            <summary>
+            País UBL.
+            </summary>
+        </member>
+        <member name="P:FACe.Xml.Ubl.Cac.Country.IdentificationCode">
+            <summary>
+            Código de identificación del país.
+            </summary>
+        </member>
+        <member name="P:FACe.Xml.Ubl.Cac.Country.Name">
+            <summary>
+            Nombre del país.
+            </summary>
+        </member>
+        <member name="T:FACe.Xml.Ubl.Cac.Delivery">
+            <summary>
+            Entrega UBL.
+            </summary>
+        </member>
+        <member name="P:FACe.Xml.Ubl.Cac.Delivery.ActualDeliveryDate">
+            <summary>
+            Fecha efectiva de entrega.
+            </summary>
+        </member>
+        <member name="P:FACe.Xml.Ubl.Cac.Delivery.DeliveryAddress">
+            <summary>
+            Dirección de entrega.
+            </summary>
+        </member>
+        <member name="T:FACe.Xml.Ubl.Cac.DocumentReference">
+            <summary>
+            Referencia documental UBL.
+            </summary>
+        </member>
+        <member name="P:FACe.Xml.Ubl.Cac.DocumentReference.ID">
+            <summary>
+            Identificador del documento.
+            </summary>
+        </member>
+        <member name="P:FACe.Xml.Ubl.Cac.DocumentReference.IssueDate">
+            <summary>
+            Fecha de emisión del documento.
+            </summary>
+        </member>
+        <member name="P:FACe.Xml.Ubl.Cac.DocumentReference.DocumentTypeCode">
+            <summary>
+            Código del tipo de documento.
+            </summary>
+        </member>
+        <member name="P:FACe.Xml.Ubl.Cac.DocumentReference.DocumentType">
+            <summary>
+            Tipo de documento.
+            </summary>
+        </member>
+        <member name="T:FACe.Xml.Ubl.Cac.FinancialAccount">
+            <summary>
+            Cuenta financiera UBL.
+            </summary>
+        </member>
+        <member name="P:FACe.Xml.Ubl.Cac.FinancialAccount.ID">
+            <summary>
+            Identificador de la cuenta financiera.
+            </summary>
+        </member>
+        <member name="P:FACe.Xml.Ubl.Cac.FinancialAccount.Name">
+            <summary>
+            Nombre de la cuenta financiera.
+            </summary>
+        </member>
+        <member name="T:FACe.Xml.Ubl.Cac.InvoiceLine">
+            <summary>
+            Línea de factura UBL.
+            </summary>
+        </member>
+        <member name="P:FACe.Xml.Ubl.Cac.InvoiceLine.ID">
+            <summary>
+            Identificador de la línea.
+            </summary>
+        </member>
+        <member name="P:FACe.Xml.Ubl.Cac.InvoiceLine.InvoicedQuantity">
+            <summary>
+            Cantidad facturada.
+            </summary>
+        </member>
+        <member name="P:FACe.Xml.Ubl.Cac.InvoiceLine.LineExtensionAmount">
+            <summary>
+            Importe neto de la línea.
+            </summary>
+        </member>
+        <member name="P:FACe.Xml.Ubl.Cac.InvoiceLine.OrderLineReference">
+            <summary>
+            Referencias a líneas de pedido relacionadas.
+            </summary>
+        </member>
+        <member name="P:FACe.Xml.Ubl.Cac.InvoiceLine.AllowanceCharge">
+            <summary>
+            Descuentos y cargos de la línea.
+            </summary>
+        </member>
+        <member name="P:FACe.Xml.Ubl.Cac.InvoiceLine.Item">
+            <summary>
+            Artículo facturado.
+            </summary>
+        </member>
+        <member name="P:FACe.Xml.Ubl.Cac.InvoiceLine.Price">
+            <summary>
+            Precio del artículo.
+            </summary>
+        </member>
+        <member name="T:FACe.Xml.Ubl.Cac.InvoicePeriod">
+            <summary>
+            Periodo UBL.
+            </summary>
+        </member>
+        <member name="P:FACe.Xml.Ubl.Cac.InvoicePeriod.StartDate">
+            <summary>
+            Fecha de inicio del periodo.
+            </summary>
+        </member>
+        <member name="P:FACe.Xml.Ubl.Cac.InvoicePeriod.EndDate">
+            <summary>
+            Fecha de finalización del periodo.
+            </summary>
+        </member>
+        <member name="P:FACe.Xml.Ubl.Cac.InvoicePeriod.DescriptionCode">
+            <summary>
+            Código de descripción del periodo.
+            </summary>
+        </member>
+        <member name="T:FACe.Xml.Ubl.Cac.Item">
+            <summary>
+            Artículo UBL.
+            </summary>
+        </member>
+        <member name="P:FACe.Xml.Ubl.Cac.Item.Description">
+            <summary>
+            Descripciones del artículo.
+            </summary>
+        </member>
+        <member name="P:FACe.Xml.Ubl.Cac.Item.PackSizeNumeric">
+            <summary>
+            Tamaño del paquete.
+            </summary>
+        </member>
+        <member name="P:FACe.Xml.Ubl.Cac.Item.Name">
+            <summary>
+            Nombre del artículo.
+            </summary>
+        </member>
+        <member name="P:FACe.Xml.Ubl.Cac.Item.SellersItemIdentification">
+            <summary>
+            Identificación del artículo asignada por el vendedor.
+            </summary>
+        </member>
+        <member name="P:FACe.Xml.Ubl.Cac.Item.ClassifiedTaxCategory">
+            <summary>
+            Categorías fiscales.
+            </summary>
+        </member>
+        <member name="P:FACe.Xml.Ubl.Cac.Item.AdditionalItemProperty">
+            <summary>
+            Propiedades adicionales del artículo.
+            </summary>
+        </member>
+        <member name="T:FACe.Xml.Ubl.Cac.ItemIdentification">
+            <summary>
+            Identificación de artículo UBL.
+            </summary>
+        </member>
+        <member name="P:FACe.Xml.Ubl.Cac.ItemIdentification.ID">
+            <summary>
+            Identificador del artículo.
+            </summary>
+        </member>
+        <member name="T:FACe.Xml.Ubl.Cac.ItemProperty">
+            <summary>
+            Propiedad adicional de un artículo UBL.
+            </summary>
+        </member>
+        <member name="P:FACe.Xml.Ubl.Cac.ItemProperty.Name">
+            <summary>
+            Nombre o código de la propiedad.
+            </summary>
+        </member>
+        <member name="P:FACe.Xml.Ubl.Cac.ItemProperty.Value">
+            <summary>
+            Valor de la propiedad.
+            </summary>
+        </member>
+        <member name="P:FACe.Xml.Ubl.Cac.ItemProperty.ValueQualifier">
+            <summary>
+            Calificador del valor.
+            </summary>
+        </member>
+        <member name="T:FACe.Xml.Ubl.Cac.LegalMonetaryTotal">
+            <summary>
+            Totales monetarios legales UBL.
+            </summary>
+        </member>
+        <member name="P:FACe.Xml.Ubl.Cac.LegalMonetaryTotal.LineExtensionAmount">
+            <summary>
+            Importe total de las líneas.
+            </summary>
+        </member>
+        <member name="P:FACe.Xml.Ubl.Cac.LegalMonetaryTotal.TaxExclusiveAmount">
+            <summary>
+            Importe total sin impuestos.
+            </summary>
+        </member>
+        <member name="P:FACe.Xml.Ubl.Cac.LegalMonetaryTotal.TaxInclusiveAmount">
+            <summary>
+            Importe total con impuestos.
+            </summary>
+        </member>
+        <member name="P:FACe.Xml.Ubl.Cac.LegalMonetaryTotal.AllowanceTotalAmount">
+            <summary>
+            Importe total de descuentos.
+            </summary>
+        </member>
+        <member name="P:FACe.Xml.Ubl.Cac.LegalMonetaryTotal.ChargeTotalAmount">
+            <summary>
+            Importe total de cargos.
+            </summary>
+        </member>
+        <member name="P:FACe.Xml.Ubl.Cac.LegalMonetaryTotal.PrepaidAmount">
+            <summary>
+            Importe pagado por anticipado.
+            </summary>
+        </member>
+        <member name="P:FACe.Xml.Ubl.Cac.LegalMonetaryTotal.PayableRoundingAmount">
+            <summary>
+            Importe de redondeo.
+            </summary>
+        </member>
+        <member name="P:FACe.Xml.Ubl.Cac.LegalMonetaryTotal.PayableAmount">
+            <summary>
+            Importe a pagar.
+            </summary>
+        </member>
+        <member name="T:FACe.Xml.Ubl.Cac.OrderLineReference">
+            <summary>
+            Referencia a una línea de pedido UBL.
+            </summary>
+        </member>
+        <member name="P:FACe.Xml.Ubl.Cac.OrderLineReference.LineID">
+            <summary>
+            Identificador de la línea de pedido.
+            </summary>
+        </member>
+        <member name="T:FACe.Xml.Ubl.Cac.OrderReference">
+            <summary>
+            Referencia de pedido UBL.
+            </summary>
+        </member>
+        <member name="P:FACe.Xml.Ubl.Cac.OrderReference.ID">
+            <summary>
+            Identificador del pedido.
+            </summary>
+        </member>
+        <member name="P:FACe.Xml.Ubl.Cac.OrderReference.SalesOrderID">
+            <summary>
+            Identificador de pedido de venta.
+            </summary>
+        </member>
+        <member name="T:FACe.Xml.Ubl.Cac.Party">
+            <summary>
+            Parte participante en una transacción UBL.
+            </summary>
+        </member>
+        <member name="P:FACe.Xml.Ubl.Cac.Party.PartyIdentification">
+            <summary>
+            Identificaciones de la parte.
+            </summary>
+        </member>
+        <member name="P:FACe.Xml.Ubl.Cac.Party.PartyName">
+            <summary>
+            Nombres de la parte.
+            </summary>
+        </member>
+        <member name="P:FACe.Xml.Ubl.Cac.Party.PostalAddress">
+            <summary>
+            Dirección postal.
+            </summary>
+        </member>
+        <member name="P:FACe.Xml.Ubl.Cac.Party.PartyTaxScheme">
+            <summary>
+            Esquemas fiscales de la parte.
+            </summary>
+        </member>
+        <member name="P:FACe.Xml.Ubl.Cac.Party.PartyLegalEntity">
+            <summary>
+            Entidades legales de la parte.
+            </summary>
+        </member>
+        <member name="P:FACe.Xml.Ubl.Cac.Party.Contact">
+            <summary>
+            Datos de contacto.
+            </summary>
+        </member>
+        <member name="T:FACe.Xml.Ubl.Cac.PartyIdentification">
+            <summary>
+            Identificación de una parte UBL.
+            </summary>
+        </member>
+        <member name="P:FACe.Xml.Ubl.Cac.PartyIdentification.ID">
+            <summary>
+            Identificador de la parte.
+            </summary>
+        </member>
+        <member name="T:FACe.Xml.Ubl.Cac.PartyLegalEntity">
+            <summary>
+            Entidad legal de una parte UBL.
+            </summary>
+        </member>
+        <member name="P:FACe.Xml.Ubl.Cac.PartyLegalEntity.RegistrationName">
+            <summary>
+            Nombre registrado de la entidad.
+            </summary>
+        </member>
+        <member name="P:FACe.Xml.Ubl.Cac.PartyLegalEntity.CompanyID">
+            <summary>
+            Identificador legal de la entidad.
+            </summary>
+        </member>
+        <member name="T:FACe.Xml.Ubl.Cac.PartyName">
+            <summary>
+            Nombre de una parte UBL.
+            </summary>
+        </member>
+        <member name="P:FACe.Xml.Ubl.Cac.PartyName.Name">
+            <summary>
+            Nombre de la parte.
+            </summary>
+        </member>
+        <member name="T:FACe.Xml.Ubl.Cac.PartyTaxScheme">
+            <summary>
+            Esquema fiscal de una parte UBL.
+            </summary>
+        </member>
+        <member name="P:FACe.Xml.Ubl.Cac.PartyTaxScheme.CompanyID">
+            <summary>
+            Identificador fiscal de la parte.
+            </summary>
+        </member>
+        <member name="P:FACe.Xml.Ubl.Cac.PartyTaxScheme.TaxScheme">
+            <summary>
+            Esquema fiscal.
+            </summary>
+        </member>
+        <member name="T:FACe.Xml.Ubl.Cac.PaymentMeans">
+            <summary>
+            Medio de pago UBL.
+            </summary>
+        </member>
+        <member name="P:FACe.Xml.Ubl.Cac.PaymentMeans.PaymentMeansCode">
+            <summary>
+            Código del medio de pago.
+            </summary>
+        </member>
+        <member name="P:FACe.Xml.Ubl.Cac.PaymentMeans.PaymentDueDate">
+            <summary>
+            Fecha de vencimiento del pago.
+            </summary>
+        </member>
+        <member name="P:FACe.Xml.Ubl.Cac.PaymentMeans.PaymentChannelCode">
+            <summary>
+            Código del canal de pago.
+            </summary>
+        </member>
+        <member name="P:FACe.Xml.Ubl.Cac.PaymentMeans.PaymentID">
+            <summary>
+            Identificador del pago.
+            </summary>
+        </member>
+        <member name="P:FACe.Xml.Ubl.Cac.PaymentMeans.PayeeFinancialAccount">
+            <summary>
+            Cuenta financiera del beneficiario.
+            </summary>
+        </member>
+        <member name="T:FACe.Xml.Ubl.Cac.PaymentTerms">
+            <summary>
+            Condiciones de pago UBL.
+            </summary>
+        </member>
+        <member name="P:FACe.Xml.Ubl.Cac.PaymentTerms.Note">
+            <summary>
+            Nota relativa a las condiciones de pago.
+            </summary>
+        </member>
+        <member name="P:FACe.Xml.Ubl.Cac.PaymentTerms.PaymentDueDate">
+            <summary>
+            Fecha de vencimiento del pago.
+            </summary>
+        </member>
+        <member name="T:FACe.Xml.Ubl.Cac.Price">
+            <summary>
+            Precio UBL.
+            </summary>
+        </member>
+        <member name="P:FACe.Xml.Ubl.Cac.Price.PriceAmount">
+            <summary>
+            Importe del precio.
+            </summary>
+        </member>
+        <member name="P:FACe.Xml.Ubl.Cac.Price.BaseQuantity">
+            <summary>
+            Cantidad base a la que corresponde el precio.
+            </summary>
+        </member>
+        <member name="T:FACe.Xml.Ubl.Cac.SupplierParty">
+            <summary>
+            Proveedor UBL.
+            </summary>
+        </member>
+        <member name="P:FACe.Xml.Ubl.Cac.SupplierParty.CustomerAssignedAccountID">
+            <summary>
+            Identificador del proveedor.
+            </summary>
+        </member>
+        <member name="P:FACe.Xml.Ubl.Cac.SupplierParty.Party">
+            <summary>
+            Parte correspondiente al proveedor.
+            </summary>
+        </member>
+        <member name="T:FACe.Xml.Ubl.Cac.TaxCategory">
+            <summary>
+            Categoría fiscal UBL.
+            </summary>
+        </member>
+        <member name="P:FACe.Xml.Ubl.Cac.TaxCategory.ID">
+            <summary>
+            Identificador de la categoría fiscal.
+            </summary>
+        </member>
+        <member name="P:FACe.Xml.Ubl.Cac.TaxCategory.Percent">
+            <summary>
+            Porcentaje del impuesto.
+            </summary>
+        </member>
+        <member name="P:FACe.Xml.Ubl.Cac.TaxCategory.TaxExemptionReason">
+            <summary>
+            Motivos de exención fiscal.
+            </summary>
+        </member>
+        <member name="P:FACe.Xml.Ubl.Cac.TaxCategory.TaxExemptionReasonCode">
+            <summary>
+            Código del motivo de exención fiscal.
+            </summary>
+        </member>
+        <member name="P:FACe.Xml.Ubl.Cac.TaxCategory.TaxScheme">
+            <summary>
+            Esquema fiscal.
+            </summary>
+        </member>
+        <member name="T:FACe.Xml.Ubl.Cac.TaxScheme">
+            <summary>
+            Esquema fiscal UBL.
+            </summary>
+        </member>
+        <member name="P:FACe.Xml.Ubl.Cac.TaxScheme.ID">
+            <summary>
+            Identificador del esquema fiscal.
+            </summary>
+        </member>
+        <member name="P:FACe.Xml.Ubl.Cac.TaxScheme.Name">
+            <summary>
+            Nombre del esquema fiscal.
+            </summary>
+        </member>
+        <member name="P:FACe.Xml.Ubl.Cac.TaxScheme.TaxTypeCode">
+            <summary>
+            Código del tipo de impuesto.
+            </summary>
+        </member>
+        <member name="T:FACe.Xml.Ubl.Cac.TaxSubtotal">
+            <summary>
+            Desglose de impuestos UBL.
+            </summary>
+        </member>
+        <member name="P:FACe.Xml.Ubl.Cac.TaxSubtotal.TaxableAmount">
+            <summary>
+            Base imponible.
+            </summary>
+        </member>
+        <member name="P:FACe.Xml.Ubl.Cac.TaxSubtotal.TaxAmount">
+            <summary>
+            Importe del impuesto.
+            </summary>
+        </member>
+        <member name="P:FACe.Xml.Ubl.Cac.TaxSubtotal.TaxCategory">
+            <summary>
+            Categoría fiscal.
+            </summary>
+        </member>
+        <member name="T:FACe.Xml.Ubl.Cac.TaxTotal">
+            <summary>
+            Total de impuestos UBL.
+            </summary>
+        </member>
+        <member name="P:FACe.Xml.Ubl.Cac.TaxTotal.TaxAmount">
+            <summary>
+            Importe total de impuestos.
+            </summary>
+        </member>
+        <member name="P:FACe.Xml.Ubl.Cac.TaxTotal.TaxSubtotal">
+            <summary>
+            Desgloses de impuestos.
+            </summary>
+        </member>
+        <member name="T:FACe.Xml.Ubl.Cbc.Amount">
+            <summary>
+            Importe monetario UBL.
+            </summary>
+        </member>
+        <member name="P:FACe.Xml.Ubl.Cbc.Amount.CurrencyID">
+            <summary>
+            Código de moneda.
+            </summary>
+        </member>
+        <member name="P:FACe.Xml.Ubl.Cbc.Amount.Value">
+            <summary>
+            Importe.
+            </summary>
+        </member>
+        <member name="M:FACe.Xml.Ubl.Cbc.Amount.#ctor">
+            <summary>
+            Constructor.
+            </summary>
+        </member>
+        <member name="M:FACe.Xml.Ubl.Cbc.Amount.#ctor(System.Decimal)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="value">Importe.</param>
+        </member>
+        <member name="T:FACe.Xml.Ubl.Cbc.Code">
+            <summary>
+            Código UBL.
+            </summary>
+        </member>
+        <member name="P:FACe.Xml.Ubl.Cbc.Code.ListID">
+            <summary>
+            Identificador de la lista de códigos.
+            </summary>
+        </member>
+        <member name="P:FACe.Xml.Ubl.Cbc.Code.ListAgencyID">
+            <summary>
+            Identificador de la agencia responsable de la lista.
+            </summary>
+        </member>
+        <member name="P:FACe.Xml.Ubl.Cbc.Code.ListAgencyName">
+            <summary>
+            Nombre de la agencia responsable de la lista.
+            </summary>
+        </member>
+        <member name="P:FACe.Xml.Ubl.Cbc.Code.ListName">
+            <summary>
+            Nombre de la lista de códigos.
+            </summary>
+        </member>
+        <member name="P:FACe.Xml.Ubl.Cbc.Code.ListVersionID">
+            <summary>
+            Versión de la lista de códigos.
+            </summary>
+        </member>
+        <member name="P:FACe.Xml.Ubl.Cbc.Code.Name">
+            <summary>
+            Nombre correspondiente al código.
+            </summary>
+        </member>
+        <member name="P:FACe.Xml.Ubl.Cbc.Code.LanguageID">
+            <summary>
+            Identificador del idioma.
+            </summary>
+        </member>
+        <member name="P:FACe.Xml.Ubl.Cbc.Code.ListURI">
+            <summary>
+            URI de la lista de códigos.
+            </summary>
+        </member>
+        <member name="P:FACe.Xml.Ubl.Cbc.Code.ListSchemeURI">
+            <summary>
+            URI de la lista de códigos canónica.
+            </summary>
+        </member>
+        <member name="P:FACe.Xml.Ubl.Cbc.Code.Value">
+            <summary>
+            Valor del código.
+            </summary>
+        </member>
+        <member name="M:FACe.Xml.Ubl.Cbc.Code.#ctor">
+            <summary>
+            Constructor.
+            </summary>
+        </member>
+        <member name="M:FACe.Xml.Ubl.Cbc.Code.#ctor(System.String)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="value">Valor del código.</param>
+        </member>
+        <member name="M:FACe.Xml.Ubl.Cbc.Code.op_Implicit(System.String)~FACe.Xml.Ubl.Cbc.Code">
+            <summary>
+            Convierte implícitamente una cadena en un código.
+            </summary>
+            <param name="value">Valor del código.</param>
+        </member>
+        <member name="T:FACe.Xml.Ubl.Cbc.Identifier">
+            <summary>
+            Identificador UBL.
+            </summary>
+        </member>
+        <member name="P:FACe.Xml.Ubl.Cbc.Identifier.SchemeID">
+            <summary>
+            Identificador del esquema.
+            </summary>
+        </member>
+        <member name="P:FACe.Xml.Ubl.Cbc.Identifier.SchemeName">
+            <summary>
+            Nombre del esquema.
+            </summary>
+        </member>
+        <member name="P:FACe.Xml.Ubl.Cbc.Identifier.SchemeAgencyID">
+            <summary>
+            Identificador de la agencia responsable del esquema.
+            </summary>
+        </member>
+        <member name="P:FACe.Xml.Ubl.Cbc.Identifier.SchemeAgencyName">
+            <summary>
+            Nombre de la agencia responsable del esquema.
+            </summary>
+        </member>
+        <member name="P:FACe.Xml.Ubl.Cbc.Identifier.SchemeVersionID">
+            <summary>
+            Versión del esquema.
+            </summary>
+        </member>
+        <member name="P:FACe.Xml.Ubl.Cbc.Identifier.SchemeDataURI">
+            <summary>
+            URI de datos del esquema.
+            </summary>
+        </member>
+        <member name="P:FACe.Xml.Ubl.Cbc.Identifier.SchemeURI">
+            <summary>
+            URI del esquema.
+            </summary>
+        </member>
+        <member name="P:FACe.Xml.Ubl.Cbc.Identifier.Value">
+            <summary>
+            Valor del identificador.
+            </summary>
+        </member>
+        <member name="M:FACe.Xml.Ubl.Cbc.Identifier.#ctor">
+            <summary>
+            Constructor.
+            </summary>
+        </member>
+        <member name="M:FACe.Xml.Ubl.Cbc.Identifier.#ctor(System.String)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="value">Valor del identificador.</param>
+        </member>
+        <member name="M:FACe.Xml.Ubl.Cbc.Identifier.op_Implicit(System.String)~FACe.Xml.Ubl.Cbc.Identifier">
+            <summary>
+            Convierte implícitamente una cadena en un identificador.
+            </summary>
+            <param name="value">Valor del identificador.</param>
+        </member>
+        <member name="T:FACe.Xml.Ubl.Cbc.Quantity">
+            <summary>
+            Cantidad UBL.
+            </summary>
+        </member>
+        <member name="P:FACe.Xml.Ubl.Cbc.Quantity.UnitCode">
+            <summary>
+            Código de unidad de medida.
+            </summary>
+        </member>
+        <member name="P:FACe.Xml.Ubl.Cbc.Quantity.Value">
+            <summary>
+            Cantidad.
+            </summary>
+        </member>
+        <member name="M:FACe.Xml.Ubl.Cbc.Quantity.#ctor">
+            <summary>
+            Constructor.
+            </summary>
+        </member>
+        <member name="M:FACe.Xml.Ubl.Cbc.Quantity.#ctor(System.Decimal)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="value">Cantidad.</param>
+        </member>
+        <member name="T:FACe.Xml.Ubl.Cbc.Text">
+            <summary>
+            Texto UBL.
+            </summary>
+        </member>
+        <member name="P:FACe.Xml.Ubl.Cbc.Text.LanguageID">
+            <summary>
+            Identificador del idioma.
+            </summary>
+        </member>
+        <member name="P:FACe.Xml.Ubl.Cbc.Text.Value">
+            <summary>
+            Valor del texto.
+            </summary>
+        </member>
+        <member name="M:FACe.Xml.Ubl.Cbc.Text.#ctor">
+            <summary>
+            Constructor.
+            </summary>
+        </member>
+        <member name="M:FACe.Xml.Ubl.Cbc.Text.#ctor(System.String)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="value">Valor del texto.</param>
+        </member>
+        <member name="M:FACe.Xml.Ubl.Cbc.Text.op_Implicit(System.String)~FACe.Xml.Ubl.Cbc.Text">
+            <summary>
+            Convierte implícitamente una cadena en un texto.
+            </summary>
+            <param name="value">Valor del texto.</param>
+        </member>
+        <member name="T:FACe.Xml.Ubl.Ext.ExtensionContent">
+            <summary>
+            Contenido XML de una extensión UBL.
+            </summary>
+        </member>
+        <member name="P:FACe.Xml.Ubl.Ext.ExtensionContent.Any">
+            <summary>
+            Elementos XML contenidos en la extensión.
+            </summary>
+        </member>
+        <member name="T:FACe.Xml.Ubl.Ext.UBLExtension">
+            <summary>
+            Extensión de un documento UBL.
+            </summary>
+        </member>
+        <member name="P:FACe.Xml.Ubl.Ext.UBLExtension.ExtensionContent">
+            <summary>
+            Contenido de la extensión.
+            </summary>
+        </member>
+        <member name="T:FACe.Xml.Ubl.Ext.UBLExtensions">
+            <summary>
+            Colección de extensiones UBL.
+            </summary>
+        </member>
+        <member name="P:FACe.Xml.Ubl.Ext.UBLExtensions.UBLExtension">
+            <summary>
+            Extensiones del documento.
+            </summary>
+        </member>
+        <member name="T:FACe.Xml.Ubl.Invoice.Invoice">
+            <summary>
+            Factura UBL.
+            </summary>
+        </member>
+        <member name="P:FACe.Xml.Ubl.Invoice.Invoice.UBLExtensions">
+            <summary>
+            Extensiones del documento UBL.
+            </summary>
+        </member>
+        <member name="P:FACe.Xml.Ubl.Invoice.Invoice.CustomizationID">
+            <summary>
+            Identificador de personalización.
+            </summary>
+        </member>
+        <member name="P:FACe.Xml.Ubl.Invoice.Invoice.ProfileID">
+            <summary>
+            Identificador del proceso de negocio.
+            </summary>
+        </member>
+        <member name="P:FACe.Xml.Ubl.Invoice.Invoice.ID">
+            <summary>
+            Identificador de la factura.
+            </summary>
+        </member>
+        <member name="P:FACe.Xml.Ubl.Invoice.Invoice.CopyIndicator">
+            <summary>
+            Indica si el documento es una copia de la factura.
+            </summary>
+        </member>
+        <member name="P:FACe.Xml.Ubl.Invoice.Invoice.IssueDate">
+            <summary>
+            Fecha de emisión.
+            </summary>
+        </member>
+        <member name="P:FACe.Xml.Ubl.Invoice.Invoice.DueDate">
+            <summary>
+            Fecha de vencimiento.
+            </summary>
+        </member>
+        <member name="P:FACe.Xml.Ubl.Invoice.Invoice.InvoiceTypeCode">
+            <summary>
+            Código del tipo de factura.
+            </summary>
+        </member>
+        <member name="P:FACe.Xml.Ubl.Invoice.Invoice.Note">
+            <summary>
+            Notas de la factura.
+            </summary>
+        </member>
+        <member name="P:FACe.Xml.Ubl.Invoice.Invoice.DocumentCurrencyCode">
+            <summary>
+            Código de moneda de la factura.
+            </summary>
+        </member>
+        <member name="P:FACe.Xml.Ubl.Invoice.Invoice.TaxCurrencyCode">
+            <summary>
+            Código de moneda utilizado para la contabilización del IVA.
+            </summary>
+        </member>
+        <member name="P:FACe.Xml.Ubl.Invoice.Invoice.BuyerReference">
+            <summary>
+            Referencias del comprador.
+            </summary>
+        </member>
+        <member name="P:FACe.Xml.Ubl.Invoice.Invoice.InvoicePeriod">
+            <summary>
+            Periodos de facturación.
+            </summary>
+        </member>
+        <member name="P:FACe.Xml.Ubl.Invoice.Invoice.OrderReference">
+            <summary>
+            Referencia al pedido.
+            </summary>
+        </member>
+        <member name="P:FACe.Xml.Ubl.Invoice.Invoice.BillingReference">
+            <summary>
+            Referencias a facturas.
+            </summary>
+        </member>
+        <member name="P:FACe.Xml.Ubl.Invoice.Invoice.AdditionalDocumentReference">
+            <summary>
+            Referencias a documentos adicionales relacionados
+            con la factura.
+            </summary>
+        </member>
+        <member name="P:FACe.Xml.Ubl.Invoice.Invoice.ContractDocumentReference">
+            <summary>
+            Referencias contractuales.
+            </summary>
+        </member>
+        <member name="P:FACe.Xml.Ubl.Invoice.Invoice.AccountingSupplierParty">
+            <summary>
+            Proveedor.
+            </summary>
+        </member>
+        <member name="P:FACe.Xml.Ubl.Invoice.Invoice.AccountingCustomerParty">
+            <summary>
+            Cliente.
+            </summary>
+        </member>
+        <member name="P:FACe.Xml.Ubl.Invoice.Invoice.Delivery">
+            <summary>
+            Entregas.
+            </summary>
+        </member>
+        <member name="P:FACe.Xml.Ubl.Invoice.Invoice.PaymentMeans">
+            <summary>
+            Medios de pago.
+            </summary>
+        </member>
+        <member name="P:FACe.Xml.Ubl.Invoice.Invoice.PaymentTerms">
+            <summary>
+            Condiciones de pago.
+            </summary>
+        </member>
+        <member name="P:FACe.Xml.Ubl.Invoice.Invoice.AllowanceCharge">
+            <summary>
+            Descuentos y cargos generales.
+            </summary>
+        </member>
+        <member name="P:FACe.Xml.Ubl.Invoice.Invoice.TaxTotal">
+            <summary>
+            Totales de impuestos.
+            </summary>
+        </member>
+        <member name="P:FACe.Xml.Ubl.Invoice.Invoice.WithholdingTaxTotal">
+            <summary>
+            Totales de retenciones.
+            </summary>
+        </member>
+        <member name="P:FACe.Xml.Ubl.Invoice.Invoice.LegalMonetaryTotal">
+            <summary>
+            Totales monetarios.
+            </summary>
+        </member>
+        <member name="P:FACe.Xml.Ubl.Invoice.Invoice.InvoiceLine">
+            <summary>
+            Líneas de factura.
+            </summary>
+        </member>
+        <member name="M:FACe.Xml.Ubl.Invoice.Invoice.GetNamespaces">
+            <summary>
+            Obtiene los espacios de nombres utilizados
+            por el documento UBL.
+            </summary>
+            <returns>Espacios de nombres XML.</returns>
+        </member>
+        <member name="T:FACe.Xml.Ubl.Signature.UblSigned">
+            <summary>
+            Firma electrónica XAdES de documentos UBL.
+            </summary>
+        </member>
+        <member name="M:FACe.Xml.Ubl.Signature.UblSigned.Sign(System.String,System.Security.Cryptography.X509Certificates.X509Certificate2)">
+            <summary>
+            Firma electrónicamente un documento UBL mediante XAdES.
+            </summary>
+            <param name="xml">Documento UBL sin firmar.</param>
+            <param name="certificate">Certificado con clave privada.</param>
+            <returns>Documento UBL firmado.</returns>
+        </member>
+        <member name="M:FACe.Xml.Ubl.Signature.UblSigned.Verify(System.String,System.Security.Cryptography.X509Certificates.X509Certificate2)">
+            <summary>
+            Comprueba la firma criptográfica de un documento UBL.
+            </summary>
+            <param name="xml">Documento UBL firmado.</param>
+            <param name="certificate">Certificado de verificación.</param>
+            <returns>True cuando la firma es correcta.</returns>
+        </member>
+        <member name="M:FACe.Xml.Ubl.Signature.UblSigned.LoadDocument(System.String)">
+            <summary>
+            Carga un documento XML conservando los espacios en blanco.
+            </summary>
+            <param name="xml">Contenido XML.</param>
+            <returns>Documento XML.</returns>
+        </member>
+        <member name="M:FACe.Xml.Ubl.Signature.UblSigned.PrepareSignatureContainer(System.Xml.XmlDocument)">
+            <summary>
+            Prepara el contenedor de firma UBL.
+            </summary>
+            <param name="document">Documento XML.</param>
+            <returns>Elemento SignatureInformation.</returns>
+        </member>
+        <member name="M:FACe.Xml.Ubl.Signature.UblSigned.GetSignedProperties(System.Security.Cryptography.X509Certificates.X509Certificate2,System.String,System.String)">
+            <summary>
+            Construye el objeto que contiene las propiedades XAdES.
+            </summary>
+            <param name="certificate">Certificado de firma.</param>
+            <param name="signatureID">Identificador de firma.</param>
+            <param name="propertiesID">Identificador de propiedades.</param>
+            <returns>Objeto XMLDSig.</returns>
+        </member>
+        <member name="M:FACe.Xml.Ubl.Signature.UblSigned.Verify(System.Xml.XmlDocument,System.Security.Cryptography.X509Certificates.X509Certificate2)">
+            <summary>
+            Verifica criptográficamente la firma XML.
+            </summary>
+            <param name="document">Documento firmado.</param>
+            <param name="certificate">Certificado.</param>
+            <returns>True si la firma es válida.</returns>
+        </member>
+        <member name="M:FACe.Xml.Ubl.Signature.UblSigned.SaveDocument(System.Xml.XmlDocument)">
+            <summary>
+            Serializa el documento XML sin introducir
+            cambios de formato posteriores a la firma.
+            </summary>
+            <param name="document">Documento XML.</param>
+            <returns>Documento XML serializado.</returns>
+        </member>
+        <member name="M:FACe.Xml.Ubl.Signature.UblSigned.ClearWindowsLineEndings(System.String)">
+            <summary>
+            Normaliza los saltos de línea de Windows.
+            </summary>
+            <param name="text">Texto XML.</param>
+            <returns>Texto con saltos de línea LF.</returns>
+        </member>
+        <member name="M:FACe.Xml.Ubl.Signature.UblSigned.ClearWindowsTagEndings(System.String)">
+            <summary>
+            Elimina los espacios anteriores al cierre
+            de las etiquetas XML vacías.
+            </summary>
+            <param name="text">Texto XML.</param>
+            <returns>Texto XML normalizado.</returns>
+        </member>
+        <member name="T:FACe.Xml.Ubl.Signature.XadesSignedXml">
+            <summary>
+            Extiende SignedXml para resolver referencias
+            a propiedades XAdES contenidas en DataObject.
+            </summary>
+        </member>
+        <member name="M:FACe.Xml.Ubl.Signature.XadesSignedXml.#ctor(System.Xml.XmlDocument)">
+            <summary>
+            Inicializa la firma XML.
+            </summary>
+            <param name="document">Documento XML.</param>
+        </member>
+        <member name="M:FACe.Xml.Ubl.Signature.XadesSignedXml.GetIdElement(System.Xml.XmlDocument,System.String)">
+            <summary>
+            Localiza un elemento mediante su identificador,
+            incluyendo las propiedades XAdES de los DataObject.
+            </summary>
+            <param name="document">Documento XML.</param>
+            <param name="idValue">Identificador del elemento.</param>
+            <returns>Elemento encontrado o null.</returns>
+        </member>
         <member name="T:FACe.Xml.XmlParser">
             <summary>
             Responsable serialización xml.
@@ -9067,6 +10803,22 @@
             Codificación de texto a utilizar. UTF8 por defecto.
             </summary>
         </member>
+        <member name="M:FACe.Xml.XmlParser.GetXmlDate(System.Nullable{System.DateTime})">
+            <summary>
+            Devuelve una fecha formateada para un campo de fecha
+            de la especificación de VeriFactu.
+            </summary>
+            <param name="date">fecha a formatear</param>
+            <returns>Fecha formateada.</returns>
+        </member>
+        <member name="M:FACe.Xml.XmlParser.GetUblDate(System.DateTime)">
+            <summary>
+            Devuelve una fecha con el formato XML utilizado
+            por UBL (ISO 8601).
+            </summary>
+            <param name="date">Fecha a formatear.</param>
+            <returns>Fecha en formato yyyy-MM-dd.</returns>
+        </member>
         <member name="M:FACe.Xml.XmlParser.FromDecimal(System.Decimal,System.Globalization.NumberFormatInfo)">
             <summary>
             Devuelve un importe formateado para un campo decimal
@@ -9085,6 +10837,14 @@
             <param name="numberFormatInfo">Formato de número.</param>
             <returns>Importe decimal representado.</returns>
         </member>
+        <member name="M:FACe.Xml.XmlParser.ToDate(System.String)">
+            <summary>
+            Devuelve una fecha a partir de un string
+            de un campo de xml que representa un valor decimal.
+            </summary>
+            <param name="date">Fecha a convertir</param>
+            <returns>Importe convertido.</returns>
+        </member>
         <member name="M:FACe.Xml.XmlParser.GetBytes(System.Object,System.Collections.Generic.Dictionary{System.String,System.String},System.Boolean,System.Boolean)">
             <summary>
             Serializa el objeto como xml y lo devuelve
@@ -9096,112 +10856,196 @@
             <param name="omitXmlDeclaration">Indica si se se omite la delcaración xml.</param>
             <returns>string con el archivo xml.</returns>
         </member>
-        <member name="T:FACe.IFeInstallment">
+        <member name="T:FACe.IFeParty">
             <summary>
-            Interfaz COM para la clase Installment.
+            Interfaz COM para la clase Party.
             </summary>
         </member>
-        <member name="P:FACe.IFeInstallment.DueDate">
+        <member name="P:FACe.IFeParty.PartyType">
             <summary>
-            Fechas en las que se deben atender los pagos. ISO 8601:2004.
+            <para>'P':Persona física.</para>
+            <para>'J':Persona jurídica.</para>
+            </summary>
+        </member>
+        <member name="P:FACe.IFeParty.PartyRole">
+            <summary>
+            <para>'SL': Seller.</para>
+            <para>'BY': Buyer.</para>
+            <para>'OC': Oficina contable.</para>
+            <para>'OG': Organo gestor.</para>
+            <para>'UT': Unidad tramitadora.</para>
+            <para>'OT': Otros.</para>
+            </summary>
+        </member>
+        <member name="P:FACe.IFeParty.PartyID">
+            <summary>
+            Identificador del interlocutor de negocio.
+            Texto (20).
+            </summary>
+        </member>
+        <member name="P:FACe.IFeParty.PartyName">
+            <summary>
+            Nombre asignado al interlocutor.
+            Texto (150).
             </summary>        
         </member>
-        <member name="P:FACe.IFeInstallment.Amount">
-             <summary>
-            Importe a satisfacer en cada plazo. Siempre con dos decimales.
-             </summary>        
-        </member>
-        <member name="P:FACe.IFeInstallment.PaymentMeans">
+        <member name="P:FACe.IFeParty.TaxID">
             <summary>
-            Cada vencimiento/importe podrá tener un medio de pago concreto.
-            <para>'01': Al contado.</para>
-            <para>'02': Recibo Domiciliado.</para>
-            <para>'03': Recibo.</para>
-            <para>'04': Transferencia.</para>
-            <para>'05': Letra Aceptada.</para>
-            <para>'06': Crédito Documentario.</para>
-            <para>'07': Contrato Adjudicación.</para>
-            <para>'08': Letra de cambio.</para>
-            <para>'09': Pagaré a la  Orden.</para>
-            <para>'10': Pagaré No a la Orden.</para>
-            <para>'11': Cheque.</para>
-            <para>'12': Reposición.</para>
-            <para>'13': Especiales.</para>
-            <para>'14': Compensación.</para>
-            <para>'15': Giro postal.</para>
-            <para>'16': Cheque conformado.</para>
-            <para>'17': Cheque bancario.</para>
-            <para>'18': Pago contra reembolso.</para>
-            <para>'19': Pago mediante tarjeta.</para>
+            Código de identificación fiscal.
+            Texto (30).
+            </summary>        
+        </member>
+        <member name="P:FACe.IFeParty.Address">
+            <summary>
+            Dirección.
+            Texto (120).
+            </summary>        
+        </member>
+        <member name="P:FACe.IFeParty.City">
+            <summary>
+            Población.
+            Texto (70).
+            </summary>        
+        </member>
+        <member name="P:FACe.IFeParty.PostalCode">
+            <summary>
+            Código postal.
+            Texto (120).
+            </summary>        
+        </member>
+        <member name="P:FACe.IFeParty.Region">
+            <summary>
+            Código región: Ej. provincia.
+            Texto (120).
+            </summary>        
+        </member>
+        <member name="P:FACe.IFeParty.CountryID">
+            <summary>
+            Código país ISO-3166 (EJ. ES).
+            Texto (2).
+            </summary>        
+        </member>
+        <member name="P:FACe.IFeParty.Mail">
+            <summary>
+            Dirección de correo principal.
+            Texto (150).
             </summary>
         </member>
-        <member name="P:FACe.IFeInstallment.BankAccountType">
+        <member name="P:FACe.IFeParty.Mobile">
             <summary>
-            Tipo de identificador de cuenta.
-            <para>'IBAN': IBAN</para>
+            Número de teléfono movil.
+            Texto (20).
             </summary>
         </member>
-        <member name="P:FACe.IFeInstallment.BankAccount">
+        <member name="P:FACe.IFeParty.Phone">
             <summary>
-            Identificador de la cuenta bancaria. En versión Facturae 3.0
-            sólo es válido el valor IBAN.
+            Número de teléfono fijo.
+            Texto (20).
             </summary>
         </member>
-        <member name="T:FACe.FeInstallment">
+        <member name="P:FACe.IFeParty.WebAddress">
             <summary>
-            Representa una línea de vencimiento.
+            Página web.
+            Texto (200).
             </summary>
         </member>
-        <member name="M:FACe.FeInstallment.#ctor">
+        <member name="T:FACe.FeParty">
+            <summary>
+            Representa un interlocutor de negocio.
+            </summary>
+        </member>
+        <member name="M:FACe.FeParty.#ctor">
             <summary>
             Constructor. Para COM necesitamos un constructor
             sin parametros.
             </summary>
         </member>
-        <member name="P:FACe.FeInstallment.DueDate">
+        <member name="P:FACe.FeParty.PartyType">
             <summary>
-            Fechas en las que se deben atender los pagos. ISO 8601:2004.
+            <para>'P':Persona física.</para>
+            <para>'J':Persona jurídica.</para>
+            </summary>
+        </member>
+        <member name="P:FACe.FeParty.PartyRole">
+            <summary>
+            <para>'SL': Seller.</para>
+            <para>'BY': Buyer.</para>
+            <para>'OC': Oficina contable.</para>
+            <para>'OG': Organo gestor.</para>
+            <para>'UT': Unidad tramitadora.</para>
+            <para>'OT': Otros.</para>
+            </summary>
+        </member>
+        <member name="P:FACe.FeParty.PartyID">
+            <summary>
+            Identificador del interlocutor de negocio.
+            Texto (20).
+            </summary>
+        </member>
+        <member name="P:FACe.FeParty.PartyName">
+            <summary>
+            Nombre asignado al interlocutor.
+            Texto (150).
             </summary>        
         </member>
-        <member name="P:FACe.FeInstallment.Amount">
-             <summary>
-            Importe a satisfacer en cada plazo. Siempre con dos decimales.
-             </summary>        
-        </member>
-        <member name="P:FACe.FeInstallment.PaymentMeans">
+        <member name="P:FACe.FeParty.TaxID">
             <summary>
-            Cada vencimiento/importe podrá tener un medio de pago concreto.
-            <para>'01': Al contado.</para>
-            <para>'02': Recibo Domiciliado.</para>
-            <para>'03': Recibo.</para>
-            <para>'04': Transferencia.</para>
-            <para>'05': Letra Aceptada.</para>
-            <para>'06': Crédito Documentario.</para>
-            <para>'07': Contrato Adjudicación.</para>
-            <para>'08': Letra de cambio.</para>
-            <para>'09': Pagaré a la  Orden.</para>
-            <para>'10': Pagaré No a la Orden.</para>
-            <para>'11': Cheque.</para>
-            <para>'12': Reposición.</para>
-            <para>'13': Especiales.</para>
-            <para>'14': Compensación.</para>
-            <para>'15': Giro postal.</para>
-            <para>'16': Cheque conformado.</para>
-            <para>'17': Cheque bancario.</para>
-            <para>'18': Pago contra reembolso.</para>
-            <para>'19': Pago mediante tarjeta.</para>
+            Código de identificación fiscal.
+            Texto (30).
+            </summary>        
+        </member>
+        <member name="P:FACe.FeParty.Address">
+            <summary>
+            Dirección.
+            Texto (120).
+            </summary>        
+        </member>
+        <member name="P:FACe.FeParty.City">
+            <summary>
+            Población.
+            Texto (70).
+            </summary>        
+        </member>
+        <member name="P:FACe.FeParty.PostalCode">
+            <summary>
+            Código postal.
+            Texto (120).
+            </summary>        
+        </member>
+        <member name="P:FACe.FeParty.Region">
+            <summary>
+            Código región: Ej. provincia.
+            Texto (120).
+            </summary>        
+        </member>
+        <member name="P:FACe.FeParty.CountryID">
+            <summary>
+            Código país ISO-3166 (EJ. ES).
+            Texto (2).
+            </summary>        
+        </member>
+        <member name="P:FACe.FeParty.Mail">
+            <summary>
+            Dirección de correo principal.
+            Texto (150).
             </summary>
         </member>
-        <member name="P:FACe.FeInstallment.BankAccountType">
+        <member name="P:FACe.FeParty.Mobile">
             <summary>
-            Tipo de identificador de cuenta.
-            <para>'IBAN': IBAN</para>
+            Número de teléfono movil.
+            Texto (20).
             </summary>
         </member>
-        <member name="P:FACe.FeInstallment.BankAccount">
+        <member name="P:FACe.FeParty.Phone">
             <summary>
-            Identificador de la cuenta bancaria. En versión Facturae 3.0
-            sólo es válido el valor IBAN.
+            Número de teléfono fijo.
+            Texto (20).
+            </summary>
+        </member>
+        <member name="P:FACe.FeParty.WebAddress">
+            <summary>
+            Página web.
+            Texto (200).
             </summary>
         </member>
         <member name="T:FACe.IFeInvoice">
@@ -9685,6 +11529,434 @@
             </summary>
             <returns>Resultado de la operación.</returns>
         </member>
+        <member name="T:FACe.IFeInstallment">
+            <summary>
+            Interfaz COM para la clase Installment.
+            </summary>
+        </member>
+        <member name="P:FACe.IFeInstallment.DueDate">
+            <summary>
+            Fechas en las que se deben atender los pagos. ISO 8601:2004.
+            </summary>        
+        </member>
+        <member name="P:FACe.IFeInstallment.Amount">
+             <summary>
+            Importe a satisfacer en cada plazo. Siempre con dos decimales.
+             </summary>        
+        </member>
+        <member name="P:FACe.IFeInstallment.PaymentMeans">
+            <summary>
+            Cada vencimiento/importe podrá tener un medio de pago concreto.
+            <para>'01': Al contado.</para>
+            <para>'02': Recibo Domiciliado.</para>
+            <para>'03': Recibo.</para>
+            <para>'04': Transferencia.</para>
+            <para>'05': Letra Aceptada.</para>
+            <para>'06': Crédito Documentario.</para>
+            <para>'07': Contrato Adjudicación.</para>
+            <para>'08': Letra de cambio.</para>
+            <para>'09': Pagaré a la  Orden.</para>
+            <para>'10': Pagaré No a la Orden.</para>
+            <para>'11': Cheque.</para>
+            <para>'12': Reposición.</para>
+            <para>'13': Especiales.</para>
+            <para>'14': Compensación.</para>
+            <para>'15': Giro postal.</para>
+            <para>'16': Cheque conformado.</para>
+            <para>'17': Cheque bancario.</para>
+            <para>'18': Pago contra reembolso.</para>
+            <para>'19': Pago mediante tarjeta.</para>
+            </summary>
+        </member>
+        <member name="P:FACe.IFeInstallment.BankAccountType">
+            <summary>
+            Tipo de identificador de cuenta.
+            <para>'IBAN': IBAN</para>
+            </summary>
+        </member>
+        <member name="P:FACe.IFeInstallment.BankAccount">
+            <summary>
+            Identificador de la cuenta bancaria. En versión Facturae 3.0
+            sólo es válido el valor IBAN.
+            </summary>
+        </member>
+        <member name="T:FACe.FeInstallment">
+            <summary>
+            Representa una línea de vencimiento.
+            </summary>
+        </member>
+        <member name="M:FACe.FeInstallment.#ctor">
+            <summary>
+            Constructor. Para COM necesitamos un constructor
+            sin parametros.
+            </summary>
+        </member>
+        <member name="P:FACe.FeInstallment.DueDate">
+            <summary>
+            Fechas en las que se deben atender los pagos. ISO 8601:2004.
+            </summary>        
+        </member>
+        <member name="P:FACe.FeInstallment.Amount">
+             <summary>
+            Importe a satisfacer en cada plazo. Siempre con dos decimales.
+             </summary>        
+        </member>
+        <member name="P:FACe.FeInstallment.PaymentMeans">
+            <summary>
+            Cada vencimiento/importe podrá tener un medio de pago concreto.
+            <para>'01': Al contado.</para>
+            <para>'02': Recibo Domiciliado.</para>
+            <para>'03': Recibo.</para>
+            <para>'04': Transferencia.</para>
+            <para>'05': Letra Aceptada.</para>
+            <para>'06': Crédito Documentario.</para>
+            <para>'07': Contrato Adjudicación.</para>
+            <para>'08': Letra de cambio.</para>
+            <para>'09': Pagaré a la  Orden.</para>
+            <para>'10': Pagaré No a la Orden.</para>
+            <para>'11': Cheque.</para>
+            <para>'12': Reposición.</para>
+            <para>'13': Especiales.</para>
+            <para>'14': Compensación.</para>
+            <para>'15': Giro postal.</para>
+            <para>'16': Cheque conformado.</para>
+            <para>'17': Cheque bancario.</para>
+            <para>'18': Pago contra reembolso.</para>
+            <para>'19': Pago mediante tarjeta.</para>
+            </summary>
+        </member>
+        <member name="P:FACe.FeInstallment.BankAccountType">
+            <summary>
+            Tipo de identificador de cuenta.
+            <para>'IBAN': IBAN</para>
+            </summary>
+        </member>
+        <member name="P:FACe.FeInstallment.BankAccount">
+            <summary>
+            Identificador de la cuenta bancaria. En versión Facturae 3.0
+            sólo es válido el valor IBAN.
+            </summary>
+        </member>
+        <member name="T:FACe.IFeInvoiceResult">
+            <summary>
+            Interfaz COM para la clase RectificationItem.
+            </summary>
+        </member>
+        <member name="P:FACe.IFeInvoiceResult.ResultCode">
+            <summary>
+            Código del resultado de la operación. '0' si todo
+            ha ido vien.
+            </summary>
+        </member>
+        <member name="P:FACe.IFeInvoiceResult.ResultMessage">
+            <summary>
+            Mensaje del resultado de la petición. 'OK' si todo ha ido
+            bien.
+            </summary>
+        </member>
+        <member name="P:FACe.IFeInvoiceResult.CSV">
+            <summary>
+            Código seguro de verificación devuelto por la AEAT
+            si todo ha ido bien.
+            </summary>
+        </member>
+        <member name="T:FACe.FeInvoiceResult">
+            <summary>
+            Resultado de un envio de alta o anulación a la AEAT.
+            </summary>
+        </member>
+        <member name="M:FACe.FeInvoiceResult.#ctor">
+            <summary>
+            Constructor. Para COM necesitamos un constructor
+            sin parametros.
+            </summary>
+        </member>
+        <member name="P:FACe.FeInvoiceResult.ResultCode">
+            <summary>
+            Código del resultado de la operación. '0' si todo
+            ha ido vien.
+            </summary>
+        </member>
+        <member name="P:FACe.FeInvoiceResult.ResultMessage">
+            <summary>
+            Mensaje del resultado de la petición. 'OK' si todo ha ido
+            bien.
+            </summary>
+        </member>
+        <member name="P:FACe.FeInvoiceResult.CSV">
+            <summary>
+            Código seguro de verificación devuelto por la AEAT
+            si todo ha ido bien.
+            </summary>
+        </member>
+        <member name="T:FACe.IFeRectificationItem">
+            <summary>
+            Interfaz COM para la clase RectificationItem.
+            </summary>
+        </member>
+        <member name="P:FACe.IFeRectificationItem.InvoiceID">
+            <summary>
+            Identificador de la factura.
+            </summary>
+        </member>
+        <member name="P:FACe.IFeRectificationItem.InvoiceDate">
+            <summary>
+            Fecha emisión de documento.
+            </summary>        
+        </member>
+        <member name="T:FACe.FeRectificationItem">
+            <summary>
+            Representa información sobre la factura
+            a la que se refiere una rectificación.
+            </summary>
+        </member>
+        <member name="M:FACe.FeRectificationItem.#ctor">
+            <summary>
+            Constructor. Para COM necesitamos un constructor
+            sin parametros.
+            </summary>
+        </member>
+        <member name="P:FACe.FeRectificationItem.InvoiceID">
+            <summary>
+            Identificador de la factura.
+            </summary>
+        </member>
+        <member name="P:FACe.FeRectificationItem.InvoiceDate">
+            <summary>
+            Fecha emisión de documento.
+            </summary>        
+        </member>
+        <member name="T:FACe.IFeSettings">
+            <summary>
+            Interfaz COM para la clase RectificationItem.
+            </summary>
+        </member>
+        <member name="P:FACe.IFeSettings.IDVersion">
+            <summary>
+            <para>Identificación de la versión actual del esquema o
+            estructura de información utilizada para la generación y
+            conservación / remisión de los registros de facturación.
+            Este campo forma parte del detalle de las circunstancias
+            de generación de los registros de facturación.</para>
+            <para>Alfanumérico(3) L15:</para>
+            <para>1.0: Versión actual (1.0) del esquema utilizado </para>
+            </summary>
+        </member>
+        <member name="P:FACe.IFeSettings.InboxPath">
+            <summary>
+            Ruta al directorio que actuará como bandeja de entrada.
+            En este directorio se almacenarán todos los mensajes
+            recibidos de la AEAT mediante VERI*FACTU.
+            </summary>
+        </member>
+        <member name="P:FACe.IFeSettings.OutboxPath">
+            <summary>
+            Ruta al directorio que actuará como bandeja de salida.
+            En este directorio se almacenará una copia de cualquier
+            envío realizado a la AEAT mediante el VERI*FACTU.
+            </summary>
+        </member>
+        <member name="P:FACe.IFeSettings.BlockchainPath">
+            <summary>
+            Ruta al directorio que actuará como almacén
+            de las distintas cadenas de bloques por emisor.
+            </summary>
+        </member>
+        <member name="P:FACe.IFeSettings.InvoicePath">
+            <summary>
+            Ruta al directorio que actuará almacenamiento
+            de las facturas emitidas por emisor.
+            </summary>
+        </member>
+        <member name="P:FACe.IFeSettings.LogPath">
+            <summary>
+            Ruta al directorio que actuará almacenamiento
+            del registro de mensajes del sistema.
+            </summary>
+        </member>
+        <member name="P:FACe.IFeSettings.CertificateSerial">
+            <summary>
+            Número de serie del certificado a utilizar. Mediante este número
+            de serie se selecciona del almacén de certificados de windows
+            el certificado con el que realizar las comunicaciones.
+            </summary>
+        </member>
+        <member name="P:FACe.IFeSettings.CertificateThumbprint">
+            <summary>
+            Hash o Huella digital del certificado a utilizar. Mediante esta
+            huella digital se selecciona del almacén de certificados de
+            windows el certificado con el que realizar las comunicaciones.
+            </summary>
+        </member>
+        <member name="P:FACe.IFeSettings.CertificatePath">
+            <summary>
+            Ruta al archivo del certificado a utilizar.
+            Sólo se utiliza en los certificados cargados desde el sistema de archivos. 
+            </summary>
+        </member>
+        <member name="P:FACe.IFeSettings.CertificatePassword">
+            <summary>
+            Password del certificado. Este valor sólo es necesario si
+            tenemos establecido el valor para 'CertificatePath' y el certificado
+            tiene clave de acceso. Sólo se utiliza en los certificados
+            cargados desde el sistema de archivos.
+            </summary>
+        </member>
+        <member name="P:FACe.IFeSettings.FACeEndPointPrefix">
+            <summary>
+            EndPoint del web service de la AEAT para envío registros alta y anulación.
+            </summary>
+        </member>
+        <member name="P:FACe.IFeSettings.LoggingEnabled">
+            <summary>
+            Indica si está activado el log de mensajes
+            del sistema.
+            </summary>
+        </member>
+        <member name="P:FACe.IFeSettings.TlRuntime">
+            <summary>
+            Desactiva TL.
+            del sistema.
+            </summary>
+        </member>
+        <member name="M:FACe.IFeSettings.Save">
+            <summary>
+            Guarda la configuración.
+            </summary>
+        </member>
+        <member name="M:FACe.IFeSettings.Load">
+            <summary>
+            Carga la configuración.
+            </summary>
+        </member>
+        <member name="M:FACe.IFeSettings.SetConfigFileName(System.String)">
+            <summary>
+            Esteblece el archivo de configuración con el cual trabajar.
+            </summary>
+            <param name="fileName">Nombre del archivo de configuración a utilizar.</param>
+        </member>
+        <member name="T:FACe.FeSettings">
+            <summary>
+            Representa una línea de impuestos.
+            </summary>
+        </member>
+        <member name="M:FACe.FeSettings.#ctor">
+            <summary>
+            Constructor. Para COM necesitamos un constructor
+            sin parametros.
+            </summary>
+        </member>
+        <member name="M:FACe.FeSettings.GetSettings">
+            <summary>
+            Devuelve una instancia de clase Settings creada a partir
+            de los datos de esta instancia.
+            </summary>
+            <returns>Instancia de clase Settings.</returns>
+        </member>
+        <member name="M:FACe.FeSettings.Save">
+            <summary>
+            Guarda la configuración.
+            </summary>
+        </member>
+        <member name="M:FACe.FeSettings.Load">
+            <summary>
+            Carga la configuración.
+            </summary>
+        </member>
+        <member name="M:FACe.FeSettings.SetConfigFileName(System.String)">
+            <summary>
+            Esteblece el archivo de configuración con el cual trabajar.
+            </summary>
+            <param name="fileName">Nombre del archivo de configuración a utilizar.</param>
+        </member>
+        <member name="P:FACe.FeSettings.IDVersion">
+            <summary>
+            <para>Identificación de la versión actual del esquema o
+            estructura de información utilizada para la generación y
+            conservación / remisión de los registros de facturación.
+            Este campo forma parte del detalle de las circunstancias
+            de generación de los registros de facturación.</para>
+            <para>Alfanumérico(3) L15:</para>
+            <para>1.0: Versión actual (1.0) del esquema utilizado </para>
+            </summary>
+        </member>
+        <member name="P:FACe.FeSettings.InboxPath">
+            <summary>
+            Ruta al directorio que actuará como bandeja de entrada.
+            En este directorio se almacenarán todos los mensajes
+            recibidos de la AEAT mediante VERI*FACTU.
+            </summary>
+        </member>
+        <member name="P:FACe.FeSettings.OutboxPath">
+            <summary>
+            Ruta al directorio que actuará como bandeja de salida.
+            En este directorio se almacenará una copia de cualquier
+            envío realizado a la AEAT mediante el VERI*FACTU.
+            </summary>
+        </member>
+        <member name="P:FACe.FeSettings.BlockchainPath">
+            <summary>
+            Ruta al directorio que actuará como almacén
+            de las distintas cadenas de bloques por emisor.
+            </summary>
+        </member>
+        <member name="P:FACe.FeSettings.InvoicePath">
+            <summary>
+            Ruta al directorio que actuará almacenamiento
+            de las facturas emitidas por emisor.
+            </summary>
+        </member>
+        <member name="P:FACe.FeSettings.LogPath">
+            <summary>
+            Ruta al directorio que actuará almacenamiento
+            del registro de mensajes del sistema.
+            </summary>
+        </member>
+        <member name="P:FACe.FeSettings.CertificateSerial">
+            <summary>
+            Número de serie del certificado a utilizar. Mediante este número
+            de serie se selecciona del almacén de certificados de windows
+            el certificado con el que realizar las comunicaciones.
+            </summary>
+        </member>
+        <member name="P:FACe.FeSettings.CertificateThumbprint">
+            <summary>
+            Hash o Huella digital del certificado a utilizar. Mediante esta
+            huella digital se selecciona del almacén de certificados de
+            windows el certificado con el que realizar las comunicaciones.
+            </summary>
+        </member>
+        <member name="P:FACe.FeSettings.CertificatePath">
+            <summary>
+            Ruta al archivo del certificado a utilizar.
+            Sólo se utiliza en los certificados cargados desde el sistema de archivos. 
+            </summary>
+        </member>
+        <member name="P:FACe.FeSettings.CertificatePassword">
+            <summary>
+            Password del certificado. Este valor sólo es necesario si
+            tenemos establecido el valor para 'CertificatePath' y el certificado
+            tiene clave de acceso. Sólo se utiliza en los certificados
+            cargados desde el sistema de archivos.
+            </summary>
+        </member>
+        <member name="P:FACe.FeSettings.FACeEndPointPrefix">
+            <summary>
+            EndPoint del API REST de la AEAT para envío FACe.
+            </summary>
+        </member>
+        <member name="P:FACe.FeSettings.LoggingEnabled">
+            <summary>
+            Indica si está activado el log de mensajes
+            del sistema.
+            </summary>
+        </member>
+        <member name="P:FACe.FeSettings.TlRuntime">
+            <summary>
+            Desactiva TL.
+            del sistema.
+            </summary>
+        </member>
         <member name="T:FACe.IFeInvoiceLine">
             <summary>
             Interfaz COM para la clase TaxItem.
@@ -9967,518 +12239,6 @@
             <para>03: Impuesto General Indirecto Canario (IGIC)</para>
             <para>04: IRPF</para>
             <para>05: Otros</para>
-            </summary>
-        </member>
-        <member name="T:FACe.IFeInvoiceResult">
-            <summary>
-            Interfaz COM para la clase RectificationItem.
-            </summary>
-        </member>
-        <member name="P:FACe.IFeInvoiceResult.ResultCode">
-            <summary>
-            Código del resultado de la operación. '0' si todo
-            ha ido vien.
-            </summary>
-        </member>
-        <member name="P:FACe.IFeInvoiceResult.ResultMessage">
-            <summary>
-            Mensaje del resultado de la petición. 'OK' si todo ha ido
-            bien.
-            </summary>
-        </member>
-        <member name="P:FACe.IFeInvoiceResult.CSV">
-            <summary>
-            Código seguro de verificación devuelto por la AEAT
-            si todo ha ido bien.
-            </summary>
-        </member>
-        <member name="T:FACe.FeInvoiceResult">
-            <summary>
-            Resultado de un envio de alta o anulación a la AEAT.
-            </summary>
-        </member>
-        <member name="M:FACe.FeInvoiceResult.#ctor">
-            <summary>
-            Constructor. Para COM necesitamos un constructor
-            sin parametros.
-            </summary>
-        </member>
-        <member name="P:FACe.FeInvoiceResult.ResultCode">
-            <summary>
-            Código del resultado de la operación. '0' si todo
-            ha ido vien.
-            </summary>
-        </member>
-        <member name="P:FACe.FeInvoiceResult.ResultMessage">
-            <summary>
-            Mensaje del resultado de la petición. 'OK' si todo ha ido
-            bien.
-            </summary>
-        </member>
-        <member name="P:FACe.FeInvoiceResult.CSV">
-            <summary>
-            Código seguro de verificación devuelto por la AEAT
-            si todo ha ido bien.
-            </summary>
-        </member>
-        <member name="T:FACe.IFeParty">
-            <summary>
-            Interfaz COM para la clase Party.
-            </summary>
-        </member>
-        <member name="P:FACe.IFeParty.PartyType">
-            <summary>
-            <para>'P':Persona física.</para>
-            <para>'J':Persona jurídica.</para>
-            </summary>
-        </member>
-        <member name="P:FACe.IFeParty.PartyRole">
-            <summary>
-            <para>'SL': Seller.</para>
-            <para>'BY': Buyer.</para>
-            <para>'OC': Oficina contable.</para>
-            <para>'OG': Organo gestor.</para>
-            <para>'UT': Unidad tramitadora.</para>
-            <para>'OT': Otros.</para>
-            </summary>
-        </member>
-        <member name="P:FACe.IFeParty.PartyID">
-            <summary>
-            Identificador del interlocutor de negocio.
-            Texto (20).
-            </summary>
-        </member>
-        <member name="P:FACe.IFeParty.PartyName">
-            <summary>
-            Nombre asignado al interlocutor.
-            Texto (150).
-            </summary>        
-        </member>
-        <member name="P:FACe.IFeParty.TaxID">
-            <summary>
-            Código de identificación fiscal.
-            Texto (30).
-            </summary>        
-        </member>
-        <member name="P:FACe.IFeParty.Address">
-            <summary>
-            Dirección.
-            Texto (120).
-            </summary>        
-        </member>
-        <member name="P:FACe.IFeParty.City">
-            <summary>
-            Población.
-            Texto (70).
-            </summary>        
-        </member>
-        <member name="P:FACe.IFeParty.PostalCode">
-            <summary>
-            Código postal.
-            Texto (120).
-            </summary>        
-        </member>
-        <member name="P:FACe.IFeParty.Region">
-            <summary>
-            Código región: Ej. provincia.
-            Texto (120).
-            </summary>        
-        </member>
-        <member name="P:FACe.IFeParty.CountryID">
-            <summary>
-            Código país ISO-3166 (EJ. ES).
-            Texto (2).
-            </summary>        
-        </member>
-        <member name="P:FACe.IFeParty.Mail">
-            <summary>
-            Dirección de correo principal.
-            Texto (150).
-            </summary>
-        </member>
-        <member name="P:FACe.IFeParty.Mobile">
-            <summary>
-            Número de teléfono movil.
-            Texto (20).
-            </summary>
-        </member>
-        <member name="P:FACe.IFeParty.Phone">
-            <summary>
-            Número de teléfono fijo.
-            Texto (20).
-            </summary>
-        </member>
-        <member name="P:FACe.IFeParty.WebAddress">
-            <summary>
-            Página web.
-            Texto (200).
-            </summary>
-        </member>
-        <member name="T:FACe.FeParty">
-            <summary>
-            Representa un interlocutor de negocio.
-            </summary>
-        </member>
-        <member name="M:FACe.FeParty.#ctor">
-            <summary>
-            Constructor. Para COM necesitamos un constructor
-            sin parametros.
-            </summary>
-        </member>
-        <member name="P:FACe.FeParty.PartyType">
-            <summary>
-            <para>'P':Persona física.</para>
-            <para>'J':Persona jurídica.</para>
-            </summary>
-        </member>
-        <member name="P:FACe.FeParty.PartyRole">
-            <summary>
-            <para>'SL': Seller.</para>
-            <para>'BY': Buyer.</para>
-            <para>'OC': Oficina contable.</para>
-            <para>'OG': Organo gestor.</para>
-            <para>'UT': Unidad tramitadora.</para>
-            <para>'OT': Otros.</para>
-            </summary>
-        </member>
-        <member name="P:FACe.FeParty.PartyID">
-            <summary>
-            Identificador del interlocutor de negocio.
-            Texto (20).
-            </summary>
-        </member>
-        <member name="P:FACe.FeParty.PartyName">
-            <summary>
-            Nombre asignado al interlocutor.
-            Texto (150).
-            </summary>        
-        </member>
-        <member name="P:FACe.FeParty.TaxID">
-            <summary>
-            Código de identificación fiscal.
-            Texto (30).
-            </summary>        
-        </member>
-        <member name="P:FACe.FeParty.Address">
-            <summary>
-            Dirección.
-            Texto (120).
-            </summary>        
-        </member>
-        <member name="P:FACe.FeParty.City">
-            <summary>
-            Población.
-            Texto (70).
-            </summary>        
-        </member>
-        <member name="P:FACe.FeParty.PostalCode">
-            <summary>
-            Código postal.
-            Texto (120).
-            </summary>        
-        </member>
-        <member name="P:FACe.FeParty.Region">
-            <summary>
-            Código región: Ej. provincia.
-            Texto (120).
-            </summary>        
-        </member>
-        <member name="P:FACe.FeParty.CountryID">
-            <summary>
-            Código país ISO-3166 (EJ. ES).
-            Texto (2).
-            </summary>        
-        </member>
-        <member name="P:FACe.FeParty.Mail">
-            <summary>
-            Dirección de correo principal.
-            Texto (150).
-            </summary>
-        </member>
-        <member name="P:FACe.FeParty.Mobile">
-            <summary>
-            Número de teléfono movil.
-            Texto (20).
-            </summary>
-        </member>
-        <member name="P:FACe.FeParty.Phone">
-            <summary>
-            Número de teléfono fijo.
-            Texto (20).
-            </summary>
-        </member>
-        <member name="P:FACe.FeParty.WebAddress">
-            <summary>
-            Página web.
-            Texto (200).
-            </summary>
-        </member>
-        <member name="T:FACe.IFeRectificationItem">
-            <summary>
-            Interfaz COM para la clase RectificationItem.
-            </summary>
-        </member>
-        <member name="P:FACe.IFeRectificationItem.InvoiceID">
-            <summary>
-            Identificador de la factura.
-            </summary>
-        </member>
-        <member name="P:FACe.IFeRectificationItem.InvoiceDate">
-            <summary>
-            Fecha emisión de documento.
-            </summary>        
-        </member>
-        <member name="T:FACe.FeRectificationItem">
-            <summary>
-            Representa información sobre la factura
-            a la que se refiere una rectificación.
-            </summary>
-        </member>
-        <member name="M:FACe.FeRectificationItem.#ctor">
-            <summary>
-            Constructor. Para COM necesitamos un constructor
-            sin parametros.
-            </summary>
-        </member>
-        <member name="P:FACe.FeRectificationItem.InvoiceID">
-            <summary>
-            Identificador de la factura.
-            </summary>
-        </member>
-        <member name="P:FACe.FeRectificationItem.InvoiceDate">
-            <summary>
-            Fecha emisión de documento.
-            </summary>        
-        </member>
-        <member name="T:FACe.IFeSettings">
-            <summary>
-            Interfaz COM para la clase RectificationItem.
-            </summary>
-        </member>
-        <member name="P:FACe.IFeSettings.IDVersion">
-            <summary>
-            <para>Identificación de la versión actual del esquema o
-            estructura de información utilizada para la generación y
-            conservación / remisión de los registros de facturación.
-            Este campo forma parte del detalle de las circunstancias
-            de generación de los registros de facturación.</para>
-            <para>Alfanumérico(3) L15:</para>
-            <para>1.0: Versión actual (1.0) del esquema utilizado </para>
-            </summary>
-        </member>
-        <member name="P:FACe.IFeSettings.InboxPath">
-            <summary>
-            Ruta al directorio que actuará como bandeja de entrada.
-            En este directorio se almacenarán todos los mensajes
-            recibidos de la AEAT mediante VERI*FACTU.
-            </summary>
-        </member>
-        <member name="P:FACe.IFeSettings.OutboxPath">
-            <summary>
-            Ruta al directorio que actuará como bandeja de salida.
-            En este directorio se almacenará una copia de cualquier
-            envío realizado a la AEAT mediante el VERI*FACTU.
-            </summary>
-        </member>
-        <member name="P:FACe.IFeSettings.BlockchainPath">
-            <summary>
-            Ruta al directorio que actuará como almacén
-            de las distintas cadenas de bloques por emisor.
-            </summary>
-        </member>
-        <member name="P:FACe.IFeSettings.InvoicePath">
-            <summary>
-            Ruta al directorio que actuará almacenamiento
-            de las facturas emitidas por emisor.
-            </summary>
-        </member>
-        <member name="P:FACe.IFeSettings.LogPath">
-            <summary>
-            Ruta al directorio que actuará almacenamiento
-            del registro de mensajes del sistema.
-            </summary>
-        </member>
-        <member name="P:FACe.IFeSettings.CertificateSerial">
-            <summary>
-            Número de serie del certificado a utilizar. Mediante este número
-            de serie se selecciona del almacén de certificados de windows
-            el certificado con el que realizar las comunicaciones.
-            </summary>
-        </member>
-        <member name="P:FACe.IFeSettings.CertificateThumbprint">
-            <summary>
-            Hash o Huella digital del certificado a utilizar. Mediante esta
-            huella digital se selecciona del almacén de certificados de
-            windows el certificado con el que realizar las comunicaciones.
-            </summary>
-        </member>
-        <member name="P:FACe.IFeSettings.CertificatePath">
-            <summary>
-            Ruta al archivo del certificado a utilizar.
-            Sólo se utiliza en los certificados cargados desde el sistema de archivos. 
-            </summary>
-        </member>
-        <member name="P:FACe.IFeSettings.CertificatePassword">
-            <summary>
-            Password del certificado. Este valor sólo es necesario si
-            tenemos establecido el valor para 'CertificatePath' y el certificado
-            tiene clave de acceso. Sólo se utiliza en los certificados
-            cargados desde el sistema de archivos.
-            </summary>
-        </member>
-        <member name="P:FACe.IFeSettings.FACeEndPointPrefix">
-            <summary>
-            EndPoint del web service de la AEAT para envío registros alta y anulación.
-            </summary>
-        </member>
-        <member name="P:FACe.IFeSettings.LoggingEnabled">
-            <summary>
-            Indica si está activado el log de mensajes
-            del sistema.
-            </summary>
-        </member>
-        <member name="P:FACe.IFeSettings.TlRuntime">
-            <summary>
-            Desactiva TL.
-            del sistema.
-            </summary>
-        </member>
-        <member name="M:FACe.IFeSettings.Save">
-            <summary>
-            Guarda la configuración.
-            </summary>
-        </member>
-        <member name="M:FACe.IFeSettings.Load">
-            <summary>
-            Carga la configuración.
-            </summary>
-        </member>
-        <member name="M:FACe.IFeSettings.SetConfigFileName(System.String)">
-            <summary>
-            Esteblece el archivo de configuración con el cual trabajar.
-            </summary>
-            <param name="fileName">Nombre del archivo de configuración a utilizar.</param>
-        </member>
-        <member name="T:FACe.FeSettings">
-            <summary>
-            Representa una línea de impuestos.
-            </summary>
-        </member>
-        <member name="M:FACe.FeSettings.#ctor">
-            <summary>
-            Constructor. Para COM necesitamos un constructor
-            sin parametros.
-            </summary>
-        </member>
-        <member name="M:FACe.FeSettings.GetSettings">
-            <summary>
-            Devuelve una instancia de clase Settings creada a partir
-            de los datos de esta instancia.
-            </summary>
-            <returns>Instancia de clase Settings.</returns>
-        </member>
-        <member name="M:FACe.FeSettings.Save">
-            <summary>
-            Guarda la configuración.
-            </summary>
-        </member>
-        <member name="M:FACe.FeSettings.Load">
-            <summary>
-            Carga la configuración.
-            </summary>
-        </member>
-        <member name="M:FACe.FeSettings.SetConfigFileName(System.String)">
-            <summary>
-            Esteblece el archivo de configuración con el cual trabajar.
-            </summary>
-            <param name="fileName">Nombre del archivo de configuración a utilizar.</param>
-        </member>
-        <member name="P:FACe.FeSettings.IDVersion">
-            <summary>
-            <para>Identificación de la versión actual del esquema o
-            estructura de información utilizada para la generación y
-            conservación / remisión de los registros de facturación.
-            Este campo forma parte del detalle de las circunstancias
-            de generación de los registros de facturación.</para>
-            <para>Alfanumérico(3) L15:</para>
-            <para>1.0: Versión actual (1.0) del esquema utilizado </para>
-            </summary>
-        </member>
-        <member name="P:FACe.FeSettings.InboxPath">
-            <summary>
-            Ruta al directorio que actuará como bandeja de entrada.
-            En este directorio se almacenarán todos los mensajes
-            recibidos de la AEAT mediante VERI*FACTU.
-            </summary>
-        </member>
-        <member name="P:FACe.FeSettings.OutboxPath">
-            <summary>
-            Ruta al directorio que actuará como bandeja de salida.
-            En este directorio se almacenará una copia de cualquier
-            envío realizado a la AEAT mediante el VERI*FACTU.
-            </summary>
-        </member>
-        <member name="P:FACe.FeSettings.BlockchainPath">
-            <summary>
-            Ruta al directorio que actuará como almacén
-            de las distintas cadenas de bloques por emisor.
-            </summary>
-        </member>
-        <member name="P:FACe.FeSettings.InvoicePath">
-            <summary>
-            Ruta al directorio que actuará almacenamiento
-            de las facturas emitidas por emisor.
-            </summary>
-        </member>
-        <member name="P:FACe.FeSettings.LogPath">
-            <summary>
-            Ruta al directorio que actuará almacenamiento
-            del registro de mensajes del sistema.
-            </summary>
-        </member>
-        <member name="P:FACe.FeSettings.CertificateSerial">
-            <summary>
-            Número de serie del certificado a utilizar. Mediante este número
-            de serie se selecciona del almacén de certificados de windows
-            el certificado con el que realizar las comunicaciones.
-            </summary>
-        </member>
-        <member name="P:FACe.FeSettings.CertificateThumbprint">
-            <summary>
-            Hash o Huella digital del certificado a utilizar. Mediante esta
-            huella digital se selecciona del almacén de certificados de
-            windows el certificado con el que realizar las comunicaciones.
-            </summary>
-        </member>
-        <member name="P:FACe.FeSettings.CertificatePath">
-            <summary>
-            Ruta al archivo del certificado a utilizar.
-            Sólo se utiliza en los certificados cargados desde el sistema de archivos. 
-            </summary>
-        </member>
-        <member name="P:FACe.FeSettings.CertificatePassword">
-            <summary>
-            Password del certificado. Este valor sólo es necesario si
-            tenemos establecido el valor para 'CertificatePath' y el certificado
-            tiene clave de acceso. Sólo se utiliza en los certificados
-            cargados desde el sistema de archivos.
-            </summary>
-        </member>
-        <member name="P:FACe.FeSettings.FACeEndPointPrefix">
-            <summary>
-            EndPoint del API REST de la AEAT para envío FACe.
-            </summary>
-        </member>
-        <member name="P:FACe.FeSettings.LoggingEnabled">
-            <summary>
-            Indica si está activado el log de mensajes
-            del sistema.
-            </summary>
-        </member>
-        <member name="P:FACe.FeSettings.TlRuntime">
-            <summary>
-            Desactiva TL.
-            del sistema.
             </summary>
         </member>
         <member name="T:FACe.IFeTaxItem">

@@ -71,13 +71,41 @@ namespace FACe.Xml
         public const string NamespaceCBC = NamespacePrefix + "CommonBasicComponents-2";
 
         /// <summary>
+        /// Espacio de nombres de las extensiones UBL.
+        /// </summary>
+        public const string NamespaceEXT =
+            NamespacePrefix + "CommonExtensionComponents-2";
+
+        /// <summary>
+        /// Espacio de nombres de componentes de firma UBL.
+        /// </summary>
+        public const string NamespaceSAC =
+            NamespacePrefix + "SignatureAggregateComponents-2";
+
+        /// <summary>
+        /// Espacio de nombres de componentes básicos de firma UBL.
+        /// </summary>
+        public const string NamespaceSBC =
+            NamespacePrefix + "SignatureBasicComponents-2";
+
+        /// <summary>
+        /// Espacio de nombres de firmas XML UBL.
+        /// </summary>
+        public const string NamespaceSIG =
+            NamespacePrefix + "CommonSignatureComponents-2";
+
+        /// <summary>
         /// Diccionario de espacios de nombres.
         /// </summary>
         public static Dictionary<string, string> Items = new Dictionary<string, string>()
         {
-            { "",          NamespaceInvoice },
-            { "cac",       NamespaceCAC },
-            { "cbc",       NamespaceCBC }
+            { "",           NamespaceInvoice },
+            { "cac",        NamespaceCAC },
+            { "cbc",        NamespaceCBC },
+            { "ext",        NamespaceEXT },
+            { "sig",        NamespaceSIG },
+            { "sac",        NamespaceSAC },
+            { "sbc",        NamespaceSBC }
         };
 
         #endregion

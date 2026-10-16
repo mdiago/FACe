@@ -676,8 +676,23 @@
     <Compile Include="..\..\NetCore\Src\Xml\Ubl\Cbc\Text.cs">
       <Link>Src\Xml\Ubl\Cbc\Text.cs</Link>
     </Compile>
+    <Compile Include="..\..\NetCore\Src\Xml\Ubl\Ext\ExtensionContent.cs">
+      <Link>Src\Xml\Ubl\Ext\ExtensionContent.cs</Link>
+    </Compile>
+    <Compile Include="..\..\NetCore\Src\Xml\Ubl\Ext\UBLExtension.cs">
+      <Link>Src\Xml\Ubl\Ext\UBLExtension.cs</Link>
+    </Compile>
+    <Compile Include="..\..\NetCore\Src\Xml\Ubl\Ext\UBLExtensions.cs">
+      <Link>Src\Xml\Ubl\Ext\UBLExtensions.cs</Link>
+    </Compile>
     <Compile Include="..\..\NetCore\Src\Xml\Ubl\Invoice\Invoice.cs">
       <Link>Src\Xml\Ubl\Invoice\Invoice.cs</Link>
+    </Compile>
+    <Compile Include="..\..\NetCore\Src\Xml\Ubl\Signature\UblSigned.cs">
+      <Link>Src\Xml\Ubl\Signature\UblSigned.cs</Link>
+    </Compile>
+    <Compile Include="..\..\NetCore\Src\Xml\Ubl\Signature\XadesSignedXml.cs">
+      <Link>Src\Xml\Ubl\Signature\XadesSignedXml.cs</Link>
     </Compile>
     <Compile Include="..\..\NetCore\Src\Xml\XmlParser.cs">
       <Link>Src\Xml\XmlParser.cs</Link>

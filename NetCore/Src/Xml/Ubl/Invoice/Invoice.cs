@@ -40,6 +40,7 @@
 using FACe.Xml.Ubl.Cac;
 using FACe.Xml.Ubl.Cbc;
 using System.Xml.Serialization;
+using FACe.Xml.Ubl.Ext;
 
 namespace FACe.Xml.Ubl.Invoice
 {
@@ -52,6 +53,13 @@ namespace FACe.Xml.Ubl.Invoice
     {
 
         #region Propiedades Públicas
+
+        /// <summary>
+        /// Extensiones del documento UBL.
+        /// </summary>
+        [XmlElement("UBLExtensions",
+            Namespace = UblNamespaces.NamespaceEXT)]
+        public UBLExtensions UBLExtensions { get; set; }
 
         /// <summary>
         /// Identificador de personalización.

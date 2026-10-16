@@ -116,6 +116,8 @@ namespace FACe.Business.Invoice.Converters
         protected override UblInvoice GetFromInvoice()
         {
 
+            Invoice.CalculateTotals();
+
             ValidateAmounts();
             ValidateTaxAmounts();
 
